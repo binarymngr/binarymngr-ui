@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset=utf-8>
+    <meta charset="utf-8">
     <title>BinaryMngr</title>
     <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
+</head>
+
+<body>
+    <noscript>
+        <div class="alert alert-info">JavaScript is required for BinaryMngr to work.</div>
+    </noscript>
+
+    <div id="can-app">
+        <div id="can-navigation"></div>
+        <div id="can-content"></div>
+    </div>
+
     <script src="/application.js" charset="utf-8"></script>
     <script charset="utf-8">
     var exports = this;
     jQuery(function  () {
         var App = require('index');
-        exports.app = new App({el: $('body')});
+        exports.app = new App({
+            el: $('#can-app')
+        });
     });
     </script>
-</head>
-
-<body>
-    <p>Loading...</p>
 </body>
 </html>
