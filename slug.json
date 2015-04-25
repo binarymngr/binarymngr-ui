@@ -12,7 +12,8 @@
     "app": {
       "libs"    : [
         "lib/jade/runtime.js",
-        "lib/jquery/dist/jquery.js"
+        "lib/jquery/dist/jquery.js",
+        "lib/lodash/lodash.js"
       ],
       "modules" : [
         "spine",
