@@ -1,5 +1,4 @@
 Spine = require('spine')
-$     = Spine.$
 
 class Navigation extends Spine.Controller
   elements:
@@ -10,8 +9,7 @@ class Navigation extends Spine.Controller
 
   constructor: ->
     super
-
-    @html require('views/partials/navigation')({})
+    @html require('views/partials/navigation')()
 
   link_clicked: (event) ->
     @log event

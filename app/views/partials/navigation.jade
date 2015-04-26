@@ -1,1 +1,41 @@
-p Hello
+nav.navbar.navbar-default.navbar-pf(role='navigation')
+  div.navbar-header
+    button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse-21')
+      span.sr-only Toggle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='/#/') BinaryMngr
+  div.collapse.navbar-collapse.navbar-collapse-21
+    //- utility navigation
+    ul.nav.navbar-nav.navbar-utility
+      li
+        a(href='/#/status') Status
+      li.dropdown
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          span.pficon.pficon-user
+          Brian Johnson
+          b.caret
+        //- utility dropdown
+        ul.dropdown-menu
+          li
+            a(href='/#/user/settings') Settings
+          li.divider
+          li.dropdown-submenu
+            a(href='#', tabindex='-1') Administration
+            ul.dropdown-menu
+              li 
+                a(href='/#/administration/users') Users
+              li
+                a(href='/#/administration/roles') Roles
+          li.divider
+          li
+            a(href='/#/user/logout') Logout
+    //- primary navigation
+    ul.nav.navbar-nav.navbar-primary
+      li.active
+        a.active(href='/#/') Dashboard
+      li
+        a(href='/#/binaries') Binaries
+      li
+        a(href='/#/servers') Servers

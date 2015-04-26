@@ -1,2 +1,13 @@
-h1 Dashboard
-a(href='/#/binaries') Binaries
+div.container-fluid
+  div.row
+    div.col-xs-12
+      h1 Dashboard
+      if roles && roles.length
+        ul.items
+          each role in roles
+            li #{role.name}
+      else
+        div.alert.alert-info
+          span.pficon.pficon-info
+          strong No roles to display. 
+          a.alert-link(href='/#/roles/add') Go add one.

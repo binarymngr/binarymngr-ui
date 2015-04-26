@@ -3,12 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>BinaryMngr</title>
-    <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css" charset="utf-8">
+    <link rel="stylesheet" href="components/patternfly/dist/css/patternfly.min.css" charset="utf-8">
+    <link rel="stylesheet" href="components/datatables/media/css/jquery.dataTables.min.css" charset="utf-8">
+    <link rel="stylesheet" href="application.css" charset="utf-8">
 </head>
 
 <body>
     <noscript>
-        <div class="alert alert-info">JavaScript is required for BinaryMngr to work.</div>
+        <p>JavaScript is required for BinaryMngr to work.</p>
     </noscript>
 
     <div id="can-app">
@@ -16,7 +19,11 @@
         <div id="can-content"></div>
     </div>
 
-    <script src="/application.js" charset="utf-8"></script>
+    <script src="components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="components/patternfly/dist/js/patternfly.min.js" charset="utf-8"></script>
+    <script src="components/datatables/media/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="application.js" charset="utf-8"></script>
     <script charset="utf-8">
     var exports = this;
     jQuery(function  () {

@@ -5,7 +5,6 @@ class Dashboard extends Page
 
   constructor: ->
     super
-
-    @html require('views/dashboard')({})
+    @html require('views/dashboard')()
 
 module.exports = Dashboard

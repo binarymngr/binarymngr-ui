@@ -11,10 +11,12 @@ class App extends Spine.Controller
 
     @navigation = new Navigation(el: $('#can-nav'))
     @content = new Content(el: $('#can-content'))
-
     @append @navigation
     @append @content
 
-    Spine.Route.setup()
+    Spine.Route.setup(
+      redirect: true
+      trigger: true
+    )
 
 module.exports = App

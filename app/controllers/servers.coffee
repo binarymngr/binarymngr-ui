@@ -1,11 +1,22 @@
-Page = require('controllers/page')
+Page   = require('controllers/page')
+Server = require('models/server')
 
 class Servers extends Page
   className: 'page-servers'
+  elements:
+    '.items': 'items'
 
   constructor: ->
     super
+    Server.fetch()
+    Server.bind('refresh change', @render)
 
-    @html require('views/servers')({})
+  render: =>
+    @html(@template(Server.all()))
+
+  template: (items) ->
+    require('views/servers')(
+      servers: items
+    )
 
 module.exports = Servers
