@@ -3,9 +3,27 @@ div.container-fluid
     div.col-xs-12
       h1 Binaries
       if binaries && binaries.length
-        ul.items
-          each binary in binaries
-            li #{binary.name}
+        table.datatable.table.table-striped.table-bordered
+          thead
+            tr
+              th Name
+              th Description
+              th Homepage
+          tbody.items
+            each binary in binaries
+              tr
+                td
+                  a(href='/#/binaries/' + binary.id) #{binary.name}
+                td
+                  if binary.description
+                    #{binary.description}
+                td
+                  if binary.homepage
+                    a(href=binary.homepage, target='_blank') #{binary.homepage}
+        script(charset='utf-8').
+          $(document).ready(function () {
+            $('.datatable').dataTable();
+          });
       else
         div.alert.alert-info
           span.pficon.pficon-info

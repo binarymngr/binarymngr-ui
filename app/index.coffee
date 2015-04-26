@@ -16,7 +16,6 @@ class App extends Spine.Controller
 
     Spine.Route.setup(
       redirect: true
-      trigger: true
     )
 
 module.exports = App
