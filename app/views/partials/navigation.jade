@@ -9,12 +9,10 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
   div.collapse.navbar-collapse.navbar-collapse-21
     //- utility navigation
     ul.nav.navbar-nav.navbar-utility
-      li
-        a(href='/#/status') Status
       li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           span.pficon.pficon-user
-          Brian Johnson
+          | Account
           b.caret
         //- utility dropdown
         ul.dropdown-menu
@@ -24,13 +22,13 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
           li.dropdown-submenu
             a(href='#', tabindex='-1') Administration
             ul.dropdown-menu
-              li 
+              li
                 a(href='/#/administration/users') Users
               li
                 a(href='/#/administration/roles') Roles
           li.divider
           li
-            a(href='/#/user/logout') Logout
+            a(href='/auth/logout') Logout
     //- primary navigation
     ul.nav.navbar-nav.navbar-primary
       li.active

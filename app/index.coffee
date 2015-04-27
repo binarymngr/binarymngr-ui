@@ -11,8 +11,7 @@ class App extends Spine.Controller
 
     @navigation = new Navigation(el: $('#can-nav'))
     @content = new Content(el: $('#can-content'))
-    @append @navigation
-    @append @content
+    @append @navigation, @content
 
     Spine.Route.setup(
       redirect: true

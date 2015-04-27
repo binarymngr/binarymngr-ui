@@ -2,7 +2,7 @@ Page   = require('controllers/page')
 Server = require('models/server')
 
 class Servers extends Page
-  className: 'page-servers'
+  className: 'row page-servers'
   elements:
     '.items': 'items'
 

@@ -1,22 +1,15 @@
-Page   = require('controllers/page')
-Binary = require('models/binary')
+Page    = require('controllers/page')
+Main    = require('controllers/binaries_main')
+Sidebar = require('controllers/binaries_sidebar')
 
 class Binaries extends Page
-  className: 'page-binaries'
-  elements:
-    '.items': 'items'
+  className: 'row page-binaries'
 
   constructor: ->
     super
-    Binary.fetch()
-    Binary.bind('refresh change', @render)
 
-  render: =>
-    @html(@template(Binary.all()))
-
-  template: (items) ->
-    require('views/binaries')(
-      binaries: items
-    )
+    @main = new Main
+    @sidebar = new Sidebar
+    @append @main, @sidebar
 
 module.exports = Binaries

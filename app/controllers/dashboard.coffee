@@ -1,7 +1,7 @@
 Page = require('controllers/page')
 
 class Dashboard extends Page
-  className: 'page-dashboard'
+  className: 'row page-dashboard'
 
   constructor: ->
     super

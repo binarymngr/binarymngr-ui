@@ -1,0 +1,9 @@
+div.nav-category
+  h2 Categories
+  if binaries && binaries.length
+    ul.nav.nav-pills.nav-stacked
+      each category in categories
+        li
+          a(href='/#/binaries/categories/' + category.id) #{category.name}
+  else
+    p No categories yet.
