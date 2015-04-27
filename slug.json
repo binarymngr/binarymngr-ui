@@ -11,8 +11,7 @@
   "packages": {
     "app": {
       "libs"    : [
-        "lib/jade/runtime.js",
-        "lib/lodash/lodash.js"
+        "lib/jade/runtime.js"
       ],
       "modules" : [
         "spine",
