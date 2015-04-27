@@ -1,5 +1,28 @@
 @import './mixin'
 
+/*
+ | Generic styles
+ */
+table
+    ol, ul
+        margin-bottom: 0
+        padding-left: 20px
+
+
+/*
+ | Core application
+ */
+.spine
+    &.stack
+        > *
+            display: none
+        .active
+            display: block
+
+
+/*
+ | Special components
+ */
 #noscript
     margin: 40vh auto 0
     padding: 0 20px
@@ -10,10 +33,3 @@
         max-width: 100%
     p
         margin-top: 30px
-
-.spine
-    &.stack
-        > *
-            display: none
-        .active
-            display: block

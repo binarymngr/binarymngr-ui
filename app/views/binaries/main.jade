@@ -9,6 +9,7 @@ if binaries && binaries.length
       tr
         th Name
         th Description
+        th Categories
         th Homepage
         td(style='text-align: center') Installed
     tbody.items
@@ -19,6 +20,14 @@ if binaries && binaries.length
           td
             if binary.description
               | #{binary.description}
+            else
+              | -
+          td
+            if binary.categories.length
+              ul
+                each category in binary.categories
+                  li
+                    a(href='/#/binaries/categories/' + category.id) #{category.name}
             else
               | -
           td
