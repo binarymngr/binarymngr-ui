@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "jade": "~1.9.2"
+    "jade": "~1.9.2",
+    "lodash": "~3.7.0"
   }
 }

@@ -2,7 +2,7 @@ div.nav-category
   h2 Categories
   if categories && categories.length
     ul.nav.nav-pills.nav-stacked
-      each category in categories
+      each category in _.sortBy(categories, 'name')
         li
           a(href='/#/binaries/categories/' + category.id) #{category.name}
   else

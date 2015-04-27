@@ -13,7 +13,7 @@ if binaries && binaries.length
         th Homepage
         td(style='text-align: center') Installed
     tbody.items
-      each binary in binaries
+      each binary in _.sortBy(binaries, 'name')
         tr
           td
             a(href='/#/binaries/' + binary.id) #{binary.name}
@@ -24,10 +24,9 @@ if binaries && binaries.length
               | -
           td
             if binary.categories.length
-              ul
-                each category in binary.categories
-                  li
-                    a(href='/#/binaries/categories/' + category.id) #{category.name}
+                each category in _.sortBy(binary.categories, 'name')
+                  a(href='/#/binaries/categories/' + category.id) - #{category.name}
+                  br
             else
               | -
           td
@@ -42,10 +41,7 @@ if binaries && binaries.length
               span.pficon-layered
                 span.pficon.pficon-error-octagon
                 span.pficon.pficon-error-exclamation
-  script(charset='utf-8').
-    $(document).ready(function () {
-      $('.datatable').dataTable();
-    });
+  include ../includes/datatables-js.jade
 else
   div.alert.alert-info
     span.pficon.pficon-info
