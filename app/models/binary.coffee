@@ -1,7 +1,7 @@
 Spine = require('spine')
 
 class Binary extends Spine.Model
-  @configure 'Binary', 'name', 'description', 'homepage', 'owner'
+  @configure 'Binary', 'name', 'description', 'homepage', 'owner_id'
 
   @extend Spine.Events
   @extend Spine.Model.Ajax
@@ -10,6 +10,6 @@ class Binary extends Spine.Model
 
   validate: ->
     'Name is required' unless @name
-    'Owner is required' unless @owner
+    'Owner ID is required' unless @owner_id
 
 module.exports = Binary
