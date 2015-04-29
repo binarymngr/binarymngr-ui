@@ -21,8 +21,7 @@ if server
         input#ipv4.form-control(type='text', name='ipv4', value='#{server.ipv4}')
     div.form-group
       div.col-md-10.col-md-offset-2
-        button.btn.btn-primary(type='button') Save
-        button.btn.btn-default(type='button') Cancel
+        include ../includes/form-buttons.jade
   hr
   button.btn.btn-primary.pull-right(type='button') Add New
   h2 Binaries
@@ -32,9 +31,4 @@ if server
       span.pficon.pficon-info
       | No binaries installed on this server.
 else
-  h1 Error
-  div.alert.alert-warning
-    span.pficon-layered
-      span.pficon.pficon-warning-triangle
-      span.pficon.pficon-warning-exclamation
-    | No server selected.
+  include ../includes/not-found.jade

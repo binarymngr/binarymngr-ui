@@ -1,8 +1,8 @@
-Spine   = require('spine')
+Page    = require('controllers/page')
 Main    = require('controllers/administration/main')
 Sidebar = require('controllers/administration/sidebar')
 
-class AdministrationIndex extends Spine.Controller
+class AdministrationIndex extends Page
   className: 'row page-administration'
 
   constructor: ->

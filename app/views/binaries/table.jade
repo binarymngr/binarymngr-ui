@@ -12,7 +12,6 @@ if binaries && binaries.length
         th Description
         th Categories
         th Homepage
-        //- td(style='text-align: center') Installed
     tbody.items
       each binary in _.sortBy(binaries, 'name')
         tr
@@ -36,17 +35,9 @@ if binaries && binaries.length
               a(href=binary.homepage, target='_blank') #{binary.homepage}
             else
               | -
-          //- td(style='text-align: center')
-          //-   if binary.installed
-          //-     span.pficon.pficon-ok
-          //-   else
-          //-     span.pficon-layered
-          //-       span.pficon.pficon-error-octagon
-          //-       span.pficon.pficon-error-exclamation
   br
   include ../includes/datatables-js.jade
 else
   div.alert.alert-info
     span.pficon.pficon-info
-    strong No binaries to display. 
-    a.alert-link(href='/#/binaries/add') Go add one.
+    strong No binaries to display.

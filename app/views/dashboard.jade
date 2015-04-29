@@ -6,23 +6,21 @@ div.container-fluid
         div.actions.pull-right
           a(href='')
             span.pficon.pficon-refresh
-            | Refresh Results
+            | Refresh
         h1 Dashboard
-      //- overview container
-      h2.h4 Overview
-      hr
-      //- binaries container
-      h2.h4 Binaries
+      //- main area
+      p Nothing to show.
     //- sidebar
     div.col-sm-4.col-md-3.sidebar-pf.sidebar-pf-right
       div.sidebar-header.sidebar-header-bleed-left.sidebar-header-bleed-right
-        div.actions.pull-right
-          a(href='') Clear Messages
-        h2.h5 Latest Notifications
-      //- notifications
-      ul.list-group
-        li.list-group-item
-          h3.list-group-item-heading A simple notification
-          p.list-group-item-text This is a nice notification message in the sidebar.
+        if messages && messages.length
+          div.actions.pull-right
+            a(href='') Clear Messages
+        h2.h5 Latest Messages
+      if messages && messages.length
+        each message in _.sortBy(messages, 'date')
+          li.list-group-item
+            h3.list-group-item-heading #{message.heading}
+            p.list-group-item-text #{message.text}
       p
-        a(href='') See all messages
+        a(href='/#/messages') See all messages

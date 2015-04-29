@@ -1,0 +1,7 @@
+button.btn.btn-primary.can-save(type='button') Save
+button.btn.btn-default(type='button') Cancel
+button.btn.btn-danger.can-destroy(type='button', data-toggle='confirmation') Delete
+script(charset='utf-8').
+  $(function () {
+    $('[data-toggle=confirmation]').confirmation();
+  });

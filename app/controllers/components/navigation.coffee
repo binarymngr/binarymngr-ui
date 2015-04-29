@@ -1,5 +1,4 @@
 Spine = require('spine')
-$     = Spine.$
 
 class Navigation extends Spine.Controller
   @ACTIVE_CLASS: 'active'

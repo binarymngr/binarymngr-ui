@@ -38,8 +38,7 @@ if binary
     //-         include ../includes/selectpicker-js.jade
     div.form-group
       div.col-md-10.col-md-offset-2
-        button.btn.btn-primary(type='button') Save
-        button.btn.btn-default(type='button') Cancel
+        include ../includes/form-buttons.jade
   hr
   button.btn.btn-primary.pull-right(type='button') Add New
   h2 Versions
@@ -71,9 +70,4 @@ if binary
       span.pficon.pficon-info
       | No versions for this binary yet.
 else
-  h1 Error
-  div.alert.alert-warning
-    span.pficon-layered
-      span.pficon.pficon-warning-triangle
-      span.pficon.pficon-warning-exclamation
-    | No binary selected.
+  include ../includes/not-found.jade
