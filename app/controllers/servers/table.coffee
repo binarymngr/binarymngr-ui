@@ -1,22 +1,22 @@
-Page   = require('controllers/page')
+Spine  = require('spine')
 Server = require('models/server')
 
-class Servers extends Page
-  className: 'row page-servers'
+class ServersTable extends Spine.Controller
+  className: 'col-xs-12'
   elements:
     '.items': 'items'
 
   constructor: ->
     super
+
     Server.fetch()
     Server.bind('refresh change', @render)
 
   render: =>
-    @html(@template(Server.all()))
+    @html @template Server.all()
 
   template: (items) ->
-    require('views/servers')(
+    require('views/servers/table')
       servers: items
-    )
 
-module.exports = Servers
+module.exports = ServersTable

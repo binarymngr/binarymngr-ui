@@ -2,6 +2,7 @@ ol.breadcrumb
   li
     a(href='/#/') Home
   li Binaries
+button.btn.btn-primary.pull-right(type='button') Add New
 h1 Binaries
 if binaries && binaries.length
   table.datatable.table.table-striped.table-bordered
@@ -11,7 +12,7 @@ if binaries && binaries.length
         th Description
         th Categories
         th Homepage
-        td(style='text-align: center') Installed
+        //- td(style='text-align: center') Installed
     tbody.items
       each binary in _.sortBy(binaries, 'name')
         tr
@@ -23,8 +24,9 @@ if binaries && binaries.length
             else
               | -
           td
-            if binary.categories.length
-                each category in _.sortBy(binary.categories, 'name')
+            if binary.categories && binary.categories.length
+              - var categories = _.sortBy(binary.categories, 'name')
+                each category in categories
                   a(href='/#/binaries/categories/' + category.id) - #{category.name}
                   br
             else
@@ -34,16 +36,17 @@ if binaries && binaries.length
               a(href=binary.homepage, target='_blank') #{binary.homepage}
             else
               | -
-          td(style='text-align: center')
-            if binary.installed
-              span.pficon.pficon-ok
-            else
-              span.pficon-layered
-                span.pficon.pficon-error-octagon
-                span.pficon.pficon-error-exclamation
+          //- td(style='text-align: center')
+          //-   if binary.installed
+          //-     span.pficon.pficon-ok
+          //-   else
+          //-     span.pficon-layered
+          //-       span.pficon.pficon-error-octagon
+          //-       span.pficon.pficon-error-exclamation
+  br
   include ../includes/datatables-js.jade
 else
   div.alert.alert-info
     span.pficon.pficon-info
-    strong No Binaries to display. 
+    strong No binaries to display. 
     a.alert-link(href='/#/binaries/add') Go add one.

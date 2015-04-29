@@ -1,0 +1,43 @@
+if category
+  ol.breadcrumb
+    li
+      a(href='/#/') Home
+    li
+      a(href='/#/binaries') Binaries
+    li Categories
+    li #{category.name}
+  h1 #{category.name}
+  form.form-horizontal
+    div.form-group
+      label.col-md-2.control-label(for='id') ID
+      div.col-md-6
+        input#id.form-control(type='text', name='id', value='#{category.id}', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='name') Name
+      div.col-md-6
+        input#name.form-control(type='text', name='name', value='#{category.name}', required)
+    div.form-group
+      label.col-md-2.control-label(for='description') Description
+      div.col-md-6
+        textarea#description.form-control(name='description', rows='5') #{category.description}
+    div.form-group
+      div.col-md-10.col-md-offset-2
+        button.btn.btn-primary(type='button') Save
+        button.btn.btn-default(type='button') Cancel
+  hr
+  button.btn.btn-primary.pull-right(type='button') Add New
+  h2 Binaries
+  if category.binaries && category.binaries.length
+    each binary in _.sortBy(category.binaries, 'name')
+      | #{binary.name}
+  else
+    div.alert.alert-info
+      span.pficon.pficon-info
+      | No binaries in this category.
+else
+  h1 Error
+  div.alert.alert-warning
+    span.pficon-layered
+      span.pficon.pficon-warning-triangle
+      span.pficon.pficon-warning-exclamation
+    | No binary category selected.

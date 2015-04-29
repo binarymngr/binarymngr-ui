@@ -1,8 +1,7 @@
 Spine  = require('spine')
 Binary = require('models/binary')
 
-class BinariesMain extends Spine.Controller
-  className: 'col-sm-9 col-md-10 col-sm-push-3 col-md-push-2'
+class BinariesTable extends Spine.Controller
   elements:
     '.items': 'items'
 
@@ -13,11 +12,10 @@ class BinariesMain extends Spine.Controller
     Binary.bind('refresh change', @render)
 
   render: =>
-    @html(@template(Binary.all()))
+    @html @template Binary.all()
 
   template: (items) ->
-    require('views/binaries/main')(
+    require('views/binaries/table')
       binaries: items
-    )
 
-module.exports = BinariesMain
+module.exports = BinariesTable

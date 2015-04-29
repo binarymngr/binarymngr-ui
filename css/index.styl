@@ -4,6 +4,7 @@
  | Generic styles
  */
 table
+    // fixes bottom spacing for lists in tables
     ol, ul
         margin-bottom: 0
         padding-left: 20px
@@ -14,10 +15,8 @@ table
  */
 .spine
     &.stack
-        > *
+        > *:not(.active)
             display: none
-        .active
-            display: block
 
 
 /*

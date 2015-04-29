@@ -1,0 +1,79 @@
+if binary
+  ol.breadcrumb
+    li
+      a(href='/#/') Home
+    li
+      a(href='/#/binaries') Binaries
+    li #{binary.name}
+  h1 #{binary.name}
+  form.form-horizontal
+    div.form-group
+      label.col-md-2.control-label(for='id') ID
+      div.col-md-6
+        input#id.form-control(type='text', name='id', value='#{binary.id}', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='name') Name
+      div.col-md-6
+        input#name.form-control(type='text', name='name', value='#{binary.name}', required)
+    div.form-group
+      label.col-md-2.control-label(for='description') Description
+      div.col-md-6
+        textarea#description.form-control(name='description', rows='5') #{binary.description}
+    div.form-group
+      label.col-md-2.control-label(for='homepage') Homepage
+      div.col-md-6
+        input#homepage.form-control(type='url', name='homepage', value='#{binary.homepage}')
+    //- div.form-group
+    //-   label.col-md-2.control-label(for='categories') Categories
+    //-   div.col-md-10
+    //-     select#boostrapSelect.selectpicker(name='categories', multiple, data-selected-text-format='count>2')
+    //-       if categories
+    //-         - var category_ids = _.pluck(binary.categories, 'id')
+    //-         each category in _.sortBy(categories, 'name')
+    //-           //- TODO: bootstrap-select CSS somehow not included
+    //-           if _.contains(category_ids, category.id)
+    //-             option(value=category.id, checked) #{category.name}
+    //-           else
+    //-             option(value=category.id) #{category.name}
+    //-         include ../includes/selectpicker-js.jade
+    div.form-group
+      div.col-md-10.col-md-offset-2
+        button.btn.btn-primary(type='button') Save
+        button.btn.btn-default(type='button') Cancel
+  hr
+  button.btn.btn-primary.pull-right(type='button') Add New
+  h2 Versions
+  if binary.versions && binary.versions.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th Identifier
+          th Note
+          th EOL
+      tbody.items
+        each version in _.sortBy(binary.versions, 'identifier')
+          tr
+            td #{version.identifier}
+            td
+              if version.note
+                | #{version.note}
+              else
+                | -
+            td
+              if version.eol
+                | #{version.eol}
+              else
+                | -
+    br
+    include ../includes/datatables-js.jade
+  else
+    div.alert.alert-info
+      span.pficon.pficon-info
+      | No versions for this binary yet.
+else
+  h1 Error
+  div.alert.alert-warning
+    span.pficon-layered
+      span.pficon.pficon-warning-triangle
+      span.pficon.pficon-warning-exclamation
+    | No binary selected.

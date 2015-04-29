@@ -1,7 +1,7 @@
 require('lib/setup')
 
 Spine      = require('spine')
-Navigation = require('controllers/navigation')
+Navigation = require('controllers/components/navigation')
 Content    = require('controllers/content')
 $          = Spine.$
 
@@ -13,8 +13,7 @@ class App extends Spine.Controller
     @content = new Content(el: $('#can-content'))
     @append @navigation, @content
 
-    Spine.Route.setup(
-      redirect: true
-    )
+    Spine.Route.setup()
+    @navigate '/'
 
 module.exports = App
