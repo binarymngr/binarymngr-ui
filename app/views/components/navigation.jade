@@ -12,6 +12,19 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
     //- utility navigation
     ul.nav.navbar-nav.navbar-utility
       li.dropdown
+        a(href='#', data-toggle='dropdown')
+          span.pficon.pficon-info
+          |  Messages: 
+          strong 2
+        div.dropdown-menu.infotip.bottom-right
+          div.arrow
+          ul.list-group
+            li.list-group-item
+              span.i.pficon.pficon-info
+              | Added Datasources Tests
+          div.footer
+            a(href='') Clear Messages
+      li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           span.pficon.pficon-user
           | Account

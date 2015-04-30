@@ -1,0 +1,25 @@
+div#add-binary-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='add-binary-model-label', aria-hidden='true')
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true')
+          span.pficon.pficon-close
+        h4#add-binary-modal-label.modal-title Add Binary
+      div.modal-body
+        form.form-horizontal
+          input(type='hidden', name='user_id', value='')
+          div.form-group
+            label.col-md-3.control-label(for='name') Name
+            div.col-md-9
+              input#name.form-control(type='text', name='name', required)
+          div.form-group
+            label.col-md-3.control-label(for='description') Description
+            div.col-md-9
+              input#description.form-control(type='text', name='description')
+          div.form-group
+            label.col-md-3.control-label(for='homepage') Homepage
+            div.col-md-9
+              input#homepage.form-control(type='url', name='homepage')
+      div.modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+        button.btn.btn-primary(type='button') Save

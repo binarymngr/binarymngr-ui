@@ -2,7 +2,8 @@ ol.breadcrumb
   li
     a(href='/#/') Home
   li Binaries
-button.btn.btn-primary.pull-right(type='button') Add New
+button.btn.btn-primary.pull-right(type='button', data-toggle='modal' data-target='#add-binary-modal') Add New
+include add_binary_modal.jade
 h1 Binaries
 if binaries && binaries.length
   table.datatable.table.table-striped.table-bordered

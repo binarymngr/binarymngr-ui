@@ -1,0 +1,21 @@
+div#add-server-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='add-server-model-label', aria-hidden='true')
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true')
+          span.pficon.pficon-close
+        h4#add-server-modal-label.modal-title Add Server
+      div.modal-body
+        form.form-horizontal
+          input(type='hidden', name='user_id', value='')
+          div.form-group
+            label.col-md-3.control-label(for='name') Name
+            div.col-md-9
+              input#name.form-control(type='text', name='name', required)
+          div.form-group
+            label.col-md-3.control-label(for='description') IPv4 Address
+            div.col-md-9
+              input#ipv4.form-control(type='text', name='ipv4')
+      div.modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+        button.btn.btn-primary(type='button') Save

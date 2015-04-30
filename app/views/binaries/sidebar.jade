@@ -1,5 +1,6 @@
 div.nav-category
-  h2 Categories
+  h2
+    a(href='/#/binaries/categories') Categories
   if categories && categories.length
     ul.nav.nav-pills.nav-stacked
       each category in _.sortBy(categories, 'name')
