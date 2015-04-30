@@ -1,8 +1,8 @@
-Page    = require('controllers/page')
+Spine   = @Spine or require('spine')
 Main    = require('controllers/binaries/main')
 Sidebar = require('controllers/binaries/sidebar')
 
-class BinariesIndex extends Page
+class BinariesPage extends Spine.Controller
   className: 'row page-binaries'
 
   constructor: ->
@@ -12,4 +12,4 @@ class BinariesIndex extends Page
     @sidebar = new Sidebar
     @append @main, @sidebar
 
-module.exports = BinariesIndex
+module.exports = BinariesPage

@@ -1,17 +1,25 @@
-Spine  = require('spine')
+Spine  = @Spine or require('spine')
 Server = require('models/server')
 
-class ServersSingle extends Spine.Controller
+class ServersSingleStack extends Spine.Controller
+  @extend Spine.Bindings
+
   className: 'col-xs-12'
   events:
-    'click .can-save': 'save'
+    'click .can-save'   : 'save'
     'click .can-destroy': 'destroy'
+
+  modelVar: 'item'
+  bindings:
+    '.item input[name="name"]': 'name'
+    '.item input[name="ipv4"]': 'ipv4'
 
   constructor: ->
     super
 
     Server.fetch()
-    @item = null
+    @item = new Server
+    do @applyBindings
 
     @routes
       '/servers/:id': (params) ->
@@ -23,6 +31,7 @@ class ServersSingle extends Spine.Controller
 
   render: (params) =>
     @item = Server.find(params.id)
+    do @applyBindings
     @html @template @item
 
   save: (event) =>
@@ -32,4 +41,4 @@ class ServersSingle extends Spine.Controller
     require('views/servers/single')
       server: item
 
-module.exports = ServersSingle
+module.exports = ServersSingleStack

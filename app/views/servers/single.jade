@@ -6,7 +6,7 @@ if server
       a(href='/#/servers') Servers
     li #{server.name}
   h1 #{server.name}
-  form.form-horizontal
+  form.form-horizontal.item
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
@@ -22,13 +22,13 @@ if server
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../includes/form-buttons.jade
-  hr
-  button.btn.btn-primary.pull-right(type='button') Add New
-  h2 Binaries
-  if binaries && binaries.length
-  else
-    div.alert.alert-info
-      span.pficon.pficon-info
-      | No binaries installed on this server.
+  //- hr
+  //- button.btn.btn-primary.pull-right(type='button') Add New
+  //- h2 Binaries
+  //- if binaries && binaries.length
+  //- else
+  //-   div.alert.alert-info
+  //-     span.pficon.pficon-info
+  //-     | No binaries installed on this server.
 else
   include ../includes/not-found.jade

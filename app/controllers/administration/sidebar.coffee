@@ -1,4 +1,4 @@
-Spine = require('spine')
+Spine = @Spine or require('spine')
 
 # TODO: mark current section as active
 

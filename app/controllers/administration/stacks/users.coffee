@@ -1,10 +1,7 @@
-Spine = require('spine')
+Spine = @Spine or require('spine')
 User  = require('models/user')
 
-class AdministrationUser extends Spine.Controller
-  elements:
-    '.items': 'items'
-
+class AdministrationUserStack extends Spine.Controller
   constructor: ->
     super
 
@@ -18,4 +15,4 @@ class AdministrationUser extends Spine.Controller
     require('views/administration/users')
       users: items
 
-module.exports = AdministrationUser
+module.exports = AdministrationUserStack

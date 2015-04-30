@@ -1,21 +1,19 @@
-Spine    = require('spine')
-Binary   = require('models/binary')
+Spine    = @Spine or require('spine')
 Category = require('models/binarycategory')
 
-class BinariesSingle extends Spine.Controller
+class BinariesCategoryStack extends Spine.Controller
   events:
-    'click .can-save': 'save'
+    'click .can-save'   : 'save'
     'click .can-destroy': 'destroy'
 
   constructor: ->
     super
 
-    Binary.fetch()
     Category.fetch()
-    @item = null
+    @item = new Category
 
     @routes
-      '/binaries/:id': (params) ->
+      '/binaries/categories/:id': (params) ->
         @render params
 
   destroy: (event) =>
@@ -23,15 +21,14 @@ class BinariesSingle extends Spine.Controller
     @navigate('/binaries')  # TODO: add check destory and confirm action
 
   render: (params) =>
-    @item = Binary.find(params.id)
+    @item = Category.find(params.id)
     @html @template @item
 
   save: (event) =>
     @item.save()  # TODO: add check destory and confirm action
 
   template: (item) ->
-    require('views/binaries/single')
-      binary:     item
-      categories: Category.all()
+    require('views/binaries/category')
+      category: item
 
-module.exports = BinariesSingle
+module.exports = BinariesCategoryStack

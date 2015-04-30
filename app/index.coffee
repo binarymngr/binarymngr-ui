@@ -1,8 +1,8 @@
 require('lib/setup')
 
-Spine      = require('spine')
+Spine      = @Spine or require('spine')
 Navigation = require('controllers/components/navigation')
-Content    = require('controllers/content')
+Content    = require('controllers/components/content')
 $          = Spine.$
 
 class App extends Spine.Controller

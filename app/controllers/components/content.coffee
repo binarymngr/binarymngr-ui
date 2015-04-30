@@ -1,10 +1,10 @@
-Spine          = require('spine')
-Administration = require('controllers/administration/index')
-Binaries       = require('controllers/binaries/index')
-Dashboard      = require('controllers/dashboard')
-Servers        = require('controllers/servers/main')
+Spine          = @Spine or require('spine')
+Administration = require('controllers/administration/page')
+Binaries       = require('controllers/binaries/page')
+Dashboard      = require('controllers/dashboard/page')
+Servers        = require('controllers/servers/page')
 
-class Content extends Spine.Stack
+class ContentComponent extends Spine.Stack
   className: 'container-fluid spine stack'
 
   controllers:
@@ -21,4 +21,4 @@ class Content extends Spine.Stack
     '/servers'             : 'servers'
     '/'                    : 'dashboard'
 
-module.exports = Content
+module.exports = ContentComponent

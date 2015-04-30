@@ -1,10 +1,7 @@
-Spine = require('spine')
+Spine = @Spine or require('spine')
 Role  = require('models/role')
 
-class AdministrationRoles extends Spine.Controller
-  elements:
-    '.items': 'items'
-
+class AdministrationRolesStack extends Spine.Controller
   constructor: ->
     super
 
@@ -18,4 +15,4 @@ class AdministrationRoles extends Spine.Controller
     require('views/administration/roles')
       roles: items
 
-module.exports = AdministrationRoles
+module.exports = AdministrationRolesStack

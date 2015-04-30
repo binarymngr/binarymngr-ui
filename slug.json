@@ -17,19 +17,15 @@
       "modules" : [
         "spine",
         "spine/lib/ajax",
-        "spine/lib/local",
-        "spine/lib/route",
-        "spine/lib/manager"
+        "spine/lib/binaries",
+        "spine/lib/manager",
+        "spine/lib/route"
       ],
       "paths"  : ["./app"],
       "target" : "./public/application.js",
       "jsAfter": "jade.rethrow = function rethrow(err, filename, lineno){ throw err; } "
     },
     "css": {
-      "libs"   : [
-        "lib/bootstrap/dist/css/bootstrap.css",
-        "lib/patternfly/dist/css/patternfly.css"
-      ],
       "paths"  : "./css",
       "target" : "./public/application.css"
     },

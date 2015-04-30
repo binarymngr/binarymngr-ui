@@ -1,6 +1,6 @@
-Spine = require('spine')
+Spine = @Spine or require('spine')
 
-class Navigation extends Spine.Controller
+class NavigationComponent extends Spine.Controller
   @ACTIVE_CLASS: 'active'
   @ROUTE_PREFIX: '/#'
 
@@ -15,27 +15,27 @@ class Navigation extends Spine.Controller
     Spine.Route.bind('change', @updateActiveClass)
 
   getFullHashLocation: (location) ->
-    if _.startsWith(location, Navigation.ROUTE_PREFIX)
+    if _.startsWith(location, NavigationComponent.ROUTE_PREFIX)
       return location
     else
-      return Navigation.ROUTE_PREFIX + location
+      return NavigationComponent.ROUTE_PREFIX + location
 
   # TODO: page/PREFIX thing is a bit ugly
   updateActiveClass: (event) =>
     location = @getFullHashLocation _.first(event).path
     page = location.split('/')[2]
     # remove all current 'active' classes from all navs
-    @primary_nav.find('.' + Navigation.ACTIVE_CLASS).removeClass(Navigation.ACTIVE_CLASS)
-    @utility_nav.find('.' + Navigation.ACTIVE_CLASS).removeClass(Navigation.ACTIVE_CLASS)
+    @primary_nav.find('.' + NavigationComponent.ACTIVE_CLASS).removeClass(NavigationComponent.ACTIVE_CLASS)
+    @utility_nav.find('.' + NavigationComponent.ACTIVE_CLASS).removeClass(NavigationComponent.ACTIVE_CLASS)
     # detect the link to newly set to active
-    if Navigation.ROUTE_PREFIX + '/' == location
+    if NavigationComponent.ROUTE_PREFIX + '/' == location
       active = @primary_nav.find('a[href="'+location+'"]')
     else
       active = @primary_nav.find('a[href^="/#/'+page+'"]')
     if active.length == 0  # not in primary_nav
       active = @utility_nav.find('a[href^="'+location+'"]')
     # activate the newly current link
-    active.parents('li').not('.dropdown').addClass(Navigation.ACTIVE_CLASS)
-    active.addClass(Navigation.ACTIVE_CLASS)
+    active.parents('li').not('.dropdown').addClass(NavigationComponent.ACTIVE_CLASS)
+    active.addClass(NavigationComponent.ACTIVE_CLASS)
 
-module.exports = Navigation
+module.exports = NavigationComponent

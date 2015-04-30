@@ -1,0 +1,13 @@
+div.sidebar-header.sidebar-header-bleed-left.sidebar-header-bleed-right
+  if messages && messages.length
+    div.actions.pull-right
+      a(href='') Clear Messages
+  h2.h5 Latest Messages
+if messages && messages.length
+  ul.list-group.items
+  each message in _.sortBy(messages, 'date')
+    li.list-group-item
+      h3.list-group-item-heading #{message.heading}
+      p.list-group-item-text #{message.text}
+p
+  a(href='/#/messages') See all messages

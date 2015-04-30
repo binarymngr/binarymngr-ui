@@ -1,10 +1,8 @@
-Spine  = require('spine')
+Spine  = @Spine or require('spine')
 Server = require('models/server')
 
-class ServersTable extends Spine.Controller
+class ServersTableStack extends Spine.Controller
   className: 'col-xs-12'
-  elements:
-    '.items': 'items'
 
   constructor: ->
     super
@@ -19,4 +17,4 @@ class ServersTable extends Spine.Controller
     require('views/servers/table')
       servers: items
 
-module.exports = ServersTable
+module.exports = ServersTableStack

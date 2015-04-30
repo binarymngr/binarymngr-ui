@@ -1,11 +1,10 @@
-Spine = require('spine')
+Spine = @Spine or require('spine')
 
 class BinaryCategory extends Spine.Model
-  @configure 'BinaryCategory', 'name', 'description'
-
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
+  @configure 'BinaryCategory', 'name', 'description'
   @url: '/binaries/categories'
 
   validate: ->
