@@ -9,5 +9,7 @@ if messages && messages.length
     li.list-group-item
       h3.list-group-item-heading #{message.heading}
       p.list-group-item-text #{message.text}
-p
-  a(href='/#/messages') See all messages
+  p
+    a(href='/#/messages') See all messages
+else
+  p No messages to display.

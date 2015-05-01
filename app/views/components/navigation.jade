@@ -11,19 +11,21 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
   div.collapse.navbar-collapse.navbar-collapse-21
     //- utility navigation
     ul.nav.navbar-nav.navbar-utility
-      li.dropdown
-        a(href='#', data-toggle='dropdown')
-          span.pficon.pficon-info
-          |  Messages: 
-          strong 2
-        div.dropdown-menu.infotip.bottom-right
-          div.arrow
-          ul.list-group
-            li.list-group-item
-              span.i.pficon.pficon-info
-              | Added Datasources Tests
-          div.footer
-            a(href='') Clear Messages
+      if messages && messages.length
+        li.dropdown
+          a(href='#', data-toggle='dropdown')
+            span.pficon.pficon-info
+            |  Messages: 
+            strong #{messages.length}
+          div.dropdown-menu.infotip.bottom-right
+            div.arrow
+            ul.list-group
+              each message in _.sortBy(messages, 'data')
+                li.list-group-item
+                  span.i.pficon.pficon-info
+                  | #{message.text}
+            div.footer
+              a(href='') Clear Messages
       li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           span.pficon.pficon-user

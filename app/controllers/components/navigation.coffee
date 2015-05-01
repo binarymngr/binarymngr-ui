@@ -12,7 +12,7 @@ class NavigationComponent extends Spine.Controller
     super
 
     @html require('views/components/navigation')()
-    Spine.Route.bind('change', @updateActiveClass)
+    #Spine.Route.bind('change', @updateActiveClass)
 
   getFullHashLocation: (location) ->
     if _.startsWith(location, NavigationComponent.ROUTE_PREFIX)
