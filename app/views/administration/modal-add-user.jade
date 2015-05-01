@@ -1,20 +1,20 @@
-div#add-category-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='add-category-model-label', aria-hidden='true')
+div#add-user-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='add-user-model-label', aria-hidden='true')
   div.modal-dialog
     div.modal-content
       div.modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true')
           span.pficon.pficon-close
-        h4#add-category-modal-label.modal-title Add Category
+        h4#add-user-modal-label.modal-title Add User
       div.modal-body
         form.form-horizontal.item
           div.form-group
-            label.col-md-3.control-label(for='name') Name
+            label.col-md-3.control-label(for='email') Email
             div.col-md-9
-              input.form-control(type='text', name='name', required)
+              input.form-control(type='email', name='email', required)
           div.form-group
-            label.col-md-3.control-label(for='description') Description
+            label.col-md-3.control-label(for='password') Password
             div.col-md-9
-              input.form-control(type='text', name='description')
+              input.form-control(type='password', name='password', required)
       div.modal-footer
         button.btn.btn-default(type='button', data-dismiss='modal') Cancel
         button.btn.btn-primary.can-save(type='button') Save
