@@ -5,8 +5,9 @@ class AdministrationRolesStack extends Spine.Controller
   constructor: ->
     super
 
-    Role.fetch()
     Role.bind('refresh change', @render)
+    do @render
+    Role.fetch()
 
   render: =>
     @html @template Role.all()

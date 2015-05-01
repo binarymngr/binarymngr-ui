@@ -1,10 +1,11 @@
 Spine = @Spine or require('spine')
 
 class Binary extends Spine.Model
+  @configure 'Binary', 'name', 'description', 'homepage', 'owner_id'
+
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @configure 'Binary', 'name', 'description', 'homepage', 'owner_id'
   @url: '/binaries'
 
   validate: ->

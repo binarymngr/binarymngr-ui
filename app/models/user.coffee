@@ -1,10 +1,11 @@
 Spine = @Spine or require('spine')
 
 class User extends Spine.Model
+  @configure 'User', 'email'
+
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @configure 'User', 'email'
   @url: '/users'
 
   validate: ->

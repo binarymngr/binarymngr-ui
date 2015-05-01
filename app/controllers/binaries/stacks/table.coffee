@@ -5,8 +5,9 @@ class BinariesTableStack extends Spine.Controller
   constructor: ->
     super
 
-    Binary.fetch()
     Binary.bind('refresh change', @render)
+    do @render
+    Binary.fetch()
 
   render: =>
     @html @template Binary.all()

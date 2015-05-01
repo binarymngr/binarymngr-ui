@@ -9,7 +9,7 @@ class ServersSingleStack extends Spine.Controller
     'click .can-save'   : 'save'
     'click .can-destroy': 'destroy'
 
-  modelVar: 'item'
+  modelVar: 'model'
   bindings:
     '.item input[name="name"]': 'name'
     '.item input[name="ipv4"]': 'ipv4'
@@ -18,7 +18,7 @@ class ServersSingleStack extends Spine.Controller
     super
 
     Server.fetch()
-    @item = new Server
+    @model = new Server
     do @applyBindings
 
     @routes
@@ -26,16 +26,16 @@ class ServersSingleStack extends Spine.Controller
         @render params
 
   destroy: (event) =>
-    @item.destroy()
+    @model.destroy()
     @navigate('/servers')  # TODO: add check destory and confirm action
 
   render: (params) =>
-    @item = Server.find(params.id)
+    @model = Server.find(params.id)
     do @applyBindings
-    @html @template @item
+    @html @template @model
 
   save: (event) =>
-    @item.save()  # TODO: add check destory and confirm action
+    @model.save()  # TODO: add check destory and confirm action
 
   template: (item) ->
     require('views/servers/single')

@@ -5,8 +5,9 @@ class BinariesCategoriesStack extends Spine.Controller
   constructor: ->
     super
 
-    Category.fetch()
     Category.bind('refresh change', @render)
+    do @render
+    Category.fetch()
 
   render: =>
     @html @template Category.all()

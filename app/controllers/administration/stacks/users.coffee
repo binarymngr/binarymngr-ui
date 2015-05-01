@@ -5,8 +5,9 @@ class AdministrationUserStack extends Spine.Controller
   constructor: ->
     super
 
-    User.fetch()
     User.bind('refresh change', @render)
+    do @render
+    User.fetch()
 
   render: =>
     @html @template User.all()
