@@ -11,23 +11,22 @@ class BinariesSingleStack extends Spine.Controller
 
   modelVar: 'binary'
   bindings:
-    # '.item input[name="id"]'         : 'id'
-    '.item input[name="name"]'       : 'name'
-    '.item input[name="description"]': 'description'
-    '.item input[name="homepage"]'   : 'homepage'
-    '.item input[name="eol"]'        : 'eol'
-    # '.item input[name="owner_id"]'   : 'owner_id'
+    # '.item input[name="id"]'            : 'id'
+    '.item input[name="name"]'          : 'name'
+    '.item textarea[name="description"]': 'description'
+    '.item input[name="homepage"]'      : 'homepage'
+    '.item input[name="eol"]'           : 'eol'
+    # '.item input[name="owner_id"]'      : 'owner_id'
 
   @extend Spine.Bindings
 
   constructor: ->
     super
 
+    @binary = new Binary
     Binary.bind('refresh change', @render)
     Category.bind('refresh change', @render)
     # Version.bind('refresh change', @render)
-
-    @binary = new Binary
     do @applyBindings
 
     @routes

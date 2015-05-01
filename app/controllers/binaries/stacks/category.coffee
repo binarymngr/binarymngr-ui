@@ -9,17 +9,17 @@ class BinariesCategoryStack extends Spine.Controller
 
   modelVar: 'category'
   bindings:
-    # '.item input[name="id"]'         : 'id'
-    '.item input[name="name"]'       : 'name'
-    '.item input[name="description"]': 'description'
+    # '.item input[name="id"]'            : 'id'
+    '.item input[name="name"]'          : 'name'
+    '.item textarea[name="description"]': 'description'
 
   @extend Spine.Bindings
 
   constructor: ->
     super
 
-    # Category.bind('refresh change', @render)
     @category = new Category
+    Category.bind('refresh change', @render)
     do @applyBindings
 
     @routes

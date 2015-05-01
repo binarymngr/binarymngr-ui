@@ -53,7 +53,8 @@ if binary.id
       tbody.items
         each version in _.sortBy(versions, 'identifier')
           tr
-            td #{version.identifier}
+            td
+              a(href='/#/binaries/versions/' + version.id) #{version.identifier}
             td
               if version.note
                 | #{version.note}
