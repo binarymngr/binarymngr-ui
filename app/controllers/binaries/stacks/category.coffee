@@ -35,6 +35,9 @@ class BinariesCategoryStack extends Spine.Controller
 
   render: (params) =>
     @category = Category.find(params.id)
+    # fix errors like @category.bind on null
+    if @category == null
+      @category = new Category
     @html @template @category
     do @applyBindings
 

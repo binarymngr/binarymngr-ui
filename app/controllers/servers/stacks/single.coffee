@@ -37,6 +37,9 @@ class ServersSingleStack extends Spine.Controller
 
   render: (params) =>
     @server = Server.find(params.id)
+    # fix errors like @server.bind on null
+    if @server == null
+      @server = new Server
     @html @template @server
     do @applyBindings
 

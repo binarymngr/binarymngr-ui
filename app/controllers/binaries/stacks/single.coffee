@@ -1,7 +1,7 @@
 Spine    = @Spine or require('spine')
 Binary   = require('models/binary')
 Category = require('models/binarycategory')
-Version  = require('models/binaryversion')
+# Version  = require('models/binaryversion')
 
 class BinariesSingleStack extends Spine.Controller
   events:
@@ -43,6 +43,9 @@ class BinariesSingleStack extends Spine.Controller
 
   render: (params) =>
     @binary = Binary.find(params.id)
+    # fix errors like item.versions() or @binary.bind on null
+    if @binary == null
+      @binary = new Binary
     @html @template @binary
     do @applyBindings
 
@@ -50,7 +53,6 @@ class BinariesSingleStack extends Spine.Controller
     @binary.save()  # TODO: add check destory and confirm action
 
   template: (item) ->
-    @log(item.versions().all())
     require('views/binaries/single')
       binary:     item
       categories: Category.all()
