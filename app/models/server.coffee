@@ -1,10 +1,13 @@
 Spine = @Spine or require('spine')
+User  = require('models/user')
 
 class Server extends Spine.Model
   @configure 'Server', 'name', 'ipv4', 'owner_id'
 
   @extend Spine.Events
   @extend Spine.Model.Ajax
+
+  @belongsTo 'user', User, 'owner_id'
 
   @url: '/servers'
 

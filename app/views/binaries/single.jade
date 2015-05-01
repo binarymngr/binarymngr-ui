@@ -8,22 +8,23 @@ if binary
     li #{binary.name}
   h1 #{binary.name}
   form.form-horizontal.item
+    input(type='hidden', name='owner_id', value='#{binary.owner_id}', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input#id.form-control(type='text', name='id', value='#{binary.id}', required, disabled)
+        input.form-control(type='text', name='id', value='#{binary.id}', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='name') Name
       div.col-md-6
-        input#name.form-control(type='text', name='name', value='#{binary.name}', required)
+        input.form-control(type='text', name='name', value='#{binary.name}', required)
     div.form-group
       label.col-md-2.control-label(for='description') Description
       div.col-md-6
-        textarea#description.form-control(name='description', rows='5') #{binary.description}
+        textarea.form-control(name='description', rows='5') #{binary.description}
     div.form-group
       label.col-md-2.control-label(for='homepage') Homepage
       div.col-md-6
-        input#homepage.form-control(type='url', name='homepage', value='#{binary.homepage}')
+        input.form-control(type='url', name='homepage', value='#{binary.homepage}')
     //- div.form-group
     //-   label.col-md-2.control-label(for='categories') Categories
     //-   div.col-md-10

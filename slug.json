@@ -19,6 +19,7 @@
         "spine/lib/ajax",
         "spine/lib/bindings",
         "spine/lib/manager",
+        "spine/lib/relation",
         "spine/lib/route"
       ],
       "paths"  : ["./app"],

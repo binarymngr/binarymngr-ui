@@ -12,19 +12,21 @@ class ServersSingleStack extends Spine.Controller
 
   modelVar: 'model'
   bindings:
-    '.item input[name="name"]': 'name'
-    '.item input[name="ipv4"]': 'ipv4'
+    # '.item input[name="id"]'      : 'id'
+    '.item input[name="name"]'    : 'name'
+    '.item input[name="ipv4"]'    : 'ipv4'
+    # '.item input[name="owner_id"]': 'owner_id'
 
   constructor: ->
     super
 
-    Server.fetch()
-    @model = new Server
-    do @applyBindings
-
     @routes
       '/servers/:id': (params) ->
         @render params
+
+    Server.fetch()
+    @model = new Server
+    do @applyBindings
 
   cancel: (event) =>
     @navigate('/servers')

@@ -1,10 +1,14 @@
-Spine = @Spine or require('spine')
+Spine  = @Spine or require('spine')
+Binary = require('models/binary')
 
 class BinaryVersion extends Spine.Model
   @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
 
   @extend Spine.Events
   @extend Spine.Model.Ajax
+
+  @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
+  @belongsTo 'binary', Binary, 'binary_id'
 
   @url: '/binaries/versions'
 

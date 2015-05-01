@@ -3,35 +3,48 @@ Binary   = require('models/binary')
 Category = require('models/binarycategory')
 
 class BinariesSingleStack extends Spine.Controller
+  @extend Spine.Bindings
+
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
     'click .can-save'   : 'save'
 
+  modelVar: 'model'
+  bindings:
+    # '.item input[name="id"]'         : 'id'
+    '.item input[name="name"]'       : 'name'
+    '.item input[name="description"]': 'description'
+    '.item input[name="homepage"]'   : 'homepage'
+    '.item input[name="eol"]'        : 'eol'
+    # '.item input[name="owner_id"]'   : 'owner_id'
+
   constructor: ->
     super
-
-    Binary.fetch()
-    Category.fetch()
-    @item = new Binary
 
     @routes
       '/binaries/:id': (params) ->
         @render params
 
+    Binary.fetch()
+    Category.fetch()
+    @model = new Binary
+    do @applyBindings
+
   cancel: (event) =>
     @navigate('/binaries')
 
   destroy: (event) =>
-    @item.destroy()
+    @model.destroy()
     @navigate('/binaries')  # TODO: add check destory and confirm action
 
   render: (params) =>
-    @item = Binary.find(params.id)
-    @html @template @item
+    @model = Binary.find(params.id)
+    do @applyBindings
+    @html @template @model
 
   save: (event) =>
-    @item.save()  # TODO: add check destory and confirm action
+    @model.save()  # TODO: add check destory and confirm action
 
   template: (item) ->
     require('views/binaries/single')
