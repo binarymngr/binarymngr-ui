@@ -4,8 +4,9 @@ Category = require('models/binarycategory')
 
 class BinariesSingleStack extends Spine.Controller
   events:
-    'click .can-save'   : 'save'
+    'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
+    'click .can-save'   : 'save'
 
   constructor: ->
     super
@@ -17,6 +18,9 @@ class BinariesSingleStack extends Spine.Controller
     @routes
       '/binaries/:id': (params) ->
         @render params
+
+  cancel: (event) =>
+    @navigate('/binaries')
 
   destroy: (event) =>
     @item.destroy()

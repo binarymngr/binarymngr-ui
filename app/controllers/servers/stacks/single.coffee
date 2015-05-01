@@ -6,8 +6,9 @@ class ServersSingleStack extends Spine.Controller
 
   className: 'col-xs-12'
   events:
-    'click .can-save'   : 'save'
+    'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
+    'click .can-save'   : 'save'
 
   modelVar: 'model'
   bindings:
@@ -24,6 +25,9 @@ class ServersSingleStack extends Spine.Controller
     @routes
       '/servers/:id': (params) ->
         @render params
+
+  cancel: (event) =>
+    @navigate('/servers')
 
   destroy: (event) =>
     @model.destroy()
