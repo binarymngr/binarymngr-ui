@@ -23,8 +23,8 @@ class BinariesSingleStack extends Spine.Controller
   constructor: ->
     super
 
-    # Binary.bind('refresh change', @render)
-    # Category.bind('refresh change', @render)
+    Binary.bind('refresh change', @render)
+    Category.bind('refresh change', @render)
     # Version.bind('refresh change', @render)
 
     @binary = new Binary

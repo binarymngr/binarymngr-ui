@@ -20,7 +20,7 @@ class ServersSingleStack extends Spine.Controller
   constructor: ->
     super
 
-    # Server.bind('refresh change', @render)
+    Server.bind('refresh change', @render)
     @server = new Server
     do @applyBindings
 
