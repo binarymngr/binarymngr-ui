@@ -1,8 +1,14 @@
 require('lib/setup')
 
 Spine      = @Spine or require('spine')
-Navigation = require('controllers/components/navigation')
+Binary     = require('models/binary')
+Category   = require('models/binarycategory')
 Content    = require('controllers/components/content')
+Navigation = require('controllers/components/navigation')
+Role       = require('models/role')
+Server     = require('models/server')
+User       = require('models/user')
+Version    = require('models/binaryversion')
 $          = Spine.$
 
 class App extends Spine.Controller
@@ -15,5 +21,12 @@ class App extends Spine.Controller
 
     Spine.Route.setup()
     @navigate '/'
+
+    Binary.fetch()
+    Category.fetch()
+    Role.fetch()
+    Server.fetch()
+    User.fetch()
+    Version.fetch()
 
 module.exports = App

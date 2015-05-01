@@ -7,7 +7,7 @@ class Server extends Spine.Model
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @belongsTo 'user', User, 'owner_id'
+  @belongsTo 'owner', User, 'owner_id'
 
   @url: '/servers'
 

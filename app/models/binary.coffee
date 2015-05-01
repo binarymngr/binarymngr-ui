@@ -8,7 +8,7 @@ class Binary extends Spine.Model
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @belongsTo 'user', User, 'owner_id'
+  @belongsTo 'owner', User, 'owner_id'
   @hasMany 'versions', Version
 
   @url: '/binaries'

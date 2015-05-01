@@ -44,7 +44,7 @@ if binary
   hr
   button.btn.btn-primary.pull-right(type='button') Add New
   h2 Versions
-  if binary.versions && binary.versions.length
+  if versions && versions.length
     table.datatable.table.table-striped.table-bordered
       thead
         tr
@@ -52,7 +52,7 @@ if binary
           th Note
           th EOL
       tbody.items
-        each version in _.sortBy(binary.versions, 'identifier')
+        each version in _.sortBy(versions, 'identifier')
           tr
             td #{version.identifier}
             td

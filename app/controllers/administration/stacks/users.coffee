@@ -7,7 +7,6 @@ class AdministrationUserStack extends Spine.Controller
 
     User.bind('refresh change', @render)
     do @render
-    User.fetch()
 
   render: =>
     @html @template User.all()

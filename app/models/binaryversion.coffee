@@ -7,8 +7,7 @@ class BinaryVersion extends Spine.Model
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
-  @belongsTo 'binary', Binary, 'binary_id'
+  @belongsTo 'binary', Binary
 
   @url: '/binaries/versions'
 

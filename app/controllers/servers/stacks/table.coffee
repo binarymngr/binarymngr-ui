@@ -9,7 +9,6 @@ class ServersTableStack extends Spine.Controller
 
     Server.bind('refresh change', @render)
     do @render
-    Server.fetch()
 
   render: =>
     @html @template Server.all()
