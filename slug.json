@@ -17,7 +17,7 @@
       "modules" : [
         "spine",
         "spine/lib/ajax",
-        "spine/lib/binaries",
+        "spine/lib/bindings",
         "spine/lib/manager",
         "spine/lib/route"
       ],
