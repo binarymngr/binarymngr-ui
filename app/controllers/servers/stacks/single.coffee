@@ -20,9 +20,8 @@ class ServersSingleStack extends Spine.Controller
   constructor: ->
     super
 
-    @server = new Server
+    @server = null
     Server.bind('refresh change', @render)
-    do @applyBindings
 
     @routes
       '/servers/:id': (params) ->
@@ -37,11 +36,9 @@ class ServersSingleStack extends Spine.Controller
 
   render: (params) =>
     @server = Server.find(params.id)
-    # fix errors like @server.bind on null
-    if @server == null
-      @server = new Server
     @html @template @server
-    do @applyBindings
+    if @server != null
+      do @applyBindings
 
   save: (event) =>
     @server.save()  # TODO: add check destory and confirm action

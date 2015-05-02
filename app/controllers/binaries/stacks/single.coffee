@@ -23,11 +23,10 @@ class BinariesSingleStack extends Spine.Controller
   constructor: ->
     super
 
-    @binary = new Binary
+    @binary = null
     Binary.bind('refresh change', @render)
     Category.bind('refresh change', @render)
     Version.bind('refresh change', @render)
-    do @applyBindings
 
     @routes
       '/binaries/:id': (params) ->
@@ -42,19 +41,21 @@ class BinariesSingleStack extends Spine.Controller
 
   render: (params) =>
     @binary = Binary.find(params.id)
-    # fix errors like item.versions() or @binary.bind on null
-    if @binary == null
-      @binary = new Binary
     @html @template @binary
-    do @applyBindings
+    if @binary != null
+      do @applyBindings
 
   save: (event) =>
     @binary.save()  # TODO: add check destory and confirm action
 
   template: (item) ->
+    versions = null
+    if item != null
+      versions = item.versions().all()
+
     require('views/binaries/single')
       binary:     item
       categories: Category.all()
-      versions:   item.versions().all()
+      versions:   versions
 
 module.exports = BinariesSingleStack

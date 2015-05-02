@@ -18,9 +18,8 @@ class BinariesCategoryStack extends Spine.Controller
   constructor: ->
     super
 
-    @category = new Category
+    @category = null
     Category.bind('refresh change', @render)
-    do @applyBindings
 
     @routes
       '/binaries/categories/:id': (params) ->
@@ -35,11 +34,9 @@ class BinariesCategoryStack extends Spine.Controller
 
   render: (params) =>
     @category = Category.find(params.id)
-    # fix errors like @category.bind on null
-    if @category == null
-      @category = new Category
     @html @template @category
-    do @applyBindings
+    if @category != null
+      do @applyBindings
 
   save: (event) =>
     @category.save()  # TODO: add check destory and confirm action

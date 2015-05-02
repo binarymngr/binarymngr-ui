@@ -19,9 +19,8 @@ class BinariesVersionStack extends Spine.Controller
   constructor: ->
     super
 
-    @version = new Version
+    @version = null
     Version.bind('refresh change', @render)
-    do @applyBindings
 
     @routes
       '/binaries/versions/:id': (params) ->
@@ -36,18 +35,20 @@ class BinariesVersionStack extends Spine.Controller
 
   render: (params) =>
     @version = Version.find(params.id)
-    # fix errors like @version.bind on null
-    if @version == null
-      @version = new Version
     @html @template @version
-    do @applyBindings
+    if @version != null
+      do @applyBindings
 
   save: (event) =>
     @version.save()  # TODO: add check destory and confirm action
 
   template: (item) ->
+    binary = null
+    if item != null
+      binary = item.binary()
+
     require('views/binaries/version')
-      binary:  item.binary()
+      binary:  binary
       version: item
 
 module.exports = BinariesVersionStack
