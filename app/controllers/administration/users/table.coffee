@@ -21,7 +21,7 @@ module.exports = UsersTable
 
 class UsersTableAddModal extends Spine.Controller
   events:
-    'click .can-save': 'save'
+    'submit .item': 'save'
 
   modelVar: 'user'
   bindings:
@@ -41,6 +41,8 @@ class UsersTableAddModal extends Spine.Controller
     do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     if @user.save()
       @user = new User
       do @applyBindings

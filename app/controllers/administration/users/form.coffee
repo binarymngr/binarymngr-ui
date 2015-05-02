@@ -5,7 +5,7 @@ class UserForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
-    'click .can-save'   : 'save'
+    'submit .item'      : 'save'
 
   modelVar: 'user'
   bindings:
@@ -41,6 +41,8 @@ class UserForm extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     # TODO: make password optional
     unless @user.save()
       msg = @user.validate()

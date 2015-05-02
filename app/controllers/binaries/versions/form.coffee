@@ -5,7 +5,7 @@ class BinaryVersionForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
-    'click .can-save'   : 'save'
+    'submit .item'      : 'save'
 
   modelVar: 'version'
   bindings:
@@ -42,6 +42,8 @@ class BinaryVersionForm extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     unless @version.save()
       msg = @version.validate()
       return alert(msg)

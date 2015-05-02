@@ -7,7 +7,7 @@ class BinaryForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
-    'click .can-save'   : 'save'
+    'submit .item'      : 'save'
 
   modelVar: 'binary'
   bindings:
@@ -47,6 +47,8 @@ class BinaryForm extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     unless @binary.save()
       msg = @binary.validate()
       return alert(msg)

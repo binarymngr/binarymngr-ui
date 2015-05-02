@@ -5,7 +5,7 @@ class RoleForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
-    'click .can-save'   : 'save'
+    'submit .item'      : 'save'
 
   modelVar: 'role'
   bindings:
@@ -41,6 +41,8 @@ class RoleForm extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     unless @role.save()
       msg = @role.validate()
       return alert(msg)

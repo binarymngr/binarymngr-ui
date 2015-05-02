@@ -23,7 +23,7 @@ module.exports = ServersTable
 
 class ServersTableAddModal extends Spine.Controller
   events:
-    'click .can-save': 'save'
+    'submit .item': 'save'
 
   modelVar: 'server'
   bindings:
@@ -43,6 +43,8 @@ class ServersTableAddModal extends Spine.Controller
     do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     if @server.save()
       @server = new Server
       do @applyBindings

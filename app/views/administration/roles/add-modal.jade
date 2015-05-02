@@ -5,16 +5,16 @@ div#add-role-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='add
         button.close(type='button', data-dismiss='modal', aria-hidden='true')
           span.pficon.pficon-close
         h4#add-role-modal-label.modal-title Add Role
-      div.modal-body
-        form.form-horizontal.item
-          div.form-group
-            label.col-md-3.control-label(for='name') Name
-            div.col-md-9
-              input.form-control(type='text', name='name', required)
-          div.form-group
-            label.col-md-3.control-label(for='description') Description
-            div.col-md-9
-              textarea.form-control(name='description', rows='5')
-      div.modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') Cancel
-        button.btn.btn-primary.can-save(type='button') Save
+      form.form-horizontal.item(action='#')
+        div.modal-body
+            div.form-group
+              label.col-md-3.control-label(for='name') Name
+              div.col-md-9
+                input.form-control(type='text', name='name', required)
+            div.form-group
+              label.col-md-3.control-label(for='description') Description
+              div.col-md-9
+                textarea.form-control(name='description', rows='5')
+        div.modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-primary.can-save(type='submit') Save

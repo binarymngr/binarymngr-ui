@@ -5,7 +5,7 @@ class BinaryCategoryForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
-    'click .can-save'   : 'save'
+    'submit .item'      : 'save'
 
   modelVar: 'category'
   bindings:
@@ -41,6 +41,8 @@ class BinaryCategoryForm extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     unless @category.save()
       msg = @category.validate()
       return alert(msg)

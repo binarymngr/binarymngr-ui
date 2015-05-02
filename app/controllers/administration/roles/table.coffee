@@ -22,7 +22,7 @@ module.exports = RolesTable
 
 class RolesTableAddModal extends Spine.Controller
   events:
-    'click .can-save': 'save'
+    'submit .item': 'save'
 
   modelVar: 'role'
   bindings:
@@ -42,6 +42,8 @@ class RolesTableAddModal extends Spine.Controller
     do @applyBindings
 
   save: (event) =>
+    event.preventDefault()
+
     if @role.save()
       @role = new Role
       do @applyBindings

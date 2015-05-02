@@ -6,7 +6,7 @@ class ServersSingleStack extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
-    'click .can-save'   : 'save'
+    'submit .item'      : 'save'
 
   modelVar: 'server'
   bindings:
@@ -36,6 +36,8 @@ class ServersSingleStack extends Spine.Controller
       return alert('Something went wrong')
 
   render: (params) =>
+    event.preventDefault()
+
     @server = Server.find(params.id)
     @html @template @server
     if @server != null
