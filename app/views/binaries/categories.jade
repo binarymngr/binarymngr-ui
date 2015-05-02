@@ -15,7 +15,7 @@ if categories && categories.length
         th Name
         th Description
     tbody.items
-      each category in _.sortBy(categories, 'name')
+      each category in categories
         tr
           td
             a(href='/#/binaries/categories/' + category.id) #{category.name}

@@ -12,7 +12,7 @@ if servers && servers.length
         th Name
         th IPv4 Address
     tbody.items
-      each server in _.sortBy(servers, 'name')
+      each server in servers
         tr
           td
             a(href='/#/servers/' + server.id) #{server.name}

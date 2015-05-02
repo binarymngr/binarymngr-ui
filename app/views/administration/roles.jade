@@ -13,7 +13,7 @@ if roles && roles.length
         th Name
         th Description
     tbody.items
-      each role in _.sortBy(roles, 'name')
+      each role in roles
         tr
           td #{role.name}
           td

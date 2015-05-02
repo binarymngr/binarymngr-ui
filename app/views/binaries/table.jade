@@ -15,7 +15,7 @@ if binaries && binaries.length
         th Categories
         th Homepage
     tbody.items
-      each binary in _.sortBy(binaries, 'name')
+      each binary in binaries
         tr
           td
             a(href='/#/binaries/' + binary.id) #{binary.name}

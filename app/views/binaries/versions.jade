@@ -16,7 +16,7 @@ if versions && versions.length
         th Note
         th EOF
     tbody.items
-      each version in _.sortBy(versions, 'identifier')
+      each version in versions
         tr
           td
             a(href='/#/binaries/versions/' + version.id) #{version.identifier}
