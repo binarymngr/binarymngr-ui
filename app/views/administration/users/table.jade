@@ -4,7 +4,6 @@ ol.breadcrumb
   li Administration
   li Users
 button.btn.btn-primary.pull-right(type='button', data-toggle='modal' data-target='#add-user-modal') Add New
-include modal-add-user.jade
 h1 Users
 if users && users.length
   table.datatable.table.table-striped.table-bordered
@@ -15,9 +14,8 @@ if users && users.length
       each user in users
         tr
           td
-            a(href='mailto:' + user.email) #{user.email}
-  br
-  include ../includes/datatables-js.jade
+            a(href='/#/administration/users/' + user.id) #{user.email}
+  include ../../includes/datatables-js.jade
 else
   div.alert.alert-info
     span.pficon.pficon-info

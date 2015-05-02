@@ -4,7 +4,6 @@ ol.breadcrumb
   li Administration
   li Roles
 button.btn.btn-primary.pull-right(type='button', data-toggle='modal' data-target='#add-role-modal') Add New
-include modal-add-role.jade
 h1 Roles
 if roles && roles.length
   table.datatable.table.table-striped.table-bordered
@@ -15,14 +14,14 @@ if roles && roles.length
     tbody.items
       each role in roles
         tr
-          td #{role.name}
+          td
+            a(href='/#/administration/roles/' + role.id) #{role.name}
           td
             if role.description
               | #{role.description}
             else
               | -
-  br
-  include ../includes/datatables-js.jade
+  include ../../includes/datatables-js.jade
 else
   div.alert.alert-info
     span.pficon.pficon-info

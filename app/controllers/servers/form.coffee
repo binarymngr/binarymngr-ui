@@ -10,10 +10,9 @@ class ServersSingleStack extends Spine.Controller
 
   modelVar: 'server'
   bindings:
-    # '.item input[name="id"]'      : 'id'
-    '.item input[name="name"]'    : 'name'
-    '.item input[name="ipv4"]'    : 'ipv4'
-    # '.item input[name="owner_id"]': 'owner_id'
+  #  '.item input[name="id"]'   : 'id'
+    '.item input[name="name"]': 'name'
+    '.item input[name="ipv4"]': 'ipv4'
 
   @extend Spine.Bindings
 
@@ -31,8 +30,10 @@ class ServersSingleStack extends Spine.Controller
     @navigate('/servers')
 
   destroy: (event) =>
-    @server.destroy()
-    @navigate('/servers')  # TODO: add check destory and confirm action
+    if @server.destroy()
+      @navigate('/servers')
+    else
+      return alert('Something went wrong')
 
   render: (params) =>
     @server = Server.find(params.id)
@@ -41,10 +42,12 @@ class ServersSingleStack extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
-    @server.save()  # TODO: add check destory and confirm action
+    unless @server.save()
+      msg = @server.validate()
+      return alert(msg)
 
   template: (item) ->
-    require('views/servers/single')
+    require('views/servers/form')
       server: item
 
 module.exports = ServersSingleStack

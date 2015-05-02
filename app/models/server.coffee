@@ -12,8 +12,7 @@ class Server extends Spine.Model
   @url: '/servers'
 
   validate: ->
-    'Name is required' unless @name
-    'IPv4 is required' unless @ipv4
-    'Owner ID is required' unless @owner_id
+    return 'Name is required' unless @name
+    return 'IPv4 address is required' unless @ipv4
 
 module.exports = Server

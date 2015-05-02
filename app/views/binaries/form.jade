@@ -50,7 +50,7 @@ if binary
           th Note
           th EOL
       tbody.items
-        each version in _.sortBy(versions, 'identifier')
+        each version in versions
           tr
             td
               a(href='/#/binaries/versions/' + version.id) #{version.identifier}
@@ -69,6 +69,6 @@ if binary
   else
     div.alert.alert-info
       span.pficon.pficon-info
-      | No versions for this binary yet.
+      | No versions for this binary.
 else
   include ../includes/not-found.jade

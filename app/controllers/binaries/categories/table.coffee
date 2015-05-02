@@ -1,7 +1,7 @@
 Spine    = @Spine or require('spine')
 Category = require('models/binarycategory')
 
-class BinariesCategoriesStack extends Spine.Controller
+class BinaryCategoriesTable extends Spine.Controller
   constructor: ->
     super
 
@@ -12,7 +12,7 @@ class BinariesCategoriesStack extends Spine.Controller
     @html @template Category.all()
 
   template: (items) ->
-    require('views/binaries/categories')
+    require('views/binaries/categories/table')
       categories: items
 
-module.exports = BinariesCategoriesStack
+module.exports = BinaryCategoriesTable

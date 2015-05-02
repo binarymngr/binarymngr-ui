@@ -1,7 +1,7 @@
 Spine   = @Spine or require('spine')
 Version = require('models/binaryversion')
 
-class BinariesVersionsStack extends Spine.Controller
+class BinaryVersionsTable extends Spine.Controller
   constructor: ->
     super
 
@@ -12,7 +12,7 @@ class BinariesVersionsStack extends Spine.Controller
     @html @template Version.all()
 
   template: (items) ->
-    require('views/binaries/versions')
+    require('views/binaries/versions/table')
       versions: items
 
-module.exports = BinariesVersionsStack
+module.exports = BinaryVersionsTable

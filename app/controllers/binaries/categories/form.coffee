@@ -1,7 +1,7 @@
 Spine    = @Spine or require('spine')
 Category = require('models/binarycategory')
 
-class BinariesCategoryStack extends Spine.Controller
+class BinaryCategoryForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
@@ -29,8 +29,10 @@ class BinariesCategoryStack extends Spine.Controller
     @navigate('/binaries/categories')
 
   destroy: (event) =>
-    @category.destroy()
-    @navigate('/binaries/categories')  # TODO: add check destory and confirm action
+    if @category.destroy()
+      @navigate('/binaries/categories')
+    else
+      return alert('Something went wrong')
 
   render: (params) =>
     @category = Category.find(params.id)
@@ -39,10 +41,12 @@ class BinariesCategoryStack extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
-    @category.save()  # TODO: add check destory and confirm action
+    unless @category.save()
+      msg = @category.validate()
+      return alert(msg)
 
   template: (item) ->
-    require('views/binaries/category')
+    require('views/binaries/categories/form')
       category: item
 
-module.exports = BinariesCategoryStack
+module.exports = BinaryCategoryForm

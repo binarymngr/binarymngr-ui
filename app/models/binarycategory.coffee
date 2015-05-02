@@ -9,6 +9,6 @@ class BinaryCategory extends Spine.Model
   @url: '/binaries/categories'
 
   validate: ->
-    'Name is required' unless @name
+    return 'Name is required' unless @name
 
 module.exports = BinaryCategory

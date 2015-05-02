@@ -1,18 +1,18 @@
-Spine  = @Spine or require('spine')
-Single = require('controllers/servers/stacks/single')
-Table  = require('controllers/servers/stacks/table')
+Spine   = @Spine or require('spine')
+Server  = require('controllers/servers/form')
+Servers = require('controllers/servers/table')
 
 class ServersPage extends Spine.Stack
   className: 'row page-servers spine stack'
 
   controllers:
-    single: Single
-    table:  Table
+    server:  Server
+    servers: Servers
 
-  default: 'table'
+  default: 'servers'
 
   routes:
-    '/servers/:id': 'single'
-    '/servers'    : 'table'
+    '/servers/:id': 'server'
+    '/servers'    : 'servers'
 
 module.exports = ServersPage

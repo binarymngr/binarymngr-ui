@@ -1,7 +1,7 @@
 Spine   = @Spine or require('spine')
 Version = require('models/binaryversion')
 
-class BinariesVersionStack extends Spine.Controller
+class BinaryVersionForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
@@ -30,8 +30,10 @@ class BinariesVersionStack extends Spine.Controller
     @navigate('/binaries/versions')
 
   destroy: (event) =>
-    @version.destroy()
-    @navigate('/binaries/versions')  # TODO: add check destory and confirm action
+    if @version.destroy()
+      @navigate('/binaries/versions')
+    else
+      return alert('Something went wrong')
 
   render: (params) =>
     @version = Version.find(params.id)
@@ -40,15 +42,17 @@ class BinariesVersionStack extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
-    @version.save()  # TODO: add check destory and confirm action
+    unless @version.save()
+      msg = @version.validate()
+      return alert(msg)
 
   template: (item) ->
     binary = null
     if item != null
       binary = item.binary()
 
-    require('views/binaries/version')
+    require('views/binaries/versions/form')
       binary:  binary
       version: item
 
-module.exports = BinariesVersionStack
+module.exports = BinaryVersionForm

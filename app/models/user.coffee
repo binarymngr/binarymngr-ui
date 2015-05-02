@@ -2,7 +2,7 @@ Spine  = @Spine or require('spine')
 Server = require('models/server')
 
 class User extends Spine.Model
-  @configure 'User', 'email'
+  @configure 'User', 'email', 'password'
 
   @extend Spine.Events
   @extend Spine.Model.Ajax
@@ -13,6 +13,7 @@ class User extends Spine.Model
   @url: '/users'
 
   validate: ->
-    'Email is required' unless @email
+    return 'Email is required' unless @email
+    return 'Password is required' unless @password
 
 module.exports = User

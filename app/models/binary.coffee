@@ -14,7 +14,7 @@ class Binary extends Spine.Model
   @url: '/binaries'
 
   validate: ->
-    'Name is required' unless @name
-    'Owner ID is required' unless @owner_id
+    return 'Name is required' unless @name
+    return 'Owner ID is required' unless @owner_id
 
 module.exports = Binary

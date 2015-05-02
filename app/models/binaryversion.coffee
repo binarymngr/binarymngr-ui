@@ -11,7 +11,7 @@ class BinaryVersion extends Spine.Model
   @url: '/binaries/versions'
 
   validate: ->
-    'Identifier is required' unless @identifier
-    'Binary ID is required' unless @binary_id
+    return 'Identifier is required' unless @identifier
+    return 'Binary ID is required' unless @binary_id
 
 module.exports = BinaryVersion

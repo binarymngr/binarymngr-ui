@@ -23,16 +23,16 @@ if category
         textarea.form-control(name='description', rows='5') #{category.description}
     div.form-group
       div.col-md-10.col-md-offset-2
-        include ../includes/form-buttons.jade
+        include ../../includes/form-buttons.jade
   hr
   button.btn.btn-primary.pull-right(type='button') Add New
   h2 Binaries
   if category.binaries && category.binaries.length
-    each binary in _.sortBy(category.binaries, 'name')
+    each binary in category.binaries
       | #{binary.name}
   else
     div.alert.alert-info
       span.pficon.pficon-info
       | No binaries in this category.
 else
-  include ../includes/not-found.jade
+  include ../../includes/not-found.jade

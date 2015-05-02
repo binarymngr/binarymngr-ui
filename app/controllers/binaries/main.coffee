@@ -1,30 +1,30 @@
 Spine      = @Spine or require('spine')
-Categories = require('controllers/binaries/stacks/categories')
-Category   = require('controllers/binaries/stacks/category')
-Single     = require('controllers/binaries/stacks/single')
-Table      = require('controllers/binaries/stacks/table')
-Version    = require('controllers/binaries/stacks/version')
-Versions   = require('controllers/binaries/stacks/versions')
+Binaries   = require('controllers/binaries/table')
+Binary     = require('controllers/binaries/form')
+Categories = require('controllers/binaries/categories/table')
+Category   = require('controllers/binaries/categories/form')
+Version    = require('controllers/binaries/versions/form')
+Versions   = require('controllers/binaries/versions/table')
 
 class BinariesMain extends Spine.Stack
   className: 'col-sm-9 col-md-10 col-sm-push-3 col-md-push-2 spine stack'
 
   controllers:
+    binaries:   Binaries
+    binary:     Binary
     categories: Categories
     category:   Category
-    single:     Single
-    table:      Table
     version:    Version
     versions:   Versions
 
-  default: 'table'
+  default: 'binaries'
 
   routes:
     '/binaries/categories/:id': 'category'
     '/binaries/categories'    : 'categories'
     '/binaries/versions/:id'  : 'version'
     '/binaries/versions'      : 'versions'
-    '/binaries/:id'           : 'single'
-    '/binaries'               : 'table'
+    '/binaries/:id'           : 'binary'
+    '/binaries'               : 'binaries'
 
 module.exports = BinariesMain

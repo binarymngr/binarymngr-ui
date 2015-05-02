@@ -1,0 +1,27 @@
+if role
+  ol.breadcrumb
+    li
+      a(href='/#/') Home
+    li Administration
+    li
+      a(href='/#/administration/roles') Roles
+    li #{role.name}
+  h1 #{role.name}
+  form.form-horizontal.item
+    div.form-group
+      label.col-md-2.control-label(for='id') ID
+      div.col-md-6
+        input.form-control(type='text', name='id', value='#{role.id}', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='name') Name
+      div.col-md-6
+        input.form-control(type='text', name='name', value='#{role.name}', required)
+    div.form-group
+      label.col-md-2.control-label(for='description') Description
+      div.col-md-6
+        textarea.form-control(name='description', rows='5') #{role.description}
+    div.form-group
+      div.col-md-10.col-md-offset-2
+        include ../../includes/form-buttons.jade
+else
+  include ../../includes/not-found.jade

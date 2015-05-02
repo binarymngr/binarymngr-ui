@@ -1,0 +1,55 @@
+Spine  = @Spine or require('spine')
+Server = require('models/server')
+
+class ServersTable extends Spine.Controller
+  className: 'col-xs-12'
+
+  constructor: ->
+    super
+
+    Server.bind('refresh change', @render)
+    do @render
+
+  render: =>
+    @html @template Server.all()
+    @append new ServersTableAddModal  # TODO: do not init a new one every time
+
+  template: (items) ->
+    require('views/servers/table')
+      servers: items
+
+module.exports = ServersTable
+
+
+class ServersTableAddModal extends Spine.Controller
+  events:
+    'click .can-save': 'save'
+
+  modelVar: 'server'
+  bindings:
+    '.item input[name="name"]': 'name'
+    '.item input[name="ipv4"]': 'ipv4'
+
+  @extend Spine.Bindings
+
+  constructor: ->
+    super
+
+    @server = new Server
+    do @render
+
+  render: =>
+    @html require('views/servers/add-modal')()
+    do @applyBindings
+
+  save: (event) =>
+    if @server.save()
+      @server = new Server
+      do @applyBindings
+      # TODO: fix hide backdrop
+      $('.modal-backdrop.fade.in').fadeOut('fast', ->
+        this.remove()
+      )
+    else
+      msg = @server.validate()
+      return alert(msg)

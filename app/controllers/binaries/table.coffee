@@ -1,7 +1,7 @@
 Spine  = @Spine or require('spine')
 Binary = require('models/binary')
 
-class BinariesTableStack extends Spine.Controller
+class BinariesTable extends Spine.Controller
   constructor: ->
     super
 
@@ -15,4 +15,4 @@ class BinariesTableStack extends Spine.Controller
     require('views/binaries/table')
       binaries: items
 
-module.exports = BinariesTableStack
+module.exports = BinariesTable

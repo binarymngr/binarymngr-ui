@@ -1,0 +1,75 @@
+if user
+  ol.breadcrumb
+    li
+      a(href='/#/') Home
+    li Administration
+    li
+      a(href='/#/administration/users') Users
+    li #{user.email}
+  h1 #{user.email}
+  form.form-horizontal.item
+    div.form-group
+      label.col-md-2.control-label(for='id') ID
+      div.col-md-6
+        input.form-control(type='text', name='id', value='#{user.id}', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='email') Email
+      div.col-md-6
+        input.form-control(type='email', name='email', value='#{user.email}', required)
+    div.form-group
+      label.col-md-2.control-label(for='password') Password
+      div.col-md-6
+        input.form-control(type='password', name='password', required)
+    div.form-group
+      div.col-md-10.col-md-offset-2
+        include ../../includes/form-buttons.jade
+  hr
+  h2 Binaries
+  if binaries && binaries.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th Name
+          th Description
+          th Homepage
+      tbody
+        each binary in binaries
+          tr
+            td
+              a(href='/#/binaries/' + binary.id) #{binary.name}
+            td
+              if binary.description
+                | #{binary.description}
+              else
+                | -
+            td
+              if binary.homepage
+                a(href=binary.homepage, target='_blank') #{binary.homepage}
+              else
+                | -
+    include ../../includes/datatables-js.jade
+  else
+    div.alert.alert-info
+      span.pficon.pficon-info
+      | This user owns no binaries.
+  hr
+  h2 Servers
+  if servers && servers.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th Name
+          th IPv4 Address
+      tbody
+        each server in servers
+          tr
+            td
+              a(href='/#/servers/' + server.id) #{server.name}
+            td #{server.ipv4}
+    include ../../includes/datatables-js.jade
+  else
+    div.alert.alert-info
+      span.pficon.pficon-info
+      | This user owns no servers.
+else
+  include ../../includes/not-found.jade

@@ -9,7 +9,6 @@ class Role extends Spine.Model
   @url: '/roles'
 
   validate: ->
-    'Name is required' unless @name
-    'Description is required' unless @description
+    return 'Name is required' unless @name
 
 module.exports = Role

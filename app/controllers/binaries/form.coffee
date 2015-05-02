@@ -3,7 +3,7 @@ Binary   = require('models/binary')
 Category = require('models/binarycategory')
 Version  = require('models/binaryversion')
 
-class BinariesSingleStack extends Spine.Controller
+class BinaryForm extends Spine.Controller
   events:
     'click .can-cancel' : 'cancel'
     'click .can-destroy': 'destroy'
@@ -16,7 +16,6 @@ class BinariesSingleStack extends Spine.Controller
     '.item textarea[name="description"]': 'description'
     '.item input[name="homepage"]'      : 'homepage'
     '.item input[name="eol"]'           : 'eol'
-    # '.item input[name="owner_id"]'      : 'owner_id'
 
   @extend Spine.Bindings
 
@@ -36,8 +35,10 @@ class BinariesSingleStack extends Spine.Controller
     @navigate('/binaries')
 
   destroy: (event) =>
-    @binary.destroy()
-    @navigate('/binaries')  # TODO: add check destory and confirm action
+    if @binary.destroy()
+      @navigate('/binaries')
+    else
+      return alert('Something went wrong')
 
   render: (params) =>
     @binary = Binary.find(params.id)
@@ -46,16 +47,18 @@ class BinariesSingleStack extends Spine.Controller
       do @applyBindings
 
   save: (event) =>
-    @binary.save()  # TODO: add check destory and confirm action
+    unless @binary.save()
+      msg = @binary.validate()
+      return alert(msg)
 
   template: (item) ->
     versions = null
     if item != null
       versions = item.versions().all()
 
-    require('views/binaries/single')
+    require('views/binaries/form')
       binary:     item
       categories: Category.all()
       versions:   versions
 
-module.exports = BinariesSingleStack
+module.exports = BinaryForm

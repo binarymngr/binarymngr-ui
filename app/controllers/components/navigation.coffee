@@ -1,9 +1,6 @@
 Spine = @Spine or require('spine')
 
 class NavigationComponent extends Spine.Controller
-  @ACTIVE_CLASS: 'active'
-  @ROUTE_PREFIX: '/#'
-
   elements:
     '.navbar-primary': 'primary_nav'
     '.navbar-utility': 'utility_nav'
@@ -12,30 +9,34 @@ class NavigationComponent extends Spine.Controller
     super
 
     @html require('views/components/navigation')()
-    #Spine.Route.bind('change', @updateActiveClass)
 
-  getFullHashLocation: (location) ->
-    if _.startsWith(location, NavigationComponent.ROUTE_PREFIX)
-      return location
-    else
-      return NavigationComponent.ROUTE_PREFIX + location
-
-  # TODO: page/PREFIX thing is a bit ugly
-  updateActiveClass: (event) =>
-    location = @getFullHashLocation _.first(event).path
-    page = location.split('/')[2]
-    # remove all current 'active' classes from all navs
-    @primary_nav.find('.' + NavigationComponent.ACTIVE_CLASS).removeClass(NavigationComponent.ACTIVE_CLASS)
-    @utility_nav.find('.' + NavigationComponent.ACTIVE_CLASS).removeClass(NavigationComponent.ACTIVE_CLASS)
-    # detect the link to newly set to active
-    if NavigationComponent.ROUTE_PREFIX + '/' == location
-      active = @primary_nav.find('a[href="'+location+'"]')
-    else
-      active = @primary_nav.find('a[href^="/#/'+page+'"]')
-    if active.length == 0  # not in primary_nav
-      active = @utility_nav.find('a[href^="'+location+'"]')
-    # activate the newly current link
-    active.parents('li').not('.dropdown').addClass(NavigationComponent.ACTIVE_CLASS)
-    active.addClass(NavigationComponent.ACTIVE_CLASS)
+    # TODO: subsections are not catched by that glob
+  #   @routes
+  #     '/administration/*section': (params) =>
+  #       @updateUtilityNavActiveClass params
+  #     '/*section': (params) =>
+  #       @updatePrimaryNavActiveClass params
+  #
+  # updatePrimaryNavActiveClass: (params) =>
+  #   @primary_nav.find('.active').removeClass('active')
+  #   @utility_nav.find('.active').removeClass('active')
+  #
+  #   section = params.section
+  #   @primary_nav.find('li').each (index, section_li) =>
+  #     li = $(section_li)
+  #     link = li.find('a')
+  #     if _.endsWith(link.attr('href'), section)
+  #       $(li, link).addClass('active')
+  #
+  # updateUtilityNavActiveClass: (params) =>
+  #   @primary_nav.find('.active').removeClass('active')
+  #   @utility_nav.find('.active').removeClass('active')
+  #
+  #   section = params.section
+  #   @utility_nav.find('li').each (index, section_li) =>
+  #     li = $(section_li)
+  #     link = li.find('a')
+  #     if _.endsWith(link.attr('href'), section)
+  #       $(li, link).addClass('active')
 
 module.exports = NavigationComponent
