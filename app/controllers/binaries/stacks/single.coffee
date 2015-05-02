@@ -1,7 +1,7 @@
 Spine    = @Spine or require('spine')
 Binary   = require('models/binary')
 Category = require('models/binarycategory')
-# Version  = require('models/binaryversion')
+Version  = require('models/binaryversion')
 
 class BinariesSingleStack extends Spine.Controller
   events:
@@ -26,7 +26,7 @@ class BinariesSingleStack extends Spine.Controller
     @binary = new Binary
     Binary.bind('refresh change', @render)
     Category.bind('refresh change', @render)
-    # Version.bind('refresh change', @render)
+    Version.bind('refresh change', @render)
     do @applyBindings
 
     @routes

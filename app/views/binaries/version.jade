@@ -4,13 +4,12 @@ if version.id
       a(href='/#/') Home
     li
       a(href='/#/binaries') Binaries
-    //- li
-    //-   a(href='/#/binaries/' + binary.id) #{binary.name}
+    li
+      a(href='/#/binaries/' + binary.id) #{binary.name}
     li
       a(href='/#/binaries/versions') Versions
     li #{version.identifier}
-  //- h1 #{binary.name} - #{version.identifier}
-  h1 #{version.identifier}
+  h1 #{binary.name} - #{version.identifier}
   form.form-horizontal.item
     div.form-group
       label.col-md-2.control-label(for='id') ID

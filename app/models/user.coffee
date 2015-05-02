@@ -1,5 +1,4 @@
 Spine  = @Spine or require('spine')
-Binary = require('models/binary')
 Server = require('models/server')
 
 class User extends Spine.Model
@@ -8,8 +7,8 @@ class User extends Spine.Model
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @hasMany 'binaries', Binary
-  @hasMany 'servers', Server
+  @hasMany 'binaries', 'models/binary', 'owner_id'  # 'models/binary' is a hack because it doesn't work with Binary
+  @hasMany 'servers', Server, 'owner_id'
 
   @url: '/users'
 

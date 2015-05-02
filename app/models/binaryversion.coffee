@@ -1,5 +1,4 @@
 Spine  = @Spine or require('spine')
-Binary = require('models/binary')
 
 class BinaryVersion extends Spine.Model
   @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
@@ -7,7 +6,7 @@ class BinaryVersion extends Spine.Model
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @belongsTo 'binary', Binary
+  @belongsTo 'binary', 'models/binary'  # 'models/binary' is a hack because it doesn't work with Binary
 
   @url: '/binaries/versions'
 

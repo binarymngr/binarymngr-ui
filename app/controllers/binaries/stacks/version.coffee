@@ -47,7 +47,7 @@ class BinariesVersionStack extends Spine.Controller
 
   template: (item) ->
     require('views/binaries/version')
-      # binary: item.binary()
+      binary:  item.binary()
       version: item
 
 module.exports = BinariesVersionStack
