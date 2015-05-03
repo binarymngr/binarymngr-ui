@@ -6,6 +6,7 @@ class BinaryVersionsTable extends Spine.Controller
   constructor: ->
     super
 
+    Binary.bind('refresh change', @render)
     Version.bind('refresh change', @render)
     do @render
 
@@ -29,7 +30,7 @@ class BinaryVersionsTableAddModal extends Spine.Controller
     '.item input[name="identifier"]': 'identifier'
     '.item textarea[name="note"]'   : 'note'
     '.item input[name="eol"]'       : 'eol'
-    '.item input[name="binary_id"]' : 'binary_id'
+    '.item select[name="binary_id"]': 'binary_id'
 
   @extend Spine.Bindings
 

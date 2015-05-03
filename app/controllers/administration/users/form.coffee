@@ -1,5 +1,7 @@
-Spine = @Spine or require('spine')
-User  = require('models/user')
+Spine  = @Spine or require('spine')
+Binary = require('models/binary')
+Server = require('models/server')
+User   = require('models/user')
 
 class UserForm extends Spine.Controller
   events:
@@ -19,6 +21,8 @@ class UserForm extends Spine.Controller
     super
 
     @user = null
+    Binary.bind('refresh change', @render)
+    Server.bind('refresh change', @render)
     User.bind('refresh change', @render)
 
     @routes

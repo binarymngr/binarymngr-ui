@@ -1,4 +1,5 @@
 Spine   = @Spine or require('spine')
+Binary  = require('models/binary')
 Version = require('models/binaryversion')
 
 class BinaryVersionForm extends Spine.Controller
@@ -20,6 +21,7 @@ class BinaryVersionForm extends Spine.Controller
     super
 
     @version = null
+    Binary.bind('refresh change', @render)
     Version.bind('refresh change', @render)
 
     @routes
