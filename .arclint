@@ -1,0 +1,27 @@
+{
+  "exclude": "(^lib|^node_modules|^public/application|^test)",
+  "linters": {
+    "chmod": {
+      "type": "chmod"
+    },
+    "commit": {
+      "type": "commit",
+      "include": "(^lib|^node_modules|^public/application)"
+    },
+    "coffeelint": {
+      "type": "coffeelint",
+      "include": "(\\.coffee$)"
+    },
+    "json": {
+      "type": "json",
+      "include": "(\\.json$|^\\.arc|^\\.bowerrc$)"
+    },
+    "merge-conflict": {
+      "type": "merge-conflict"
+    },
+    "text": {
+      "type": "text",
+      "text.max-line-length": 200
+    }
+  }
+}

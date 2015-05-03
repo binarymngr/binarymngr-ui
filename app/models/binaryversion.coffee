@@ -6,7 +6,7 @@ class BinaryVersion extends Spine.Model
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @belongsTo 'binary', 'models/binary'  # 'models/binary' is a hack because it doesn't work with Binary
+  @belongsTo 'binary', 'models/binary'  # 'models/binary' is a hack because it doesn't work with Binary
 
   @url: '/binaries/versions'
 
