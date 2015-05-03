@@ -9,7 +9,10 @@ if version
     li
       a(href='/#/binaries/versions') Versions
     li #{version.identifier}
-  h1 #{binary.name} :: #{version.identifier}
+  h1
+    | #{binary.name} 
+    span.fa.fa-angle-right
+    |  #{version.identifier}
   form.form-horizontal.item(action='#')
     div.form-group
       label.col-md-2.control-label(for='id') ID
@@ -26,7 +29,7 @@ if version
     div.form-group
       label.col-md-2.control-label(for='eol') EOL
       div.col-md-6
-        input.form-control(type='date', name='eol', value=binary.eol, placeholder='2015-12-30', pattern='\\d{4}-\\d{2}-\\d{2}')
+        input.form-control(type='date', name='eol', value=binary.eol, placeholder='mm/dd/yyyy', pattern='\\d{2}/\\d{2}/\\d{4}')
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../../includes/form-buttons.jade
