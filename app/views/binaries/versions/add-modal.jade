@@ -1,0 +1,37 @@
+div#add-version-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='add-version-model-label', aria-hidden='true')
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true')
+          span.pficon.pficon-close
+        h4#add-version-modal-label.modal-title Add Version
+      if binaries
+        form.form-horizontal.item(action='#')
+          div.modal-body
+              div.form-group
+                label.col-md-3.control-label(for='binary_id') Binary
+                div.col-md-9
+                  select#boostrapSelect.form-control.selectpicker(name='binary_id')
+                    each binary in binaries
+                      option(value=binary.id) #{binary.name}
+                  include ../../includes/selectpicker-js.jade
+              div.form-group
+                label.col-md-3.control-label(for='identifier') Identifier
+                div.col-md-9
+                  input.form-control(type='text', name='identifier', placeholder='5.6.4', required)
+              div.form-group
+                label.col-md-3.control-label(for='note') Note
+                div.col-md-9
+                  textarea.form-control(name='note')
+              div.form-group
+                label.col-md-3.control-label(for='eol') EOL
+                div.col-md-9
+                  input.form-control(type='date', name='eol', placeholder='mm/dd/yyyy', pattern='\\d{2}/\\d{2}/\\d{4}')
+          div.modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-primary.can-save(type='submit') Save
+      else
+        div.modal-body
+          p No binaries have been added yet. Please add one first.
+        div.modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
