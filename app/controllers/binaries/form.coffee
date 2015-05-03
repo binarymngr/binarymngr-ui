@@ -23,9 +23,9 @@ class BinaryForm extends Spine.Controller
     super
 
     @binary = null
-    Binary.bind('refresh change', @render)
-    Category.bind('refresh change', @render)
-    Version.bind('refresh change', @render)
+    Binary.bind('refresh change destroy', @render)
+    Category.bind('refresh change destroy', @render)
+    Version.bind('refresh change destroy', @render)
 
     @routes
       '/binaries/:id': (params) ->

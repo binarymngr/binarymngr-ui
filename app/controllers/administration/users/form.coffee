@@ -21,9 +21,9 @@ class UserForm extends Spine.Controller
     super
 
     @user = null
-    Binary.bind('refresh change', @render)
-    Server.bind('refresh change', @render)
-    User.bind('refresh change', @render)
+    Binary.bind('refresh change destroy', @render)
+    Server.bind('refresh change destroy', @render)
+    User.bind('refresh change destroy', @render)
 
     @routes
       '/administration/users/:id': (params) ->

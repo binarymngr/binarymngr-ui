@@ -20,7 +20,7 @@ class ServersSingleStack extends Spine.Controller
     super
 
     @server = null
-    Server.bind('refresh change', @render)
+    Server.bind('refresh change destroy', @render)
 
     @routes
       '/servers/:id': (params) ->

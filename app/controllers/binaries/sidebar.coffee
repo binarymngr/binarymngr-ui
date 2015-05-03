@@ -9,7 +9,7 @@ class BinariesSidebar extends Spine.Controller
   constructor: ->
     super
 
-    Category.bind('refresh change', @render)
+    Category.bind('refresh change destroy', @render)
     do @render
 
   render: =>

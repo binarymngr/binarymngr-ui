@@ -5,7 +5,7 @@ class UsersTable extends Spine.Controller
   constructor: ->
     super
 
-    User.bind('refresh change', @render)
+    User.bind('refresh change destroy', @render)
     do @render
 
   render: =>

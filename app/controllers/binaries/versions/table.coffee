@@ -6,8 +6,8 @@ class BinaryVersionsTable extends Spine.Controller
   constructor: ->
     super
 
-    Binary.bind('refresh change', @render)
-    Version.bind('refresh change', @render)
+    Binary.bind('refresh change destroy', @render)
+    Version.bind('refresh change destroy', @render)
     do @render
 
   render: =>

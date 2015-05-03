@@ -6,7 +6,7 @@ class RolesTable extends Spine.Controller
   constructor: ->
     super
 
-    Role.bind('refresh change', @render)
+    Role.bind('refresh change destroy', @render)
     do @render
 
   render: =>

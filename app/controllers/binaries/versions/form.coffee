@@ -21,8 +21,8 @@ class BinaryVersionForm extends Spine.Controller
     super
 
     @version = null
-    Binary.bind('refresh change', @render)
-    Version.bind('refresh change', @render)
+    Binary.bind('refresh change destroy', @render)
+    Version.bind('refresh change destroy', @render)
 
     @routes
       '/binaries/versions/:id': (params) ->

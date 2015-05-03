@@ -19,7 +19,7 @@ class RoleForm extends Spine.Controller
     super
 
     @role = null
-    Role.bind('refresh change', @render)
+    Role.bind('refresh change destroy', @render)
 
     @routes
       '/administration/roles/:id': (params) ->

@@ -19,7 +19,7 @@ class BinaryCategoryForm extends Spine.Controller
     super
 
     @category = null
-    Category.bind('refresh change', @render)
+    Category.bind('refresh change destroy', @render)
 
     @routes
       '/binaries/categories/:id': (params) ->
