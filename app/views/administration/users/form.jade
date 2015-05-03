@@ -11,11 +11,11 @@ if user
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='id', value=user.id, required, disabled)
+        input.form-control(type='text', name='id', value=user.id, pattern='\\d+', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='email') Email
       div.col-md-6
-        input.form-control(type='email', name='email', value=user.email, required)
+        input.form-control(type='email', name='email', value=user.email, placeholder='account@domain.tld', required)
     div.form-group
       label.col-md-2.control-label(for='password') Password
       div.col-md-6

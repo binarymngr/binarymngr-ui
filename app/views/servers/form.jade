@@ -10,15 +10,15 @@ if server
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='id', value=server.id, required, disabled)
+        input.form-control(type='text', name='id', value=server.id, pattern='\\d+', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='name') Name
       div.col-md-6
-        input.form-control(type='text', name='name', value=server.name, required)
+        input.form-control(type='text', name='name', value=server.name, placeholder='localhost', required)
     div.form-group
       label.col-md-2.control-label(for='ipv4') IPv4 Address
       div.col-md-6
-        input.form-control(type='text', name='ipv4', value=server.ipv4)
+        input.form-control(type='text', name='ipv4', value=server.ipv4, placeholder='127.0.0.1', pattern='(\\d{1,3}\.){3}\\d{1,3}', required)
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../includes/form-buttons.jade

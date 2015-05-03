@@ -14,11 +14,11 @@ if version
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='id', value=version.id, required, disabled)
+        input.form-control(type='text', name='id', value=version.id, pattern='\\d+', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='identifier') Identifier
       div.col-md-6
-        input.form-control(type='text', name='name', value=version.identifier, required)
+        input.form-control(type='text', name='identifier', value=version.identifier, placeholder='5.6.4', required)
     div.form-group
       label.col-md-2.control-label(for='note') Note
       div.col-md-6
@@ -26,7 +26,7 @@ if version
     div.form-group
       label.col-md-2.control-label(for='eol') EOL
       div.col-md-6
-        input.form-control(type='text', name='eol', value=binary.eol)
+        input.form-control(type='date', name='eol', value=binary.eol, placeholder='2015-12-30', pattern='\\d{4}-\\d{2}-\\d{2}')
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../../includes/form-buttons.jade

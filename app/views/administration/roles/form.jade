@@ -11,11 +11,11 @@ if role
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='id', value=role.id, required, disabled)
+        input.form-control(type='text', name='id', value=role.id, pattern='\\d+', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='name') Name
       div.col-md-6
-        input.form-control(type='text', name='name', value=role.name, required)
+        input.form-control(type='text', name='name', value=role.name, placeholder='admins', equired)
     div.form-group
       label.col-md-2.control-label(for='description') Description
       div.col-md-6

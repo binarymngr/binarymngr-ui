@@ -10,11 +10,11 @@ if binary
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='id', value='#{binary.id}', required, disabled)
+        input.form-control(type='text', name='id', value='#{binary.id}', pattern='\\d+', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='name') Name
       div.col-md-6
-        input.form-control(type='text', name='name', value='#{binary.name}', required)
+        input.form-control(type='text', name='name', value='#{binary.name}', placeholder='binarymngr', required)
     div.form-group
       label.col-md-2.control-label(for='description') Description
       div.col-md-6

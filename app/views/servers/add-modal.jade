@@ -10,11 +10,11 @@ div#add-server-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='a
             div.form-group
               label.col-md-3.control-label(for='name') Name
               div.col-md-9
-                input.form-control(type='text', name='name', required)
+                input.form-control(type='text', name='name', placeholder='localhost', required)
             div.form-group
               label.col-md-3.control-label(for='ipv4') IPv4 Address
               div.col-md-9
-                input.form-control(type='text', name='ipv4', required)
+                input.form-control(type='text', name='ipv4', placeholder='127.0.0.1', pattern='(\\d{1,3}\.){3}\\d{1,3}', required)
         div.modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Cancel
           button.btn.btn-primary.can-save(type='submit') Save
