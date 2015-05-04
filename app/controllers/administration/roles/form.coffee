@@ -37,7 +37,7 @@ class RoleForm extends Spine.Controller
   render: (params) =>
     @role = Role.find(params.id)
     @html @template @role
-    if @role != null
+    if @role?
       do @applyBindings
 
   save: (event) =>

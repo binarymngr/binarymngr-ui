@@ -41,7 +41,7 @@ class UserForm extends Spine.Controller
   render: (params) =>
     @user = User.find(params.id)
     @html @template @user
-    if @user != null
+    if @user?
       do @applyBindings
 
   save: (event) =>
@@ -55,7 +55,7 @@ class UserForm extends Spine.Controller
   template: (item) ->
     binaries = null
     servers  = null
-    if item != null
+    if item?
       binaries = item.binaries().all()
       servers  = item.servers().all()
 

@@ -37,7 +37,7 @@ class BinaryCategoryForm extends Spine.Controller
   render: (params) =>
     @category = Category.find(params.id)
     @html @template @category
-    if @category != null
+    if @category?
       do @applyBindings
 
   save: (event) =>

@@ -40,7 +40,7 @@ class ServersSingleStack extends Spine.Controller
 
     @server = Server.find(params.id)
     @html @template @server
-    if @server != null
+    if @server?
       do @applyBindings
 
   save: (event) =>

@@ -40,7 +40,7 @@ class BinaryVersionForm extends Spine.Controller
   render: (params) =>
     @version = Version.find(params.id)
     @html @template @version
-    if @version != null
+    if @version?
       do @applyBindings
 
   save: (event) =>
@@ -52,7 +52,7 @@ class BinaryVersionForm extends Spine.Controller
 
   template: (item) ->
     binary = null
-    if item != null
+    if item?
       binary = item.binary()
 
     require('views/binaries/versions/form')
