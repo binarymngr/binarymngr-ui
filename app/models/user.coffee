@@ -16,4 +16,4 @@ class User extends Spine.Model
     return 'Email is required' unless @email
     return 'Password is required' unless @password
 
-module.exports = User
+module?.exports = User

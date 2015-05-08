@@ -15,4 +15,4 @@ class ServersPage extends Spine.Stack
     '/servers/:id': 'server'
     '/servers'    : 'servers'
 
-module.exports = ServersPage
+module?.exports = ServersPage

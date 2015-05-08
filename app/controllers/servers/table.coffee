@@ -18,7 +18,7 @@ class ServersTable extends Spine.Controller
     require('views/servers/table')
       servers: items
 
-module.exports = ServersTable
+module?.exports = ServersTable
 
 
 class ServersTableAddModal extends Spine.Controller

@@ -51,4 +51,4 @@ class RoleForm extends Spine.Controller
     require('views/administration/roles/form')
       role: item
 
-module.exports = RoleForm
+module?.exports = RoleForm

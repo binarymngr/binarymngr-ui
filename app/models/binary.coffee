@@ -17,4 +17,4 @@ class Binary extends Spine.Model
     return 'Name is required' unless @name
     return 'Owner ID is required' unless @owner_id
 
-module.exports = Binary
+module?.exports = Binary

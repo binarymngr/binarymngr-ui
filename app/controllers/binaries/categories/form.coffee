@@ -51,4 +51,4 @@ class BinaryCategoryForm extends Spine.Controller
     require('views/binaries/categories/form')
       category: item
 
-module.exports = BinaryCategoryForm
+module?.exports = BinaryCategoryForm

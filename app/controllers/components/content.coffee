@@ -21,4 +21,4 @@ class ContentComponent extends Spine.Stack
     '/servers'             : 'servers'
     '/'                    : 'dashboard'
 
-module.exports = ContentComponent
+module?.exports = ContentComponent

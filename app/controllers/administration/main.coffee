@@ -21,4 +21,4 @@ class AdministrationMain extends Spine.Stack
     '/administration/users/:id': 'user'
     '/administration/users'    : 'users'
 
-module.exports = AdministrationMain
+module?.exports = AdministrationMain

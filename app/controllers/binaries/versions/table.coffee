@@ -18,7 +18,7 @@ class BinaryVersionsTable extends Spine.Controller
     require('views/binaries/versions/table')
       versions: items
 
-module.exports = BinaryVersionsTable
+module?.exports = BinaryVersionsTable
 
 
 class BinaryVersionsTableAddModal extends Spine.Controller

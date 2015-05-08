@@ -7,4 +7,4 @@ class DashboardSidebar extends Spine.Controller
     super
     @html require('views/dashboard/sidebar')()
 
-module.exports = DashboardSidebar
+module?.exports = DashboardSidebar

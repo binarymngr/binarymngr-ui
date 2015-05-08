@@ -16,7 +16,7 @@ class BinaryCategoriesTable extends Spine.Controller
     require('views/binaries/categories/table')
       categories: items
 
-module.exports = BinaryCategoriesTable
+module?.exports = BinaryCategoriesTable
 
 
 class BinaryCategoriesTableAddModal extends Spine.Controller

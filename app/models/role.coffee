@@ -11,4 +11,4 @@ class Role extends Spine.Model
   validate: ->
     return 'Name is required' unless @name
 
-module.exports = Role
+module?.exports = Role

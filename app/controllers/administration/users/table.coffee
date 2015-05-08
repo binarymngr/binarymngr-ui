@@ -16,7 +16,7 @@ class UsersTable extends Spine.Controller
     require('views/administration/users/table')
       users: items
 
-module.exports = UsersTable
+module?.exports = UsersTable
 
 
 class UsersTableAddModal extends Spine.Controller

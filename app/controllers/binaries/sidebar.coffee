@@ -19,4 +19,4 @@ class BinariesSidebar extends Spine.Controller
     require('views/binaries/sidebar')
       categories: items
 
-module.exports = BinariesSidebar
+module?.exports = BinariesSidebar

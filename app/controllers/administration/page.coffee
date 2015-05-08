@@ -12,4 +12,4 @@ class AdministrationPage extends Spine.Controller
     @sidebar = new Sidebar
     @append @main, @sidebar
 
-module.exports = AdministrationPage
+module?.exports = AdministrationPage

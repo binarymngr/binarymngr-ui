@@ -64,4 +64,4 @@ class UserForm extends Spine.Controller
       user:     item
       servers:  servers
 
-module.exports = UserForm
+module?.exports = UserForm

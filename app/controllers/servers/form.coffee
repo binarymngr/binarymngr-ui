@@ -52,4 +52,4 @@ class ServersSingleStack extends Spine.Controller
     require('views/servers/form')
       server: item
 
-module.exports = ServersSingleStack
+module?.exports = ServersSingleStack

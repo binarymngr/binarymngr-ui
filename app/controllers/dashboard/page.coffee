@@ -12,4 +12,4 @@ class DashboardPage extends Spine.Controller
     @sidebar = new Sidebar
     @append @main, @sidebar
 
-module.exports = DashboardPage
+module?.exports = DashboardPage

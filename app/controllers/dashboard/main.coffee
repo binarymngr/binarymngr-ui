@@ -7,4 +7,4 @@ class DashboardMain extends Spine.Controller
     super
     @html require('views/dashboard/main')()
 
-module.exports = DashboardMain
+module?.exports = DashboardMain

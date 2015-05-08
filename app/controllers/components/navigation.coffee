@@ -39,4 +39,4 @@ class NavigationComponent extends Spine.Controller
   #     if _.endsWith(link.attr('href'), section)
   #       $(li, link).addClass('active')
 
-module.exports = NavigationComponent
+module?.exports = NavigationComponent

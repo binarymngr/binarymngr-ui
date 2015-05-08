@@ -25,4 +25,4 @@ class AdministrationSidebar extends Spine.Controller
   #     if _.endsWith(link.attr('href'), section)
   #       $(li, link).addClass('active')
 
-module.exports = AdministrationSidebar
+module?.exports = AdministrationSidebar

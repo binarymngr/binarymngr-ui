@@ -59,4 +59,4 @@ class BinaryVersionForm extends Spine.Controller
       binary:  binary
       version: item
 
-module.exports = BinaryVersionForm
+module?.exports = BinaryVersionForm

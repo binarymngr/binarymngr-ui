@@ -14,4 +14,4 @@ class BinaryVersion extends Spine.Model
     return 'Identifier is required' unless @identifier
     return 'Binary ID is required' unless @binary_id
 
-module.exports = BinaryVersion
+module?.exports = BinaryVersion

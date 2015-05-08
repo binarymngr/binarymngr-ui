@@ -15,4 +15,4 @@ class Server extends Spine.Model
     return 'Name is required' unless @name
     return 'IPv4 address is required' unless @ipv4
 
-module.exports = Server
+module?.exports = Server

@@ -63,4 +63,4 @@ class BinaryForm extends Spine.Controller
       categories: Category.all()
       versions:   versions
 
-module.exports = BinaryForm
+module?.exports = BinaryForm

@@ -17,7 +17,7 @@ class RolesTable extends Spine.Controller
     require('views/administration/roles/table')
       roles: items
 
-module.exports = RolesTable
+module?.exports = RolesTable
 
 
 class RolesTableAddModal extends Spine.Controller

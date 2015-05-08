@@ -27,4 +27,4 @@ class BinariesMain extends Spine.Stack
     '/binaries/:id'           : 'binary'
     '/binaries'               : 'binaries'
 
-module.exports = BinariesMain
+module?.exports = BinariesMain

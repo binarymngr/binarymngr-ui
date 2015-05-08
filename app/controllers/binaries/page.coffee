@@ -12,4 +12,4 @@ class BinariesPage extends Spine.Controller
     @sidebar = new Sidebar
     @append @main, @sidebar
 
-module.exports = BinariesPage
+module?.exports = BinariesPage
