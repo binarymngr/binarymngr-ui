@@ -29,4 +29,4 @@ class App extends Spine.Controller
     User.fetch()
     Version.fetch()
 
-module.exports = App
+module?.exports = App

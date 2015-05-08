@@ -22,6 +22,11 @@ if role
         textarea.form-control(name='description', rows='5') #{role.description}
     div.form-group
       div.col-md-10.col-md-offset-2
-        include ../../includes/form-buttons.jade
+        //- admin role cam not be deleted
+        if role.id === 1
+          button.btn.btn-primary.can-save(type='submit') Save
+          button.btn.btn-default.can-cancel(type='button') Cancel
+        else
+          include ../../includes/form-buttons.jade
 else
   include ../../includes/not-found.jade
