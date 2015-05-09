@@ -1,6 +1,6 @@
 Spine   = @Spine or require('spine')
 User    = require('models/user')
-Version = require('models/binaryversion')
+Version = require('models/binary_version')
 
 class Binary extends Spine.Model
   @configure 'Binary', 'name', 'description', 'homepage', 'owner_id'

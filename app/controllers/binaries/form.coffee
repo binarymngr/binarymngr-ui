@@ -1,7 +1,7 @@
 Spine    = @Spine or require('spine')
 Binary   = require('models/binary')
-Category = require('models/binarycategory')
-Version  = require('models/binaryversion')
+Category = require('models/binary_category')
+Version  = require('models/binary_version')
 
 class BinaryForm extends Spine.Controller
   events:

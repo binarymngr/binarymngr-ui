@@ -1,5 +1,5 @@
 Spine    = @Spine or require('spine')
-Category = require('models/binarycategory')
+Category = require('models/binary_category')
 
 # TODO: mark current category as active
 

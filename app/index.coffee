@@ -2,13 +2,13 @@ require('lib/setup')
 
 Spine      = @Spine or require('spine')
 Binary     = require('models/binary')
-Category   = require('models/binarycategory')
+Category   = require('models/binary_category')
 Content    = require('controllers/components/content')
 Navigation = require('controllers/components/navigation')
 Role       = require('models/role')
 Server     = require('models/server')
 User       = require('models/user')
-Version    = require('models/binaryversion')
+Version    = require('models/binary_version')
 $          = Spine.$
 
 class App extends Spine.Controller
