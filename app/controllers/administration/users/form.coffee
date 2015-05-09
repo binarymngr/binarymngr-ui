@@ -21,28 +21,27 @@ class UserForm extends Spine.Controller
     super
 
     @user = null
-    Binary.bind('refresh change destroy', @render)
-    Server.bind('refresh change destroy', @render)
-    User.bind('refresh change destroy', @render)
+    Binary.bind 'refresh change destroy', @render
+    Server.bind 'refresh change destroy', @render
+    User.bind 'refresh change destroy', @render
 
     @routes
       '/administration/users/:id': (params) ->
         @render params
 
   cancel: (event) =>
-    @navigate('/administration/users')
+    @navigate '/administration/users'
 
   destroy: (event) =>
     if @user.destroy()
-      @navigate('/administration/users')
+      @navigate '/administration/users'
     else
-      return alert('Something went wrong')
+      return alert 'Something went wrong'
 
   render: (params) =>
-    @user = User.find(params.id)
+    @user = User.find params.id
     @html @template @user
-    if @user?
-      do @applyBindings
+    @applyBindings() if @user?
 
   save: (event) =>
     event.preventDefault()
@@ -50,14 +49,13 @@ class UserForm extends Spine.Controller
     # TODO: make password optional
     unless @user.save()
       msg = @user.validate()
-      return alert(msg)
+      return alert msg
 
   template: (item) ->
     binaries = null
+    binaries = item.binaries().all() if item?
     servers  = null
-    if item?
-      binaries = item.binaries().all()
-      servers  = item.servers().all()
+    servers  = item.servers().all() if item?
 
     require('views/administration/users/form')
       binaries: binaries

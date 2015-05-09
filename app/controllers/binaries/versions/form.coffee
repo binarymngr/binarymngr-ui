@@ -21,39 +21,37 @@ class BinaryVersionForm extends Spine.Controller
     super
 
     @version = null
-    Binary.bind('refresh change destroy', @render)
-    Version.bind('refresh change destroy', @render)
+    Binary.bind 'refresh change destroy', @render
+    Version.bind 'refresh change destroy', @render
 
     @routes
       '/binaries/versions/:id': (params) ->
         @render params
 
   cancel: (event) =>
-    @navigate('/binaries/versions')
+    @navigate '/binaries/versions'
 
   destroy: (event) =>
     if @version.destroy()
-      @navigate('/binaries/versions')
+      @navigate '/binaries/versions'
     else
-      return alert('Something went wrong')
+      return alert 'Something went wrong'
 
   render: (params) =>
-    @version = Version.find(params.id)
+    @version = Version.find params.id
     @html @template @version
-    if @version?
-      do @applyBindings
+    @applyBindings() if @version?
 
   save: (event) =>
     event.preventDefault()
 
     unless @version.save()
       msg = @version.validate()
-      return alert(msg)
+      return alert msg
 
   template: (item) ->
     binary = null
-    if item?
-      binary = item.binary()
+    binary = item.binary() if item?
 
     require('views/binaries/versions/form')
       binary:  binary

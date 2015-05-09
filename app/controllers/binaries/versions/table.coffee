@@ -6,9 +6,9 @@ class BinaryVersionsTable extends Spine.Controller
   constructor: ->
     super
 
-    Binary.bind('refresh change destroy', @render)
-    Version.bind('refresh change destroy', @render)
-    do @render
+    Binary.bind 'refresh change destroy', @render
+    Version.bind 'refresh change destroy', @render
+    @render()
 
   render: =>
     @html @template Version.all()
@@ -38,25 +38,24 @@ class BinaryVersionsTableAddModal extends Spine.Controller
     super
 
     @version = new Version
-    do @render
+    @render()
 
   render: =>
     @html @template Binary.all()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
 
     if @version.save()
       @version = new Version
-      do @applyBindings
+      @applyBindings()
       # TODO: fix hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut('fast', ->
+      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         this.remove()
-      )
     else
       msg = @version.validate()
-      return alert(msg)
+      return alert msg
 
   template: (items) ->
     require('views/binaries/versions/add-modal')

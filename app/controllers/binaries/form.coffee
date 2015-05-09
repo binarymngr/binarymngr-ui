@@ -23,40 +23,38 @@ class BinaryForm extends Spine.Controller
     super
 
     @binary = null
-    Binary.bind('refresh change destroy', @render)
-    Category.bind('refresh change destroy', @render)
-    Version.bind('refresh change destroy', @render)
+    Binary.bind 'refresh change destroy', @render
+    Category.bind 'refresh change destroy', @render
+    Version.bind 'refresh change destroy', @render
 
     @routes
       '/binaries/:id': (params) ->
         @render params
 
   cancel: (event) =>
-    @navigate('/binaries')
+    @navigate '/binaries'
 
   destroy: (event) =>
     if @binary.destroy()
-      @navigate('/binaries')
+      @navigate '/binaries'
     else
-      return alert('Something went wrong')
+      return alert 'Something went wrong'
 
   render: (params) =>
-    @binary = Binary.find(params.id)
+    @binary = Binary.find params.id
     @html @template @binary
-    if @binary?
-      do @applyBindings
+    @applyBindings() if @binary?
 
   save: (event) =>
     event.preventDefault()
 
     unless @binary.save()
       msg = @binary.validate()
-      return alert(msg)
+      return alert msg
 
   template: (item) ->
     versions = null
-    if item?
-      versions = item.versions().all()
+    versions = item.versions().all() if item?
 
     require('views/binaries/form')
       binary:     item

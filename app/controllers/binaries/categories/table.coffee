@@ -5,8 +5,8 @@ class BinaryCategoriesTable extends Spine.Controller
   constructor: ->
     super
 
-    Category.bind('refresh change destroy', @render)
-    do @render
+    Category.bind 'refresh change destroy', @render
+    @render()
 
   render: =>
     @html @template Category.all()
@@ -34,22 +34,21 @@ class BinaryCategoriesTableAddModal extends Spine.Controller
     super
 
     @category = new Category
-    do @render
+    @render()
 
   render: =>
     @html require('views/binaries/categories/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
 
     if @category.save()
       @category = new Category
-      do @applyBindings
+      @applyBindings()
       # TODO: fix hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut('fast', ->
+      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         this.remove()
-      )
     else
       msg = @category.validate()
-      return alert(msg)
+      return alert msg

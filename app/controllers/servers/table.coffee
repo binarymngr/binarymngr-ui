@@ -7,8 +7,8 @@ class ServersTable extends Spine.Controller
   constructor: ->
     super
 
-    Server.bind('refresh change destroy', @render)
-    do @render
+    Server.bind 'refresh change destroy', @render
+    @render()
 
   render: =>
     @html @template Server.all()
@@ -36,22 +36,21 @@ class ServersTableAddModal extends Spine.Controller
     super
 
     @server = new Server
-    do @render
+    @render()
 
   render: =>
     @html require('views/servers/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
 
     if @server.save()
       @server = new Server
-      do @applyBindings
+      @applyBindings()
       # TODO: fix hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut('fast', ->
+      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         this.remove()
-      )
     else
       msg = @server.validate()
-      return alert(msg)
+      return alert msg

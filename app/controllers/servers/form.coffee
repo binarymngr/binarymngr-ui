@@ -1,7 +1,7 @@
 Spine  = @Spine or require('spine')
 Server = require('models/server')
 
-class ServersSingleStack extends Spine.Controller
+class ServerForm extends Spine.Controller
   className: 'col-xs-12'
   events:
     'click .can-cancel' : 'cancel'
@@ -20,36 +20,35 @@ class ServersSingleStack extends Spine.Controller
     super
 
     @server = null
-    Server.bind('refresh change destroy', @render)
+    Server.bind 'refresh change destroy', @render
 
     @routes
       '/servers/:id': (params) ->
         @render params
 
   cancel: (event) =>
-    @navigate('/servers')
+    @navigate '/servers'
 
   destroy: (event) =>
     if @server.destroy()
-      @navigate('/servers')
+      @navigate '/servers'
     else
-      return alert('Something went wrong')
+      return alert 'Something went wrong'
 
   render: (params) =>
     event.preventDefault()
 
-    @server = Server.find(params.id)
+    @server = Server.find params.id
     @html @template @server
-    if @server?
-      do @applyBindings
+    @appliyBindings() if @server?
 
   save: (event) =>
     unless @server.save()
       msg = @server.validate()
-      return alert(msg)
+      return alert msg
 
   template: (item) ->
     require('views/servers/form')
       server: item
 
-module?.exports = ServersSingleStack
+module?.exports = ServerForm

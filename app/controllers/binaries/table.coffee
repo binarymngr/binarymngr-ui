@@ -5,8 +5,8 @@ class BinariesTable extends Spine.Controller
   constructor: ->
     super
 
-    Binary.bind('refresh change destroy', @render)
-    do @render
+    Binary.bind 'refresh change destroy', @render
+    @render()
 
   render: =>
     @html @template Binary.all()
@@ -35,22 +35,21 @@ class BinariesTableAddModal extends Spine.Controller
     super
 
     @binary = new Binary
-    do @render
+    @render()
 
   render: =>
     @html require('views/binaries/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
 
     if @binary.save()
       @binary = new Binary
-      do @applyBindings
+      @applyBindings()
       # TODO: fix hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut('fast', ->
+      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         this.remove()
-      )
     else
       msg = @binary.validate()
-      return alert(msg)
+      return alert msg

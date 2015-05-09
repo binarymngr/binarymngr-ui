@@ -6,8 +6,8 @@ class RolesTable extends Spine.Controller
   constructor: ->
     super
 
-    Role.bind('refresh change destroy', @render)
-    do @render
+    Role.bind 'refresh change destroy', @render
+    @render()
 
   render: =>
     @html @template Role.all()
@@ -35,22 +35,21 @@ class RolesTableAddModal extends Spine.Controller
     super
 
     @role = new Role
-    do @render
+    @render()
 
   render: =>
     @html require('views/administration/roles/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
 
     if @role.save()
       @role = new Role
-      do @applyBindings
+      @applyBindings()
       # TODO: fix hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut('fast', ->
+      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         this.remove()
-      )
     else
       msg = @role.validate()
-      return alert(msg)
+      return alert msg

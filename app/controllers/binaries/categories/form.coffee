@@ -19,33 +19,32 @@ class BinaryCategoryForm extends Spine.Controller
     super
 
     @category = null
-    Category.bind('refresh change destroy', @render)
+    Category.bind 'refresh change destroy', @render
 
     @routes
       '/binaries/categories/:id': (params) ->
         @render params
 
   cancel: (event) =>
-    @navigate('/binaries/categories')
+    @navigate '/binaries/categories'
 
   destroy: (event) =>
     if @category.destroy()
-      @navigate('/binaries/categories')
+      @navigate '/binaries/categories'
     else
-      return alert('Something went wrong')
+      return alert 'Something went wrong'
 
   render: (params) =>
-    @category = Category.find(params.id)
+    @category = Category.find params.id
     @html @template @category
-    if @category?
-      do @applyBindings
+    @applyBindings() if @category?
 
   save: (event) =>
     event.preventDefault()
 
     unless @category.save()
       msg = @category.validate()
-      return alert(msg)
+      return alert msg
 
   template: (item) ->
     require('views/binaries/categories/form')

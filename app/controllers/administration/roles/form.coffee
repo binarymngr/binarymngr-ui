@@ -19,33 +19,32 @@ class RoleForm extends Spine.Controller
     super
 
     @role = null
-    Role.bind('refresh change destroy', @render)
+    Role.bind 'refresh change destroy', @render
 
     @routes
       '/administration/roles/:id': (params) ->
         @render params
 
   cancel: (event) =>
-    @navigate('/administration/roles')
+    @navigate '/administration/roles'
 
   destroy: (event) =>
     if @role.destroy()
-      @navigate('/administration/roles')
+      @navigate '/administration/roles'
     else
-      return alert('Something went wrong')
+      return alert 'Something went wrong'
 
   render: (params) =>
-    @role = Role.find(params.id)
+    @role = Role.find params.id
     @html @template @role
-    if @role?
-      do @applyBindings
+    @applyBindings() if @role?
 
   save: (event) =>
     event.preventDefault()
 
     unless @role.save()
       msg = @role.validate()
-      return alert(msg)
+      return alert msg
 
   template: (item) ->
     require('views/administration/roles/form')
