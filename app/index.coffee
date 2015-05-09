@@ -15,12 +15,15 @@ class App extends Spine.Controller
   constructor: ->
     super
 
+    window.onbeforeunload = ->
+      if Spine.Ajax.pending
+        return 'Data is still being sent to the server; you may lose unsaved changes if you close the page.'
+
     @navigation = new Navigation(el: $('#can-nav'))
     @content = new Content(el: $('#can-content'))
     @append @navigation, @content
 
     Spine.Route.setup()
-    @navigate '/'
 
     Binary.fetch()
     Category.fetch()
