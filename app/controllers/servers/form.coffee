@@ -40,7 +40,7 @@ class ServerForm extends Spine.Controller
 
     @server = Server.find params.id
     @html @template @server
-    @appliyBindings() if @server?
+    @applyBindings() if @server?
 
   save: (event) =>
     unless @server.save()
