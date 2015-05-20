@@ -4,10 +4,6 @@
     "chmod": {
       "type": "chmod"
     },
-    "commit": {
-      "type": "commit",
-      "include": "(^lib|^node_modules|^public/application)"
-    },
     "coffeelint": {
       "type": "coffeelint",
       "include": "(\\.coffee$)"

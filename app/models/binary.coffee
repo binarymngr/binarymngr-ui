@@ -13,6 +13,16 @@ class Binary extends Spine.Model
 
   @url: '/binaries'
 
+  destroy: (options) =>
+    super
+      done: -> Notification.error 'Binary has successfully been deleted.'
+      fail: -> Notification.warning 'An error encountered during the deletion process.'
+
+  save: (options) =>
+    super
+      done: -> Notification.success 'Binary has successfully been saved.'
+      fail: -> Notification.warning 'An error encountered during the save process.'
+
   validate: ->
     return 'Name is required' unless @name
     return 'Owner ID is required' unless @owner_id

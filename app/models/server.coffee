@@ -1,5 +1,6 @@
-Spine = @Spine or require('spine')
-User  = require('models/user')
+Spine        = @Spine or require('spine')
+Notification = require('services/notification_service')
+User         = require('models/user')
 
 class Server extends Spine.Model
   @configure 'Server', 'name', 'ipv4', 'owner_id'
@@ -10,6 +11,16 @@ class Server extends Spine.Model
   @belongsTo 'owner', User
 
   @url: '/servers'
+
+  destroy: (options) =>
+    super
+      done: -> Notification.error 'Server has successfully been deleted.'
+      fail: -> Notification.warning 'An error encountered during the deletion process.'
+
+  save: (options) =>
+    super
+      done: -> Notification.success 'Server has successfully been saved.'
+      fail: -> Notification.warning 'An error encountered during the save process.'
 
   validate: ->
     return 'Name is required' unless @name
