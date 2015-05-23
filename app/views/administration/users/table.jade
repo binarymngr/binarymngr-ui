@@ -9,10 +9,12 @@ if users && users.length
   table.datatable.table.table-striped.table-bordered
     thead
       tr
+        th ID
         th Email
     tbody.items
       each user in users
         tr
+          td #{user.id}
           td
             a(href='/#/administration/users/' + user.id) #{user.email}
   include ../../includes/datatables-js.jade

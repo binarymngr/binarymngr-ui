@@ -9,11 +9,13 @@ if roles && roles.length
   table.datatable.table.table-striped.table-bordered
     thead
       tr
+        th ID
         th Name
         th Description
     tbody.items
       each role in roles
         tr
+          td #{role.id}
           td
             a(href='/#/administration/roles/' + role.id) #{role.name}
           td

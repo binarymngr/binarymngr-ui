@@ -9,6 +9,7 @@ if binaries && binaries.length
   table.datatable.table.table-striped.table-bordered
     thead
       tr
+        th ID
         th Name
         th Description
         th Categories
@@ -16,6 +17,7 @@ if binaries && binaries.length
     tbody.items
       each binary in binaries
         tr
+          td #{binary.id}
           td
             a(href='/#/binaries/' + binary.id) #{binary.name}
           td

@@ -10,11 +10,13 @@ if categories && categories.length
   table.datatable.table.table-striped.table-bordered
     thead
       tr
+        th ID
         th Name
         th Description
     tbody.items
       each category in categories
         tr
+          td #{category.id}
           td
             a(href='/#/binaries/categories/' + category.id) #{category.name}
           td

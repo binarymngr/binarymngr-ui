@@ -8,11 +8,13 @@ if servers && servers.length
   table.datatable.table.table-striped.table-bordered
     thead
       tr
+        th ID
         th Name
         th IPv4 Address
     tbody.items
       each server in servers
         tr
+          td #{server.id}
           td
             a(href='/#/servers/' + server.id) #{server.name}
           td #{server.ipv4}
