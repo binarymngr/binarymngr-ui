@@ -1,6 +1,7 @@
-Spine   = @Spine or require('spine')
-User    = require('models/user')
-Version = require('models/binary_version')
+Spine        = @Spine or require('spine')
+Notification = require('services/notification_service')
+User         = require('models/user')
+Version      = require('models/binary_version')
 
 class Binary extends Spine.Model
   @configure 'Binary', 'name', 'description', 'homepage', 'owner_id'
@@ -25,6 +26,6 @@ class Binary extends Spine.Model
 
   validate: ->
     return 'Name is required' unless @name
-    return 'Owner ID is required' unless @owner_id
+    # return 'Owner ID is required' unless @owner_id
 
 module?.exports = Binary

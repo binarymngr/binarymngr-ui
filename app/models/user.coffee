@@ -13,6 +13,9 @@ class User extends Spine.Model
 
   @url: '/users'
 
+  @current: ->
+    return User.find(User.first().id)
+
   destroy: (options) =>
     super
       done: -> Notification.error 'User has successfully been deleted.'
