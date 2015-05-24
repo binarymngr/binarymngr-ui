@@ -8,13 +8,14 @@ class Request extends Spine.Module
   constructor: ->
     super
 
+    @csrf_token = laravel.csrf_token
     @date = new Date
-    @location = _.trimLeft(window.location.hash, '#')
-    @referrer = Request.current?.location
+    @location = _.trimLeft window.location.hash, '#'
+    @referrer = Request.current.location
     @user = laravel.user
     # immutability
-    Object.freeze(@date)
-    Object.freeze(this)
+    Object.freeze @date
+    Object.freeze this
 
   @get: =>
     return @current

@@ -43,6 +43,7 @@
     <script src="/application.js" charset="utf-8"></script>
     <script charset="utf-8">
     var laravel = {};
+    laravel.csrf_token = '{{ csrf_token() }}';
     laravel.user = {!! $user or 'null' !!};
     if (laravel.user !== null) {
         laravel.user.is_admin = {{$user->isAdmin() ? 'true' : 'false'}};

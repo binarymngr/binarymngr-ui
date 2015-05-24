@@ -16,17 +16,17 @@ class NavigationComponent extends Spine.Controller
 
     # utility navigation
     @router.add /^\/administration\/roles(\/.*)?$/, =>
-      @activateLink(@utility_nav, '/#/administration/roles')
+      @activateLink @utility_nav, '/#/administration/roles'
     @router.add /^\/administration\/users(\/.*)?$/, =>
-      @activateLink(@utility_nav, '/#/administration/users')
+      @activateLink @utility_nav, '/#/administration/users'
 
     # primary navigation
     @router.add /^\/binaries(\/.*)?$/, =>
-      @activateLink(@primary_nav, '/#/binaries')
+      @activateLink @primary_nav, '/#/binaries'
     @router.add /^\/servers(\/.*)?$/, =>
-      @activateLink(@primary_nav, '/#/servers')
+      @activateLink @primary_nav, '/#/servers'
     @router.add /^\/$/, =>
-      @activateLink(@primary_nav, '/#/')
+      @activateLink @primary_nav, '/#/'
 
     @html require('views/components/navigation')
       rqst: Request.get()

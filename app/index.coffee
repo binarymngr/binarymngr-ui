@@ -21,6 +21,10 @@ class App extends Spine.Controller
       if Spine.Ajax.pending
         return 'Data is still being sent to the server; you may lose unsaved changes if you close the page.'
 
+    # setup jQuery to send the CSRF token with every request
+    $.ajaxSetup
+      beforeSend: (xhr, settings) -> xhr.setRequestHeader 'X-CSRF-Token', laravel.csrf_token
+
     # create a new request object after every location change(/click?)
     Spine.Route.bind 'change', ->
       Request.hydrate()
@@ -28,7 +32,7 @@ class App extends Spine.Controller
     # setup the router and initial request
     Request.hydrate()
     Spine.Route.setup()
-    Spine.Route.navigate('/')
+    Spine.Route.navigate '/'
 
     # bootstrap the UI
     @navigation = new Navigation(el: $('#can-nav'))
