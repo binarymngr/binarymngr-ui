@@ -29,12 +29,14 @@ if user
     table.datatable.table.table-striped.table-bordered
       thead
         tr
+          th ID
           th Name
           th Description
           th Homepage
       tbody
         each binary in binaries
           tr
+            td #{binary.id}
             td
               a(href='/#/binaries/' + binary.id) #{binary.name}
             td
@@ -58,11 +60,13 @@ if user
     table.datatable.table.table-striped.table-bordered
       thead
         tr
+          th ID
           th Name
           th IPv4 Address
       tbody
         each server in servers
           tr
+            td #{server.id}
             td
               a(href='/#/servers/' + server.id) #{server.name}
             td #{server.ipv4}

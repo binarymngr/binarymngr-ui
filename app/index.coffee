@@ -24,12 +24,17 @@ class App extends Spine.Controller
 
     # create a new request object after every location change(/click?)
     Route.bind 'change', ->
-      Request.setCurrent(new Request)
+      Request.hydrate()
 
-    # setup the router and the initial request
+    # setup the router and initial request
+    Request.hydrate()
     Route.setup()
     Route.navigate('/')
-    Request.setCurrent(new Request)
+
+    # bootstrap the UI
+    @navigation = new Navigation(el: $('#can-nav'))
+    @content = new Content(el: $('#can-content'))
+    @append @navigation, @content
 
     # initially fetch all model records
     Binary.fetch()
@@ -38,10 +43,5 @@ class App extends Spine.Controller
     Server.fetch()
     User.fetch()
     Version.fetch()
-
-    # bootstrap the UI
-    @navigation = new Navigation(el: $('#can-nav'))
-    @content = new Content(el: $('#can-content'))
-    @append @navigation, @content
 
 module?.exports = App

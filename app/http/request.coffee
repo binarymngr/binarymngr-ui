@@ -3,7 +3,7 @@ Spine = @Spine or require('spine')
 class Request extends Spine.Module
   @extend Spine.Events
 
-  @current = null
+  @current = new Request  # fixes cannot read 'is_admin' of null on 1st load
 
   constructor: ->
     super
@@ -11,13 +11,18 @@ class Request extends Spine.Module
     @date = new Date
     @location = _.trimLeft(window.location.hash, '#')
     @referrer = Request.current?.location
+    @user = laravel.user
+    # immutability
+    Object.freeze(@date)
+    Object.freeze(this)
 
-  @get: ->
-    return _.clone(Request.current, true)
+  @get: =>
+    return @current
 
-  @setCurrent: (rqst) =>
+  @hydrate: =>
+    rqst = new Request
     unless rqst.location is ''  # i.e. dropdown triggers
-      @current = _.clone(rqst, true)
-      Request.trigger 'change', Request.get()
+      @current = rqst
+      Request.trigger 'ready', @get()
 
 module?.exports = Request

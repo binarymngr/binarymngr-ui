@@ -32,13 +32,17 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
           b.caret
         //- utility dropdown
         ul.dropdown-menu
-          li.dropdown-submenu
-            a(href='#', tabindex='-1') Administration
-            ul.dropdown-menu
-              li
-                a(href='/#/administration/roles') Roles
-              li
-                a(href='/#/administration/users') Users
+          if rqst.user.is_admin
+            li.dropdown-submenu
+              a(href='#', tabindex='-1') Administration
+              ul.dropdown-menu
+                li
+                  a(href='/#/administration/roles') Roles
+                li
+                  a(href='/#/administration/users') Users
+          else
+            li
+              a(href='/#/user/profile') Profile
           li.divider
           li
             a(href='/auth/logout') Logout

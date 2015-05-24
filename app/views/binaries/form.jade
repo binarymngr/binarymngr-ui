@@ -46,12 +46,14 @@ if binary
     table.datatable.table.table-striped.table-bordered
       thead
         tr
+          th ID
           th Identifier
           th Note
           th EOL
       tbody.items
         each version in versions
           tr
+            td #{version.id}
             td
               a(href='/#/binaries/versions/' + version.id) #{version.identifier}
             td

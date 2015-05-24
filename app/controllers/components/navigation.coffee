@@ -1,4 +1,5 @@
-Spine = @Spine or require('spine')
+Spine   = @Spine or require('spine')
+Request = require('http/request')
 
 class NavigationComponent extends Spine.Controller
   elements:
@@ -8,6 +9,7 @@ class NavigationComponent extends Spine.Controller
   constructor: ->
     super
 
-    @html require('views/components/navigation')()
+    @html require('views/components/navigation')
+      rqst: Request.get()
 
 module?.exports = NavigationComponent
