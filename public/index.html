@@ -42,6 +42,15 @@
     <!-- App -->
     <script src="/application.js" charset="utf-8"></script>
     <script charset="utf-8">
+    var laravel = {};
+    laravel.user = {!! $user or 'null' !!};
+    if (laravel.user !== null) {
+        laravel.user.is_admin = {{$user->isAdmin() ? 'true' : 'false'}};
+    }
+    // immutability
+    Object.freeze(laravel.user);
+    Object.freeze(laravel);
+
     var exports = this;
     jQuery(function () {
         var App = require('index');

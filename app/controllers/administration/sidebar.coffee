@@ -8,6 +8,22 @@ class AdministrationSidebar extends Spine.Controller
 
   constructor: ->
     super
+
+    # create a new router instance so we can listen to route changes
+    # independent of the other app logic
+    @router = Spine.Route.create()
+
+    @router.add /^\/administration\/roles(\/.*)?$/, =>
+      @activateLink '/#/administration/roles'
+    @router.add /^\/administration\/users(\/.*)?$/, =>
+      @activateLink '/#/administration/users'
+
     @html require('views/administration/sidebar')()
+
+  activateLink: (link) =>
+    # remove active class from all sections
+    @sections_nav.find('.active').removeClass('active')
+    # add active again to current one
+    @sections_nav.find('a[href="'+link+'"]').parent('li').addClass('active')
 
 module?.exports = AdministrationSidebar

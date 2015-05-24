@@ -3,7 +3,8 @@ ol.breadcrumb
     a(href='/#/') Home
   li Administration
   li Roles
-button.btn.btn-primary.pull-right(type='button', data-toggle='modal' data-target='#add-role-modal') Add New
+if rqst.user.is_admin
+  button.btn.btn-primary.pull-right(type='button', data-toggle='modal' data-target='#add-role-modal') Add New
 h1 Roles
 if roles && roles.length
   table.datatable.table.table-striped.table-bordered

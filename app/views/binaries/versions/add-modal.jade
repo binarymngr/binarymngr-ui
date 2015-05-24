@@ -11,10 +11,10 @@ div#add-version-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='
               div.form-group
                 label.col-md-3.control-label(for='binary_id') Binary
                 div.col-md-9
-                  select#boostrapSelect.form-control.selectpicker(name='binary_id')
+                  select.form-control.selectpicker(name='binary_id')
+                    //- TODO: sort by name, _.sortBy doesn't work
                     each binary in binaries
                       option(value=binary.id) #{binary.name}
-                  include ../../includes/selectpicker-js.jade
               div.form-group
                 label.col-md-3.control-label(for='identifier') Identifier
                 div.col-md-9
