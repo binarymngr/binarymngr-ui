@@ -1,4 +1,5 @@
 Spine = @Spine or require('spine')
+$     = Spine.$
 
 class NavigationComponent extends Spine.Controller
   elements:
@@ -8,35 +9,23 @@ class NavigationComponent extends Spine.Controller
   constructor: ->
     super
 
-    @html require('views/components/navigation')()
+    # create a new router instance so we can listen to route changes
+    # independent of the other app logic
+    @router = Spine.Route.create()
+    @router.add /^\/binaries(\/.*)?$/, =>
+      @activateLink('/#/binaries')
+    @router.add /^\/servers(\/.*)?$/, =>
+      @activateLink('/#/servers')
+    @router.add /^\/$/, =>
+      @activateLink('/#/')
 
-    # TODO: subsections are not catched by that glob
-  #   @routes
-  #     '/administration/*section': (params) =>
-  #       @updateUtilityNavActiveClass params
-  #     '/*section': (params) =>
-  #       @updatePrimaryNavActiveClass params
-  #
-  # updatePrimaryNavActiveClass: (params) =>
-  #   @primary_nav.find('.active').removeClass('active')
-  #   @utility_nav.find('.active').removeClass('active')
-  #
-  #   section = params.section
-  #   @primary_nav.find('li').each (index, section_li) =>
-  #     li = $(section_li)
-  #     link = li.find('a')
-  #     if _.endsWith(link.attr('href'), section)
-  #       $(li, link).addClass('active')
-  #
-  # updateUtilityNavActiveClass: (params) =>
-  #   @primary_nav.find('.active').removeClass('active')
-  #   @utility_nav.find('.active').removeClass('active')
-  #
-  #   section = params.section
-  #   @utility_nav.find('li').each (index, section_li) =>
-  #     li = $(section_li)
-  #     link = li.find('a')
-  #     if _.endsWith(link.attr('href'), section)
-  #       $(li, link).addClass('active')
+    @html require('views/components/navigation')
+      rqst: Request.get()
+
+  activateLink: (nav, link) =>
+    # remove active class from all navs
+    $(@primary_nav, @utility_nav).find('.active').removeClass('active')
+
+    nav.find('a[href="'+ link +'"]').parent('li').addClass('active')
 
 module?.exports = NavigationComponent
