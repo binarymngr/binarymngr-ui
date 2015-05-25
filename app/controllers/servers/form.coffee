@@ -42,8 +42,6 @@ class ServerForm extends Spine.Controller
     @html @template @server
     @applyBindings() if @server?
 
-    @log 'ServerForm rendered...'
-
   save: (event) =>
     e.preventDefault()
 

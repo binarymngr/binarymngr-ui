@@ -46,8 +46,6 @@ class BinaryForm extends Spine.Controller
     @html @template @binary
     @applyBindings() if @binary?
 
-    @log 'BinaryForm rendered...'
-
   save: (event) =>
     event.preventDefault()
 

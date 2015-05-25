@@ -37,12 +37,10 @@ class RoleForm extends Spine.Controller
     @html @template @role
     @applyBindings() if @role?
 
-    @log 'RoleForm rendered...'
-
   save: (event) =>
     event.preventDefault()
 
-    unless @role.save()
+    unless @role.notifySave()
       msg = @role.validate()
       return alert msg
 

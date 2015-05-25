@@ -44,8 +44,6 @@ class BinaryVersionForm extends Spine.Controller
     @html @template @version
     @applyBindings() if @version?
 
-    @log 'BinaryVersionForm rendered...'
-
   save: (event) =>
     event.preventDefault()
 

@@ -44,8 +44,6 @@ class UserForm extends Spine.Controller
     @html @template @user
     @applyBindings() if @user?
 
-    @log 'UserForm rendered...'
-
   save: (event) =>
     event.preventDefault()
 

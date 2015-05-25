@@ -39,8 +39,6 @@ class BinaryCategoryForm extends Spine.Controller
     @html @template @category
     @applyBindings() if @category?
 
-    @log 'BinaryCategoryForm rendered...'
-
   save: (event) =>
     event.preventDefault()
 
