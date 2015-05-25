@@ -1,7 +1,6 @@
 Spine   = @Spine or require('spine')
 Role    = require('models/role')
 Request = require('http/request')
-User    = require('models/user')
 $       = Spine.$
 
 class RolesTable extends Spine.Controller
@@ -9,7 +8,6 @@ class RolesTable extends Spine.Controller
     super
 
     Role.bind 'refresh change', @render
-    User.bind 'refresh change', @render
     @render()
 
   render: =>

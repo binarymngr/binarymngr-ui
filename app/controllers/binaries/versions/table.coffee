@@ -1,14 +1,11 @@
 Spine   = @Spine or require('spine')
 Binary  = require('models/binary')
-User    = require('models/user')
 Version = require('models/binary_version')
 
 class BinaryVersionsTable extends Spine.Controller
   constructor: ->
     super
 
-    Binary.bind 'refresh change', @render
-    User.bind 'refresh change', @render
     Version.bind 'refresh change', @render
     @render()
 
@@ -40,6 +37,7 @@ class BinaryVersionsTableAddModal extends Spine.Controller
     super
 
     @version = new Version
+    Binary.bind 'refresh', @render
     @render()
 
   render: =>

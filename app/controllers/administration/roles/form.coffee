@@ -1,6 +1,5 @@
 Spine = @Spine or require('spine')
 Role  = require('models/role')
-User  = require('models/user')
 
 class RoleForm extends Spine.Controller
   events:
@@ -20,8 +19,7 @@ class RoleForm extends Spine.Controller
     super
 
     @role = null
-    Role.bind 'refresh change', @render
-    User.bind 'refresh change', @render
+    Role.bind 'refresh', @render
 
     @routes
       '/administration/roles/:id': (params) ->
@@ -35,14 +33,16 @@ class RoleForm extends Spine.Controller
       @navigate '/administration/roles'
 
   render: (params) =>
-    @role = Role.find params.id
+    @role = Role.find params.id if params?.id?
     @html @template @role
     @applyBindings() if @role?
+
+    @log 'RoleForm rendered...'
 
   save: (event) =>
     event.preventDefault()
 
-    unless @role.notifySave()
+    unless @role.save()
       msg = @role.validate()
       return alert msg
 

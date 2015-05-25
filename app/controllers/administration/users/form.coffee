@@ -23,10 +23,10 @@ class UserForm extends Spine.Controller
     super
 
     @user = null
-    Binary.bind 'refresh change', @render
-    Role.bind 'refresh change', @render
-    Server.bind 'refresh change', @render
-    User.bind 'refresh change', @render
+    Binary.bind 'refresh', @render
+    Role.bind 'refresh', @render
+    Server.bind 'refresh', @render
+    User.bind 'refresh', @render
 
     @routes
       '/administration/users/:id': (params) ->
@@ -40,9 +40,11 @@ class UserForm extends Spine.Controller
       @navigate '/administration/users'
 
   render: (params) =>
-    @user = User.find params.id
+    @user = User.find params.id if params?.id?
     @html @template @user
     @applyBindings() if @user?
+
+    @log 'UserForm rendered...'
 
   save: (event) =>
     event.preventDefault()

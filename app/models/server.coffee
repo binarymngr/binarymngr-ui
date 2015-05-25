@@ -21,12 +21,12 @@ class Server extends Spine.Model
   hasBinariesInstalled: =>
     return @getBinaryVersions().length isnt 0
 
-  notifyDestroy: (options) =>
+  notifyDestroy: =>
     @destroy
       done: -> Notification.error 'Server has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
-  notifySave: (options) =>
+  notifySave: =>
     @save
       done: -> Notification.success 'Server has successfully been saved.'
       fail: -> Notification.warning 'An error encountered during the save process.'

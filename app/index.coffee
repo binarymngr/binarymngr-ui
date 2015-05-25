@@ -21,13 +21,13 @@ class App extends Spine.Controller
       if Spine.Ajax.pending
         return 'Data is still being sent to the server; you may lose unsaved changes if you close the page.'
 
-    # setup jQuery to send the CSRF token with every request
-    $.ajaxSetup
-      beforeSend: (xhr, settings) -> xhr.setRequestHeader 'X-CSRF-Token', Request.get().csrf_token
-
     # create a new request object after every location change(/click?)
     Spine.Route.bind 'change', ->
       Request.hydrate()
+
+    # setup Ajax module to send the CSRF token with every request
+    _.extend Spine.Ajax.defaults.headers,
+      'X-CSRF-Token': Request.get().csrf_token
 
     # setup the router and initial request
     Request.hydrate()

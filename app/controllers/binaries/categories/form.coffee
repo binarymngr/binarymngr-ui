@@ -20,8 +20,8 @@ class BinaryCategoryForm extends Spine.Controller
     super
 
     @category = null
-    Binary.bind 'refresh change', @render
-    Category.bind 'refresh change', @render
+    Binary.bind 'refresh', @render
+    Category.bind 'refresh', @render
 
     @routes
       '/binaries/categories/:id': (params) ->
@@ -35,9 +35,11 @@ class BinaryCategoryForm extends Spine.Controller
       @navigate '/binaries/categories'
 
   render: (params) =>
-    @category = Category.find params.id
+    @category = Category.find params.id if params?.id?
     @html @template @category
     @applyBindings() if @category?
+
+    @log 'BinaryCategoryForm rendered...'
 
   save: (event) =>
     event.preventDefault()

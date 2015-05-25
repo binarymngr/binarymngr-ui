@@ -1,7 +1,6 @@
 Spine   = @Spine or require('spine')
 Binary  = require('models/binary')
 Server  = require('models/server')
-User    = require('models/user')
 Version = require('models/binary_version')
 
 class ServerForm extends Spine.Controller
@@ -23,10 +22,9 @@ class ServerForm extends Spine.Controller
     super
 
     @server = null
-    Binary.bind 'refresh change', @render
-    Server.bind 'refresh change', @render
-    User.bind 'refresh change', @render
-    Version.bind 'refresh change', @render
+    Binary.bind 'refresh', @render
+    Server.bind 'refresh', @render
+    Version.bind 'refresh', @render
 
     @routes
       '/servers/:id': (params) ->
@@ -40,13 +38,15 @@ class ServerForm extends Spine.Controller
       @navigate '/servers'
 
   render: (params) =>
-    event.preventDefault()
-
-    @server = Server.find params.id
+    @server = Server.find params.id if params?.id?
     @html @template @server
     @applyBindings() if @server?
 
+    @log 'ServerForm rendered...'
+
   save: (event) =>
+    e.preventDefault()
+
     unless @server.notifySave()
       msg = @server.validate()
       return alert msg

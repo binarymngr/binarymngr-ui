@@ -25,10 +25,10 @@ class BinaryForm extends Spine.Controller
     super
 
     @binary = null
-    Binary.bind 'refresh change', @render
-    Category.bind 'refresh change', @render
-    User.bind 'refresh change', @render
-    Version.bind 'refresh change', @render
+    Binary.bind 'refresh', @render
+    Category.bind 'refresh', @render
+    User.bind 'refresh', @render
+    Version.bind 'refresh', @render  # TODO: add change because we can add one from this controller
 
     @routes
       '/binaries/:id': (params) ->
@@ -42,9 +42,11 @@ class BinaryForm extends Spine.Controller
       @navigate '/binaries'
 
   render: (params) =>
-    @binary = Binary.find params.id
+    @binary = Binary.find params.id if params?.id?
     @html @template @binary
     @applyBindings() if @binary?
+
+    @log 'BinaryForm rendered...'
 
   save: (event) =>
     event.preventDefault()

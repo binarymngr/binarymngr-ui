@@ -18,12 +18,12 @@ class Role extends Spine.Model
   hasUsers: =>
     return @getUsers().length isnt 0
 
-  notifyDestroy: () =>
+  notifyDestroy: =>
     @destroy
       done: -> Notification.error 'Role has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
-  notifySave: () =>
+  notifySave: =>
     @save
       done: -> Notification.success 'Role has successfully been saved.'
       fail: -> Notification.warning 'An error encountered during the save process.'

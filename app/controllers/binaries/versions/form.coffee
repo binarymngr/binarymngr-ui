@@ -23,10 +23,10 @@ class BinaryVersionForm extends Spine.Controller
     super
 
     @version = null
-    Binary.bind 'refresh change', @render
-    Server.bind 'refresh change', @render
-    User.bind 'refresh change', @render
-    Version.bind 'refresh change', @render
+    Binary.bind 'refresh', @render
+    Server.bind 'refresh', @render
+    User.bind 'refresh', @render
+    Version.bind 'refresh', @render
 
     @routes
       '/binaries/versions/:id': (params) ->
@@ -40,9 +40,11 @@ class BinaryVersionForm extends Spine.Controller
       @navigate '/binaries/versions'
 
   render: (params) =>
-    @version = Version.find params.id
+    @version = Version.find params.id if params?.id?
     @html @template @version
     @applyBindings() if @version?
+
+    @log 'BinaryVersionForm rendered...'
 
   save: (event) =>
     event.preventDefault()
