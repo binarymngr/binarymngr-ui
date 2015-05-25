@@ -15,6 +15,7 @@ class UserForm extends Spine.Controller
     # '.item input[name="id"]'      : 'id'
     '.item input[name="email"]'   : 'email'
     '.item input[name="password"]': 'password'
+    '.item select[name="roles"]'  : 'role_ids'
 
   @extend Spine.Bindings
 
@@ -54,15 +55,13 @@ class UserForm extends Spine.Controller
   template: (item) ->
     binaries = null
     binaries = item.binaries().all() if item?
-    roles    = null
-    roles    = item.getRoles() if item?
     servers  = null
     servers  = item.servers().all() if item?
 
     require('views/administration/users/form')
       binaries: binaries
       user: item
-      roles: roles
+      roles: Role.all()
       servers: servers
 
 module?.exports = UserForm

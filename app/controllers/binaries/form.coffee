@@ -15,6 +15,7 @@ class BinaryForm extends Spine.Controller
     # '.item input[name="id"]'            : 'id'
     '.item input[name="name"]'          : 'name'
     '.item textarea[name="description"]': 'description'
+    '.item select[name="categories"]'   : 'category_ids'
     '.item input[name="homepage"]'      : 'homepage'
     '.item input[name="eol"]'           : 'eol'
 

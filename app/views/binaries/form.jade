@@ -31,9 +31,9 @@ if binary
             - var category_ids = _.pluck(binary.getCategories(), 'id')
             each category in _.sortBy(categories, 'name')
               if _.contains(category_ids, category.id)
-                option(value=category.id, checked) #{category.name}
+                option(value=category.id, data-subtext=category.description, checked) #{category.name}
               else
-                option(value=category.id) #{category.name}
+                option(value=category.id, data-subtext=category.description) #{category.name}
             include ../includes/selectpicker-js.jade
     div.form-group
       div.col-md-10.col-md-offset-2

@@ -21,6 +21,18 @@ if user
       div.col-md-6
         input.form-control(type='password', name='password', required)
     div.form-group
+      label.col-md-2.control-label(for='roles') Roles
+      div.col-md-10
+        select#bootstrapSelect.selectpicker(name='roles', multiple, data-selected-text-format='count>2')
+          if roles
+            - var role_ids = _.pluck(user.getRoles(), 'id')
+            each role in _.sortBy(roles, 'name')
+              if _.contains(role_ids, role.id)
+                option(value=role.id, data-subtext=role.description, checked) #{role.name}
+              else
+                option(value=role.id, data-subtext=role.description) #{role.name}
+            include ../../includes/selectpicker-js.jade
+    div.form-group
       div.col-md-10.col-md-offset-2
         include ../../includes/form-buttons.jade
   hr
@@ -55,28 +67,6 @@ if user
     div.alert.alert-info
       span.pficon.pficon-info
       | This user owns no binaries.
-  hr
-  h2 Roles
-  if roles && roles.length
-    table.datatable.table.table-striped.table-bordered
-      thead
-        tr
-          th ID
-          th Name
-          th Description
-      tbody
-        each role in roles
-          tr
-            td
-              a(href='/#/administration/roles/' + role.id) #{role.id}
-            td
-              a(href='/#/administration/roles/' + role.id) #{role.name}
-            td #{role.description}
-    include ../../includes/datatables-js.jade
-  else
-    div.alert.alert-info
-      span.pficon.pficon-info
-      | No roles to display.
   hr
   h2 Servers
   if servers && servers.length
