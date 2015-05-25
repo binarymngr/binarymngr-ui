@@ -32,10 +32,11 @@ class User extends Spine.Model
       done: -> Notification.error 'User has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
-  notifySave: =>
-    @save
-      done: -> Notification.success 'User has successfully been saved.'
-      fail: -> Notification.warning 'An error encountered during the save process.'
+  notifySave: (saved) ->
+    if saved
+      Notification.success 'User has successfully been saved.'
+    else
+      Notification.warning 'An error encountered during the save process.'
 
   validate: ->
     return 'Email is required' unless @email

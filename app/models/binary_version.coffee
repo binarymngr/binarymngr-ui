@@ -25,10 +25,11 @@ class BinaryVersion extends Spine.Model
       done: -> Notification.error 'Binary version has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
-  notifySave: =>
-    @save
-      done: -> Notification.success 'Binary version has successfully been saved.'
-      fail: -> Notification.warning 'An error encountered during the save process.'
+  notifySave: (saved) ->
+    if saved
+      Notification.success 'Binary version has successfully been saved.'
+    else
+      Notification.warning 'An error encountered during the save process.'
 
   validate: ->
     return 'Identifier is required' unless @identifier

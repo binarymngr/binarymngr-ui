@@ -40,7 +40,7 @@ class RoleForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @role.save()
+    unless @role.notifySave(@role.save())
       msg = @role.validate()
       return alert msg
 

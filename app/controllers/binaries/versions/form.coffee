@@ -47,7 +47,7 @@ class BinaryVersionForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @version.notifySave()
+    unless @version.notifySave(@version.save())
       msg = @version.validate()
       return alert msg
 

@@ -48,7 +48,7 @@ class UserForm extends Spine.Controller
     event.preventDefault()
 
     # TODO: make password optional
-    unless @user.notifySave()
+    unless @user.notifySave(@user.save())
       msg = @user.validate()
       return alert msg
 

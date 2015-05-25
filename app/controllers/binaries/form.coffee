@@ -49,7 +49,7 @@ class BinaryForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @binary.notifySave()
+    unless @binary.notifySave(@binary.save())
       msg = @binary.validate()
       return alert msg
 

@@ -42,9 +42,7 @@ class BinaryCategoryForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    if @category.notifySave()
-      @render @category
-    else
+    unless @category.notifySave(@category.save())
       msg = @category.validate()
       return alert msg
 
