@@ -2,7 +2,7 @@ Spine        = @Spine or require('spine')
 Notification = require('services/notification_service')
 
 class BinaryVersion extends Spine.Model
-  @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
+  @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id', 'server_ids'
 
   @extend Spine.Events
   @extend Spine.Model.Ajax
@@ -15,6 +15,15 @@ class BinaryVersion extends Spine.Model
     super
       done: -> Notification.error 'Version has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
+
+  getServers: =>
+    Server = require('models/server')  # FIXME: fails with Server = empty object if placed on top
+
+    this.server_ids ?= new Array
+    return (Server.find(server_id) for server_id in this.server_ids when Server.exists(server_id))
+
+  isInstalled: =>
+    return this.getServers().length isnt 0
 
   save: (options) =>
     super

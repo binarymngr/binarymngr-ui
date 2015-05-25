@@ -1,12 +1,15 @@
-Spine  = @Spine or require('spine')
-Server = require('models/server')
+Spine   = @Spine or require('spine')
+Binary  = require('models/binary')
+Server  = require('models/server')
+User    = require('models/user')
+Version = require('models/binary_version')
 
 class ServerForm extends Spine.Controller
   className: 'col-xs-12'
   events:
-    'click .can-cancel' : 'cancel'
-    'click .can-destroy': 'destroy'
-    'submit .item'      : 'save'
+    'click .spine-cancel' : 'cancel'
+    'click .spine-destroy': 'destroy'
+    'submit .item'        : 'save'
 
   modelVar: 'server'
   bindings:
@@ -20,7 +23,10 @@ class ServerForm extends Spine.Controller
     super
 
     @server = null
-    Server.bind 'refresh change destroy', @render
+    Binary.bind 'refresh change', @render
+    Server.bind 'refresh change', @render
+    User.bind 'refresh change', @render
+    Version.bind 'refresh change', @render
 
     @routes
       '/servers/:id': (params) ->
@@ -32,8 +38,6 @@ class ServerForm extends Spine.Controller
   destroy: (event) =>
     if @server.destroy()
       @navigate '/servers'
-    else
-      return alert 'Something went wrong'
 
   render: (params) =>
     event.preventDefault()
@@ -48,7 +52,11 @@ class ServerForm extends Spine.Controller
       return alert msg
 
   template: (item) ->
+    binary_versions = null
+    binary_versions = item.getBinaryVersions() if item?
+
     require('views/servers/form')
+      binary_versions: binary_versions
       server: item
 
 module?.exports = ServerForm

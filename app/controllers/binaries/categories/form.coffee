@@ -1,11 +1,12 @@
 Spine    = @Spine or require('spine')
+Binary   = require('models/binary')
 Category = require('models/binary_category')
 
 class BinaryCategoryForm extends Spine.Controller
   events:
-    'click .can-cancel' : 'cancel'
-    'click .can-destroy': 'destroy'
-    'submit .item'      : 'save'
+    'click .spine-cancel' : 'cancel'
+    'click .spine-destroy': 'destroy'
+    'submit .item'        : 'save'
 
   modelVar: 'category'
   bindings:
@@ -19,7 +20,8 @@ class BinaryCategoryForm extends Spine.Controller
     super
 
     @category = null
-    Category.bind 'refresh change destroy', @render
+    Binary.bind 'refresh change', @render
+    Category.bind 'refresh change', @render
 
     @routes
       '/binaries/categories/:id': (params) ->
@@ -31,8 +33,6 @@ class BinaryCategoryForm extends Spine.Controller
   destroy: (event) =>
     if @category.destroy()
       @navigate '/binaries/categories'
-    else
-      return alert 'Something went wrong'
 
   render: (params) =>
     @category = Category.find params.id
@@ -47,7 +47,11 @@ class BinaryCategoryForm extends Spine.Controller
       return alert msg
 
   template: (item) ->
+    binaries = null
+    binaries = item.getBinaries() if item?
+
     require('views/binaries/categories/form')
+      binaries: binaries
       category: item
 
 module?.exports = BinaryCategoryForm

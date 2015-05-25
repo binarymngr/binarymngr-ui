@@ -15,7 +15,8 @@ if users && users.length
     tbody.items
       each user in users
         tr
-          td #{user.id}
+          td
+            a(href='/#/administration/users/' + user.id) #{user.id}
           td
             a(href='/#/administration/users/' + user.id) #{user.email}
   include ../../includes/datatables-js.jade

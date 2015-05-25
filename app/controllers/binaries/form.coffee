@@ -1,13 +1,14 @@
 Spine    = @Spine or require('spine')
 Binary   = require('models/binary')
 Category = require('models/binary_category')
+User     = require('models/user')
 Version  = require('models/binary_version')
 
 class BinaryForm extends Spine.Controller
   events:
-    'click .can-cancel' : 'cancel'
-    'click .can-destroy': 'destroy'
-    'submit .item'      : 'save'
+    'click .spine-cancel' : 'cancel'
+    'click .spine-destroy': 'destroy'
+    'submit .item'        : 'save'
 
   modelVar: 'binary'
   bindings:
@@ -23,9 +24,10 @@ class BinaryForm extends Spine.Controller
     super
 
     @binary = null
-    Binary.bind 'refresh change destroy', @render
-    Category.bind 'refresh change destroy', @render
-    Version.bind 'refresh change destroy', @render
+    Binary.bind 'refresh change', @render
+    Category.bind 'refresh change', @render
+    User.bind 'refresh change', @render
+    Version.bind 'refresh change', @render
 
     @routes
       '/binaries/:id': (params) ->
@@ -37,8 +39,6 @@ class BinaryForm extends Spine.Controller
   destroy: (event) =>
     if @binary.destroy()
       @navigate '/binaries'
-    else
-      return alert 'Something went wrong'
 
   render: (params) =>
     @binary = Binary.find params.id
@@ -57,8 +57,8 @@ class BinaryForm extends Spine.Controller
     versions = item.versions().all() if item?
 
     require('views/binaries/form')
-      binary:     item
+      binary: item
       categories: Category.all()
-      versions:   versions
+      versions: versions
 
 module?.exports = BinaryForm

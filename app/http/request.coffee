@@ -11,7 +11,7 @@ class Request extends Spine.Module
     @csrf_token = laravel.csrf_token
     @date = new Date
     @location = _.trimLeft window.location.hash, '#'
-    @referrer = Request.current.location
+    @referrer = Request.current?.location
     @user = laravel.user
     # immutability
     Object.freeze @date

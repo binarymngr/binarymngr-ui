@@ -16,7 +16,8 @@ if roles && roles.length
     tbody.items
       each role in roles
         tr
-          td #{role.id}
+          td
+            a(href='/#/administration/roles/' + role.id) #{role.id}
           td
             a(href='/#/administration/roles/' + role.id) #{role.name}
           td

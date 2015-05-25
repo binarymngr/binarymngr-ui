@@ -6,7 +6,7 @@ class UsersTable extends Spine.Controller
   constructor: ->
     super
 
-    User.bind 'refresh change destroy', @render
+    User.bind 'refresh change', @render
     @render()
 
   render: =>
@@ -48,7 +48,7 @@ class UsersTableAddModal extends Spine.Controller
     if @user.save()
       @user = new User
       @applyBindings()
-      # TODO: fix hide backdrop
+      # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         this.remove()
     else

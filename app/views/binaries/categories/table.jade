@@ -16,7 +16,8 @@ if categories && categories.length
     tbody.items
       each category in categories
         tr
-          td #{category.id}
+          td
+            a(href='/#/binaries/categories/' + category.id) #{category.id}
           td
             a(href='/#/binaries/categories/' + category.id) #{category.name}
           td

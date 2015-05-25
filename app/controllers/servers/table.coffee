@@ -1,5 +1,6 @@
 Spine  = @Spine or require('spine')
 Server = require('models/server')
+User   = require('models/user')
 
 class ServersTable extends Spine.Controller
   className: 'col-xs-12'
@@ -7,7 +8,8 @@ class ServersTable extends Spine.Controller
   constructor: ->
     super
 
-    Server.bind 'refresh change destroy', @render
+    Server.bind 'refresh change', @render
+    User.bind 'refresh change', @render
     @render()
 
   render: =>

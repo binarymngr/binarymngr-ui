@@ -36,7 +36,8 @@ if user
       tbody
         each binary in binaries
           tr
-            td #{binary.id}
+            td
+              a(href='/#/binaries/' + binary.id) #{binary.id}
             td
               a(href='/#/binaries/' + binary.id) #{binary.name}
             td
@@ -55,6 +56,28 @@ if user
       span.pficon.pficon-info
       | This user owns no binaries.
   hr
+  h2 Roles
+  if roles && roles.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th ID
+          th Name
+          th Description
+      tbody
+        each role in roles
+          tr
+            td
+              a(href='/#/administration/roles/' + role.id) #{role.id}
+            td
+              a(href='/#/administration/roles/' + role.id) #{role.name}
+            td #{role.description}
+    include ../../includes/datatables-js.jade
+  else
+    div.alert.alert-info
+      span.pficon.pficon-info
+      | No roles to display.
+  hr
   h2 Servers
   if servers && servers.length
     table.datatable.table.table-striped.table-bordered
@@ -66,7 +89,8 @@ if user
       tbody
         each server in servers
           tr
-            td #{server.id}
+            td
+              a(href='/#/servers/' + server.id) #{server.id}
             td
               a(href='/#/servers/' + server.id) #{server.name}
             td #{server.ipv4}

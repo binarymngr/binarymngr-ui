@@ -1,11 +1,12 @@
 Spine = @Spine or require('spine')
 Role  = require('models/role')
+User  = require('models/user')
 
 class RoleForm extends Spine.Controller
   events:
-    'click .can-cancel' : 'cancel'
-    'click .can-destroy': 'destroy'
-    'submit .item'      : 'save'
+    'click .spine-cancel' : 'cancel'
+    'click .spine-destroy': 'destroy'
+    'submit .item'        : 'save'
 
   modelVar: 'role'
   bindings:
@@ -19,7 +20,8 @@ class RoleForm extends Spine.Controller
     super
 
     @role = null
-    Role.bind 'refresh change destroy', @render
+    Role.bind 'refresh change', @render
+    User.bind 'refresh change', @render
 
     @routes
       '/administration/roles/:id': (params) ->
@@ -31,8 +33,6 @@ class RoleForm extends Spine.Controller
   destroy: (event) =>
     if @role.destroy()
       @navigate '/administration/roles'
-    else
-      return alert 'Something went wrong'
 
   render: (params) =>
     @role = Role.find params.id
@@ -47,7 +47,11 @@ class RoleForm extends Spine.Controller
       return alert msg
 
   template: (item) ->
+    users = null
+    users = item.getUsers() if item?
+
     require('views/administration/roles/form')
       role: item
+      users: users
 
 module?.exports = RoleForm

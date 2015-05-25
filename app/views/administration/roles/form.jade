@@ -24,9 +24,30 @@ if role
       div.col-md-10.col-md-offset-2
         //- admin role cam not be deleted
         if role.id === 1
-          button.btn.btn-primary.can-save(type='submit') Save
-          button.btn.btn-default.can-cancel(type='button') Cancel
+          button.btn.btn-primary.spine-save(type='submit') Save
+          button.btn.btn-default.spine-cancel(type='button') Cancel
         else
           include ../../includes/form-buttons.jade
+  hr
+  button.btn.btn-primary.pull-right(type='button') Assign
+  h2 Users
+  if users && users.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th ID
+          th Email
+      tbody
+        each user in users
+          tr
+            td
+              a(href='/#/administration/users/' + user.id)  #{user.id}
+            td
+              a(href='/#/administration/users/' + user.id) #{user.email}
+    include ../../includes/datatables-js.jade
+  else
+    div.alert.alert-info
+      span.pficon.pficon-info
+      | No user to display.
 else
   include ../../includes/not-found.jade

@@ -1,11 +1,13 @@
 Spine  = @Spine or require('spine')
 Binary = require('models/binary')
+User   = require('models/user')
 
 class BinariesTable extends Spine.Controller
   constructor: ->
     super
 
-    Binary.bind 'refresh change destroy', @render
+    Binary.bind 'refresh change', @render
+    User.bind 'refresh change', @render
     @render()
 
   render: =>

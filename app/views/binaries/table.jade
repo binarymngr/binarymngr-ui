@@ -26,8 +26,8 @@ if binaries && binaries.length
             else
               | -
           td
-            if binary.categories && binary.categories.length
-              - var categories = _.sortBy(binary.categories, 'name')
+            if binary.hasCategories()
+              - var categories = _.sortBy(binary.getCategories(), 'name')
                 each category in categories
                   a(href='/#/binaries/categories/' + category.id) - #{category.name}
                   br

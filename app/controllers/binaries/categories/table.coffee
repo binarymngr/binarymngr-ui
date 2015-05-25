@@ -5,7 +5,7 @@ class BinaryCategoriesTable extends Spine.Controller
   constructor: ->
     super
 
-    Category.bind 'refresh change destroy', @render
+    Category.bind 'refresh change', @render
     @render()
 
   render: =>

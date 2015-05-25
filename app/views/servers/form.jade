@@ -23,12 +23,37 @@ if server
       div.col-md-10.col-md-offset-2
         include ../includes/form-buttons.jade
   hr
-  button.btn.btn-primary.pull-right(type='button') Add New
+  button.btn.btn-primary.pull-right(type='button') Assign
   h2 Binaries
-  if binaries && binaries.length
+  if binary_versions && binary_versions.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th Name
+          th Identifier
+          th Note
+          th EOL
+      tbody
+        each version in binary_versions
+          tr
+            td
+              a(href='/#/binaries/' + version.binary().id) #{version.binary().name}
+            td
+              a(href='/#/binaries/versions/' + version.id) #{version.identifier}
+            td
+              if version.note
+                | #{version.note}
+              else
+                | -
+            td
+              if version.eol
+                | #{version.eol}
+              else
+                | -
+    include ../includes/datatables-js.jade
   else
     div.alert.alert-info
       span.pficon.pficon-info
-      | No binaries installed on this server.
+      | No binaries are installed on this server.
 else
   include ../includes/not-found.jade

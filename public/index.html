@@ -30,10 +30,8 @@
     <script src="/components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <!-- UI -->
     <script src="/components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-    <script src="/components/bootstrap-combobox/js/bootstrap-combobox.js" charset="utf-8"></script>
     <script src="/components/bootstrap-confirmation2/bootstrap-confirmation.min.js" charset="utf-8"></script>
-    <script src="/components/bootstrap-select/dist/js/bootstrap-select.min.js" charset="utf-8"></script>
-    <script src="/components/bootstrap-treeview/dist/bootstrap-treeview.min.js" charset="utf-8"></script>
+    <script src="/components/bootstrap-select/bootstrap-select.min.js" charset="utf-8"></script>
     <script src="/components/datatables/media/js/jquery.dataTables.min.js" charset="utf-8"></script>
     <script src="/components/datatables-colreorder/js/dataTables.colReorder.js" charset="utf-8"></script>
     <script src="/components/datatables-colvis/js/dataTables.colVis.js" charset="utf-8"></script>
@@ -42,16 +40,15 @@
     <!-- App -->
     <script src="/application.js" charset="utf-8"></script>
     <script charset="utf-8">
+    // Server-side populated objects
     var laravel = {};
     laravel.csrf_token = '{{ csrf_token() }}';
-    laravel.user = {!! $user or 'null' !!};
-    if (laravel.user !== null) {
-        laravel.user.is_admin = {{$user->isAdmin() ? 'true' : 'false'}};
-    }
-    // immutability
+    laravel.user = {!! $user !!};
+    laravel.user.is_admin = {{$user->isAdmin() ? 'true' : 'false'}};
     Object.freeze(laravel.user);
     Object.freeze(laravel);
 
+    // SpineJS application
     var exports = this;
     jQuery(function () {
         var App = require('index');

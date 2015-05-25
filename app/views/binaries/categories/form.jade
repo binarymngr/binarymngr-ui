@@ -25,11 +25,34 @@ if category
       div.col-md-10.col-md-offset-2
         include ../../includes/form-buttons.jade
   hr
-  button.btn.btn-primary.pull-right(type='button') Add New
+  button.btn.btn-primary.pull-right(type='button') Assign
   h2 Binaries
-  if category.binaries && category.binaries.length
-    each binary in category.binaries
-      | #{binary.name}
+  if binaries && binaries.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th ID
+          th Name
+          th Description
+          th Homepage
+      tbody
+        each binary in binaries
+          tr
+            td
+              a(href='/#/binaries/' + binary.id) #{binary.id}
+            td
+              a(href='/#/binaries/' + binary.id) #{binary.name}
+            td
+              if binary.description
+                | #{binary.description}
+              else
+                | -
+            td
+              if binary.homepage
+                a(href=binary.homepage, target='_blank') #{binary.homepage}
+              else
+                | -
+    include ../../includes/datatables-js.jade
   else
     div.alert.alert-info
       span.pficon.pficon-info

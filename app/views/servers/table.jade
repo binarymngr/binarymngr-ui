@@ -14,7 +14,8 @@ if servers && servers.length
     tbody.items
       each server in servers
         tr
-          td #{server.id}
+          td
+            a(href='/#/servers/' + server.id) #{server.id}
           td
             a(href='/#/servers/' + server.id) #{server.name}
           td #{server.ipv4}

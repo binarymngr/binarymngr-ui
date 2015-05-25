@@ -1,13 +1,14 @@
 Spine  = @Spine or require('spine')
 Binary = require('models/binary')
+Role   = require('models/role')
 Server = require('models/server')
 User   = require('models/user')
 
 class UserForm extends Spine.Controller
   events:
-    'click .can-cancel' : 'cancel'
-    'click .can-destroy': 'destroy'
-    'submit .item'      : 'save'
+    'click .spine-cancel' : 'cancel'
+    'click .spine-destroy': 'destroy'
+    'submit .item'        : 'save'
 
   modelVar: 'user'
   bindings:
@@ -21,9 +22,10 @@ class UserForm extends Spine.Controller
     super
 
     @user = null
-    Binary.bind 'refresh change destroy', @render
-    Server.bind 'refresh change destroy', @render
-    User.bind 'refresh change destroy', @render
+    Binary.bind 'refresh change', @render
+    Role.bind 'refresh change', @render
+    Server.bind 'refresh change', @render
+    User.bind 'refresh change', @render
 
     @routes
       '/administration/users/:id': (params) ->
@@ -35,8 +37,6 @@ class UserForm extends Spine.Controller
   destroy: (event) =>
     if @user.destroy()
       @navigate '/administration/users'
-    else
-      return alert 'Something went wrong'
 
   render: (params) =>
     @user = User.find params.id
@@ -54,12 +54,15 @@ class UserForm extends Spine.Controller
   template: (item) ->
     binaries = null
     binaries = item.binaries().all() if item?
+    roles    = null
+    roles    = item.getRoles() if item?
     servers  = null
     servers  = item.servers().all() if item?
 
     require('views/administration/users/form')
       binaries: binaries
-      user:     item
-      servers:  servers
+      user: item
+      roles: roles
+      servers: servers
 
 module?.exports = UserForm

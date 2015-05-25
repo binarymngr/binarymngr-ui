@@ -20,7 +20,7 @@ class BinariesSidebar extends Spine.Controller
     @router.add /^\/binaries(\/.*)?$/, =>
       @activateLink ''
 
-    Category.bind 'refresh change destroy', @render
+    Category.bind 'refresh change', @render
     @render()
 
   activateLink: (link) =>

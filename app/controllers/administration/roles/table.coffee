@@ -1,13 +1,15 @@
 Spine   = @Spine or require('spine')
 Role    = require('models/role')
 Request = require('http/request')
+User    = require('models/user')
 $       = Spine.$
 
 class RolesTable extends Spine.Controller
   constructor: ->
     super
 
-    Role.bind 'refresh change destroy', @render
+    Role.bind 'refresh change', @render
+    User.bind 'refresh change', @render
     @render()
 
   render: =>
@@ -49,7 +51,7 @@ class RolesTableAddModal extends Spine.Controller
     if @role.save()
       @role = new Role
       @applyBindings()
-      # TODO: fix hide backdrop
+      # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         this.remove()
     else

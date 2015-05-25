@@ -17,7 +17,8 @@ if versions && versions.length
     tbody.items
       each version in versions
         tr
-          td #{version.id}
+          td
+            a(href='/#/binaries/versions/' + version.id) #{version.id}
           td
             a(href='/#/binaries/versions/' + version.id) #{version.identifier}
           td

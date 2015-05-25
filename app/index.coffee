@@ -23,7 +23,7 @@ class App extends Spine.Controller
 
     # setup jQuery to send the CSRF token with every request
     $.ajaxSetup
-      beforeSend: (xhr, settings) -> xhr.setRequestHeader 'X-CSRF-Token', laravel.csrf_token
+      beforeSend: (xhr, settings) -> xhr.setRequestHeader 'X-CSRF-Token', Request.get().csrf_token
 
     # create a new request object after every location change(/click?)
     Spine.Route.bind 'change', ->
