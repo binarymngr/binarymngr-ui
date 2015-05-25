@@ -1,5 +1,6 @@
 Spine = @Spine or require('spine')
 Role  = require('models/role')
+User  = require('models/user')
 
 class RoleForm extends Spine.Controller
   events:
@@ -20,6 +21,7 @@ class RoleForm extends Spine.Controller
 
     @role = null
     Role.bind 'refresh change', @render
+    User.bind 'refresh change', @render
 
     @routes
       '/administration/roles/:id': (params) ->
@@ -40,7 +42,7 @@ class RoleForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless Role.save(@role)
+    unless @role.isValid() and Role.save(@role)
       msg = @role.validate()
       return alert msg
 

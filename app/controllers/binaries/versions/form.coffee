@@ -23,9 +23,9 @@ class BinaryVersionForm extends Spine.Controller
     super
 
     @version = null
-    Binary.bind 'refresh', @render
-    Server.bind 'refresh', @render
-    User.bind 'refresh', @render
+    Binary.bind 'refresh change', @render
+    Server.bind 'refresh change', @render
+    User.bind 'refresh change', @render
     Version.bind 'refresh change', @render
 
     @routes
@@ -47,7 +47,7 @@ class BinaryVersionForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless Version.save(@version)
+    unless @version.isValid() and Version.save(@version)
       msg = @version.validate()
       return alert msg
 

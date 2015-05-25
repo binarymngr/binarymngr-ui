@@ -23,9 +23,9 @@ class UserForm extends Spine.Controller
     super
 
     @user = null
-    Binary.bind 'refresh', @render
-    Role.bind 'refresh', @render
-    Server.bind 'refresh', @render
+    Binary.bind 'refresh change', @render
+    Role.bind 'refresh change', @render
+    Server.bind 'refresh change', @render
     User.bind 'refresh change', @render
 
     @routes
@@ -48,7 +48,7 @@ class UserForm extends Spine.Controller
     event.preventDefault()
 
     # TODO: make password optional
-    unless User.save(@user)
+    unless @user.isValid() and User.save(@user)
       msg = @user.validate()
       return alert msg
 

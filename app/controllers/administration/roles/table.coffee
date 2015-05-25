@@ -46,7 +46,7 @@ class RolesTableAddModal extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    if Role.save(@role)
+    if @role.isValid() and Role.save(@role)
       @role = new Role
       @applyBindings()
       # FIXME: hide backdrop

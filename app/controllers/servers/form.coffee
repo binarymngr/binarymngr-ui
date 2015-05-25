@@ -45,7 +45,7 @@ class ServerForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless Server.save(@server)
+    unless @server.isValid() and Server.save(@server)
       msg = @server.validate()
       return alert msg
 

@@ -26,9 +26,9 @@ class BinaryForm extends Spine.Controller
 
     @binary = null
     Binary.bind 'refresh change', @render
-    Category.bind 'refresh', @render
-    User.bind 'refresh', @render
-    Version.bind 'refresh', @render  # TODO: add change because we can add one from this controller
+    Category.bind 'refresh change', @render
+    User.bind 'refresh change', @render
+    Version.bind 'refresh change', @render  # TODO: add change because we can add one from this controller
 
     @routes
       '/binaries/:id': (params) ->
@@ -49,7 +49,7 @@ class BinaryForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless Binary.save(@binary)
+    unless @binary.isValid() and Binary.save(@binary)
       msg = @binary.validate()
       return alert msg
 

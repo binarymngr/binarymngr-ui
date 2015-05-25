@@ -20,7 +20,7 @@ class BinaryCategoryForm extends Spine.Controller
     super
 
     @category = null
-    Binary.bind 'refresh', @render
+    Binary.bind 'refresh change', @render
     Category.bind 'refresh change', @render
 
     @routes
@@ -42,7 +42,7 @@ class BinaryCategoryForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless Category.save(@category)
+    unless @category.isValid() and Category.save(@category)
       msg = @category.validate()
       return alert msg
 
