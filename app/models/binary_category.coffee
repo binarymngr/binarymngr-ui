@@ -11,7 +11,7 @@ class BinaryCategory extends Spine.Model
 
   destroy: (options) =>
     super
-      done: -> Notification.error 'Category has successfully been deleted.'
+      done: -> Notification.error 'Binary category has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
   getBinaries: =>
@@ -25,7 +25,7 @@ class BinaryCategory extends Spine.Model
 
   save: (options) =>
     super
-      done: -> Notification.success 'Category has successfully been saved.'
+      done: -> Notification.success 'Binary category has successfully been saved.'
       fail: -> Notification.warning 'An error encountered during the save process.'
 
   validate: ->

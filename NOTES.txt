@@ -1,0 +1,13 @@
+BUGS:
+    - Switching between different Spine.Stacks doesn't deactivate the current one and not activate the new's parent.
+      Example: In ServerForm, click on either the binary or version.
+    - The overriden save() method of Models resets the instance's values during the save process.
+    - If saving/destroying fails, the record is still added/removed to/from the internal collection leading to wrong data.
+    - bootstrap-select does not use checked=true attribute of the underlaying select options elements.
+
+TODOS:
+    - Dashboard
+    - Views need refactoring (outsource tables etc.)
+    - All M2M relations lack the ability to add new records.
+    - Non-admin profile page needs to be implemented.
+    - Non-admin users see the 'Delete' button (e.g. for roles) - should be hidden.

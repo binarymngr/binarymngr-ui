@@ -13,7 +13,7 @@ class BinaryVersion extends Spine.Model
 
   destroy: (options) =>
     super
-      done: -> Notification.error 'Version has successfully been deleted.'
+      done: -> Notification.error 'Binary version has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
   getServers: =>
@@ -27,7 +27,7 @@ class BinaryVersion extends Spine.Model
 
   save: (options) =>
     super
-      done: -> Notification.success 'Version has successfully been saved.'
+      done: -> Notification.success 'Binary version has successfully been saved.'
       fail: -> Notification.warning 'An error encountered during the save process.'
 
   validate: ->

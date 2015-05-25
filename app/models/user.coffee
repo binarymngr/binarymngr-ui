@@ -34,7 +34,7 @@ class User extends Spine.Model
 
   save: (options) =>
     super
-      done: -> Notification.success 'Server has successfully been saved.'
+      done: -> Notification.success 'User has successfully been saved.'
       fail: -> Notification.warning 'An error encountered during the save process.'
 
   validate: ->
