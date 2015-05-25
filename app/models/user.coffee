@@ -14,26 +14,26 @@ class User extends Spine.Model
 
   @url: '/users'
 
-  destroy: (options) =>
-    super
+  getRoles: =>
+    @role_ids ?= new Array
+    return (Role.find(role_id) for role_id in @role_ids when Role.exists(role_id))
+
+  hasRoles: =>
+    return @getRoles().length isnt 0
+
+  ownsBinaries: =>
+    return @binaries().length isnt 0
+
+  ownsServers: =>
+    return @servers().length isnt 0
+
+  notifyDestroy: (options) =>
+    @destroy
       done: -> Notification.error 'User has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
-  getRoles: =>
-    this.role_ids ?= new Array
-    return (Role.find(role_id) for role_id in this.role_ids when Role.exists(role_id))
-
-  hasRoles: =>
-    return this.getRoles().length isnt 0
-
-  ownsBinaries: =>
-    return this.binaries().length isnt 0
-
-  ownsServers: =>
-    return this.servers().length isnt 0
-
-  save: (options) =>
-    super
+  notifySave: (options) =>
+    @save
       done: -> Notification.success 'User has successfully been saved.'
       fail: -> Notification.warning 'An error encountered during the save process.'
 

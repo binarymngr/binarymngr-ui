@@ -14,34 +14,34 @@ class Binary extends Spine.Model
 
   @url: '/binaries'
 
-  destroy: (options) =>
-    super
-      done: -> Notification.error 'Binary has successfully been deleted.'
-      fail: -> Notification.warning 'An error encountered during the deletion process.'
-
   getCategories: =>
     Category = require('models/binary_category')  # FIXME: Category = empty object if placed on top
 
-    this.category_ids ?= new Array
-    return (Category.find(category_id) for category_id in this.category_ids when Category.exists(category_id))
+    @category_ids ?= new Array
+    return (Category.find(category_id) for category_id in @category_ids when Category.exists(category_id))
 
   getVersions: =>
-    this.version_ids ?= new Array
-    return (Version.find(version_id) for version_id in this.version_ids when Version.exists(version_id))
+    @version_ids ?= new Array
+    return (Version.find(version_id) for version_id in @version_ids when Version.exists(version_id))
 
   hasCategories: =>
-    return this.getCategories().length isnt 0
+    return @getCategories().length isnt 0
 
   hasVersions: =>
-    return this.getVersions().length isnt 0
+    return @getVersions().length isnt 0
 
   isInstalled: =>
-    _.each this.getVersions(), (version) ->
+    _.each @getVersions(), (version) ->
       return true if version.isInstalled()
     return false
 
-  save: (options) =>
-    super
+  notifyDestroy: (options) =>
+    @destroy
+      done: -> Notification.error 'Binary has successfully been deleted.'
+      fail: -> Notification.warning 'An error encountered during the deletion process.'
+
+  notifySave: (options) =>
+    @save
       done: -> Notification.success 'Binary has successfully been saved.'
       fail: -> Notification.warning 'An error encountered during the save process.'
 

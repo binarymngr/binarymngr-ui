@@ -1,7 +1,5 @@
 BUGS:
-    - Switching between different Spine.Stacks doesn't deactivate the current one and not activate the new's parent.
-      Example: In ServerForm, click on either the binary or version.
-    - The overriden save() method of Models resets the instance's values during the save process.
+    - Saving() doesn't update the record on the server, it is simply reset. Works when using std save() from Spine.Model
     - If saving/destroying fails, the record is still added/removed to/from the internal collection leading to wrong data.
     - bootstrap-select does not use checked=true attribute of the underlaying select options elements.
 

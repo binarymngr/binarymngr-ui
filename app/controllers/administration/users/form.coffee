@@ -36,7 +36,7 @@ class UserForm extends Spine.Controller
     @navigate '/administration/users'
 
   destroy: (event) =>
-    if @user.destroy()
+    if @user.notifyDestroy()
       @navigate '/administration/users'
 
   render: (params) =>
@@ -48,7 +48,7 @@ class UserForm extends Spine.Controller
     event.preventDefault()
 
     # TODO: make password optional
-    unless @user.save()
+    unless @user.notifySave()
       msg = @user.validate()
       return alert msg
 

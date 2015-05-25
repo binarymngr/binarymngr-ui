@@ -36,7 +36,7 @@ class BinaryVersionForm extends Spine.Controller
     @navigate '/binaries/versions'
 
   destroy: (event) =>
-    if @version.destroy()
+    if @version.notifyDestroy()
       @navigate '/binaries/versions'
 
   render: (params) =>
@@ -47,7 +47,7 @@ class BinaryVersionForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @version.save()
+    unless @version.notifySave()
       msg = @version.validate()
       return alert msg
 
