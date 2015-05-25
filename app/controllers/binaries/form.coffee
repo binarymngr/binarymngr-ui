@@ -38,7 +38,7 @@ class BinaryForm extends Spine.Controller
     @navigate '/binaries'
 
   destroy: (event) =>
-    if @binary.notifyDestroy()
+    if @binary.destroy()
       @navigate '/binaries'
 
   render: (params) =>
@@ -49,7 +49,7 @@ class BinaryForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @binary.notifySave(@binary.save())
+    unless Binary.save(@binary)
       msg = @binary.validate()
       return alert msg
 

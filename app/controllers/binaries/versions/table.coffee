@@ -47,7 +47,7 @@ class BinaryVersionsTableAddModal extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    if @version.notifySave(@version.save())
+    if Version.save(@version)
       @version = new Version
       @applyBindings()
       # TODO: fix hide backdrop

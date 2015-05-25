@@ -9,6 +9,11 @@ class BinaryCategory extends Spine.Model
 
   @url: '/binaries/categories'
 
+  destroy: =>
+    super
+      done: -> Notification.error 'Binary category has successfully been deleted.'
+      fail: -> Notification.warning 'An error encountered during the deletion process.'
+
   getBinaries: =>
     Binary = require('models/binary')  # FIXME: Binary = empty object if placed on top
 
@@ -18,13 +23,8 @@ class BinaryCategory extends Spine.Model
   hasBinaries: =>
     return @getBinaries().length isnt 0
 
-  notifyDestroy: =>
-    @destroy
-      done: -> Notification.error 'Binary category has successfully been deleted.'
-      fail: -> Notification.warning 'An error encountered during the deletion process.'
-
-  notifySave: (saved) ->
-    if saved
+  @save: (category) ->
+    if category.save()
       Notification.success 'Binary category has successfully been saved.'
     else
       Notification.warning 'An error encountered during the save process.'

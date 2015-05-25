@@ -14,6 +14,11 @@ class User extends Spine.Model
 
   @url: '/users'
 
+  destroy: =>
+    super
+      done: -> Notification.error 'User has successfully been deleted.'
+      fail: -> Notification.warning 'An error encountered during the deletion process.'
+
   getRoles: =>
     @role_ids ?= new Array
     return (Role.find(role_id) for role_id in @role_ids when Role.exists(role_id))
@@ -27,13 +32,8 @@ class User extends Spine.Model
   ownsServers: =>
     return @servers().length isnt 0
 
-  notifyDestroy: =>
-    @destroy
-      done: -> Notification.error 'User has successfully been deleted.'
-      fail: -> Notification.warning 'An error encountered during the deletion process.'
-
-  notifySave: (saved) ->
-    if saved
+  @save: (user) ->
+    if user.save()
       Notification.success 'User has successfully been saved.'
     else
       Notification.warning 'An error encountered during the save process.'

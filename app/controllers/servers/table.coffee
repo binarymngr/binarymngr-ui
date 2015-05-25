@@ -45,7 +45,7 @@ class ServersTableAddModal extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    if @server.notifySave(@server.save())
+    if Server.save(@server)
       @server = new Server
       @applyBindings()
       # TODO: fix hide backdrop

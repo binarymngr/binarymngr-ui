@@ -11,6 +11,11 @@ class BinaryVersion extends Spine.Model
 
   @url: '/binaries/versions'
 
+  destroy: =>
+    super
+      done: -> Notification.error 'Binary version has successfully been deleted.'
+      fail: -> Notification.warning 'An error encountered during the deletion process.'
+
   getServers: =>
     Server = require('models/server')  # FIXME: fails with Server = empty object if placed on top
 
@@ -20,13 +25,8 @@ class BinaryVersion extends Spine.Model
   isInstalled: =>
     return @getServers().length isnt 0
 
-  notifyDestroy: =>
-    @destroy
-      done: -> Notification.error 'Binary version has successfully been deleted.'
-      fail: -> Notification.warning 'An error encountered during the deletion process.'
-
-  notifySave: (saved) ->
-    if saved
+  @save: (version) ->
+    if version.save()
       Notification.success 'Binary version has successfully been saved.'
     else
       Notification.warning 'An error encountered during the save process.'

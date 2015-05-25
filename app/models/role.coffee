@@ -9,6 +9,11 @@ class Role extends Spine.Model
 
   @url: '/roles'
 
+  destroy: =>
+    super
+      done: -> Notification.error 'Role has successfully been deleted.'
+      fail: -> Notification.warning 'An error encountered during the deletion process.'
+
   getUsers: =>
     User = require('models/user')  # FIXME: fails with User = empty object if placed on top
 
@@ -18,13 +23,8 @@ class Role extends Spine.Model
   hasUsers: =>
     return @getUsers().length isnt 0
 
-  notifyDestroy: =>
-    @destroy
-      done: -> Notification.error 'Role has successfully been deleted.'
-      fail: -> Notification.warning 'An error encountered during the deletion process.'
-
-  notifySave: (saved) ->
-    if saved
+  @save: (role) ->
+    if role?.save()
       Notification.success 'Role has successfully been saved.'
     else
       Notification.warning 'An error encountered during the save process.'

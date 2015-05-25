@@ -29,7 +29,7 @@ class RoleForm extends Spine.Controller
     @navigate '/administration/roles'
 
   destroy: (event) =>
-    if @role.notifyDestroy()
+    if @role.destroy()
       @navigate '/administration/roles'
 
   render: (params) =>
@@ -40,7 +40,7 @@ class RoleForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @role.notifySave(@role.save())
+    unless Role.save(@role)
       msg = @role.validate()
       return alert msg
 

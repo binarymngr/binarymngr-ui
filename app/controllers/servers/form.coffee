@@ -34,7 +34,7 @@ class ServerForm extends Spine.Controller
     @navigate '/servers'
 
   destroy: (event) =>
-    if @server.notifyDestroy()
+    if @server.destroy()
       @navigate '/servers'
 
   render: (params) =>
@@ -45,7 +45,7 @@ class ServerForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @server.notifySave(@server.save())
+    unless Server.save(@server)
       msg = @server.validate()
       return alert msg
 

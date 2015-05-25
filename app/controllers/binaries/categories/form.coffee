@@ -31,7 +31,7 @@ class BinaryCategoryForm extends Spine.Controller
     @navigate '/binaries/categories'
 
   destroy: (event) =>
-    if @category.notifyDestroy()
+    if @category.destroy()
       @navigate '/binaries/categories'
 
   render: (params) =>
@@ -42,7 +42,7 @@ class BinaryCategoryForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @category.notifySave(@category.save())
+    unless Category.save(@category)
       msg = @category.validate()
       return alert msg
 
