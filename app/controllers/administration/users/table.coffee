@@ -45,7 +45,7 @@ class UsersTableAddModal extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    if @user.notifySave()
+    if @user.notifySave(@user.save())
       @user = new User
       @applyBindings()
       # FIXME: hide backdrop

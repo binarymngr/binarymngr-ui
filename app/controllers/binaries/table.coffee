@@ -44,7 +44,7 @@ class BinariesTableAddModal extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    if @binary.notifySave()
+    if @binary.notifySave(@binary.save())
       @binary = new Binary
       @applyBindings()
       # TODO: fix hide backdrop

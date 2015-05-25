@@ -43,7 +43,7 @@ class BinaryCategoriesTableAddModal extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    if @category.notifySave()
+    if @category.notifySave(@category.save())
       @category = new Category
       @applyBindings()
       # TODO: fix hide backdrop
