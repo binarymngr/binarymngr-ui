@@ -19,7 +19,7 @@ class RoleForm extends Spine.Controller
     super
 
     @role = null
-    Role.bind 'refresh', @render
+    Role.bind 'refresh change', @render
 
     @routes
       '/administration/roles/:id': (params) ->
@@ -40,7 +40,7 @@ class RoleForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
-    unless @role.notifySave()
+    unless @role.save()
       msg = @role.validate()
       return alert msg
 

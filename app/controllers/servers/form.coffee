@@ -23,7 +23,7 @@ class ServerForm extends Spine.Controller
 
     @server = null
     Binary.bind 'refresh', @render
-    Server.bind 'refresh', @render
+    Server.bind 'refresh change', @render
     Version.bind 'refresh', @render
 
     @routes
@@ -43,7 +43,7 @@ class ServerForm extends Spine.Controller
     @applyBindings() if @server?
 
   save: (event) =>
-    e.preventDefault()
+    event.preventDefault()
 
     unless @server.notifySave()
       msg = @server.validate()

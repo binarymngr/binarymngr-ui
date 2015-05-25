@@ -26,7 +26,7 @@ class BinaryVersionForm extends Spine.Controller
     Binary.bind 'refresh', @render
     Server.bind 'refresh', @render
     User.bind 'refresh', @render
-    Version.bind 'refresh', @render
+    Version.bind 'refresh change', @render
 
     @routes
       '/binaries/versions/:id': (params) ->

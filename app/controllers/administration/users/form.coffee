@@ -26,7 +26,7 @@ class UserForm extends Spine.Controller
     Binary.bind 'refresh', @render
     Role.bind 'refresh', @render
     Server.bind 'refresh', @render
-    User.bind 'refresh', @render
+    User.bind 'refresh change', @render
 
     @routes
       '/administration/users/:id': (params) ->

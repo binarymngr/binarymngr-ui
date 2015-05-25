@@ -25,7 +25,7 @@ class BinaryForm extends Spine.Controller
     super
 
     @binary = null
-    Binary.bind 'refresh', @render
+    Binary.bind 'refresh change', @render
     Category.bind 'refresh', @render
     User.bind 'refresh', @render
     Version.bind 'refresh', @render  # TODO: add change because we can add one from this controller
