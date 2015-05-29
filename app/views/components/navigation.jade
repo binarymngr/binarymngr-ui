@@ -19,10 +19,11 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
           div.dropdown-menu.infotip.bottom-right
             div.arrow
             ul.list-group
-              each message in _.sortBy(messages, 'data')
+              each message in _.sortBy(messages, 'date')
                 li.list-group-item
-                  span.i.pficon.pficon-info
-                  | #{message.text}
+                  a(href='/#/messages' + message.id)
+                    span.i.pficon.pficon-info
+                    |  #{message.title}
             div.footer
               a(href='') Clear Messages
       li.dropdown

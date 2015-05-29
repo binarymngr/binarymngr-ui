@@ -1,6 +1,6 @@
 Spine   = @Spine or require('spine')
+Message = require('models/message')
 Request = require('http/request')
-$       = Spine.$
 
 class NavigationComponent extends Spine.Controller
   elements:
@@ -9,6 +9,8 @@ class NavigationComponent extends Spine.Controller
 
   constructor: ->
     super
+
+    Message.bind 'refresh change', @render
 
     # create a new router instance so we can listen to route changes
     # independent of the other app logic
@@ -28,8 +30,7 @@ class NavigationComponent extends Spine.Controller
     @router.add /^\/$/, =>
       @activateLink @primary_nav, '/#/'
 
-    @html require('views/components/navigation')
-      rqst: Request.get()
+    @render()
 
   activateLink: (nav, link) =>
     # remove active class from all navs
@@ -42,5 +43,13 @@ class NavigationComponent extends Spine.Controller
         nav.find('a[href="'+link+'"]').parent('li').addClass('active')
       when @utility_nav
         nav.find('a[href="'+link+'"]').parents('li').not('.dropdown').addClass('active')
+
+  render: =>
+    @html @template Message.all()
+
+  template: (messages) ->
+    require('views/components/navigation')
+      messages: messages
+      rqst: Request.get()
 
 module?.exports = NavigationComponent
