@@ -5,11 +5,12 @@ div.sidebar-header.sidebar-header-bleed-left.sidebar-header-bleed-right
   h2.h5 Latest Messages
 if messages && messages.length
   ul.list-group.items
-  each message in _.sortBy(messages, 'date')
-    li.list-group-item
-      h3.list-group-item-heading #{message.title}
-      p.list-group-item-text #{message.body}
-        small #{message.created_at}
+    each message in _.sortBy(messages, 'date')
+      li.list-group-item
+        h3.list-group-item-heading #{message.title}
+        p.list-group-item-text #{message.body}
+        p
+          small #{message.created_at}
   p
     a(href='/#/messages') See all messages
 else
