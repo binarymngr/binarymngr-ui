@@ -10,7 +10,7 @@ if binary
     div.form-group
       label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='id', value='#{binary.id}', pattern='\\d+', required, disabled)
+        input.form-control(type='text', name='id', value=binary.id, pattern='\\d+', required, disabled)
     div.form-group
       label.col-md-2.control-label(for='name') Name
       div.col-md-6
@@ -35,6 +35,11 @@ if binary
               else
                 option(value=category.id, data-subtext=category.description) #{category.name}
             include ../includes/selectpicker-js.jade
+    if rqst.user.is_admin
+      div.form-group
+        label.col-md-2.control-label(for='owner_id') Owner ID
+        div.col-md-6
+          input.form-control(type='text', name='owner_id', value=binary.owner_id, pattern='\\d+', required, disabled)
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../includes/form-buttons.jade

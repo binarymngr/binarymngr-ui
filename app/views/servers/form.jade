@@ -19,6 +19,11 @@ if server
       label.col-md-2.control-label(for='ipv4') IPv4 Address
       div.col-md-6
         input.form-control(type='text', name='ipv4', value=server.ipv4, placeholder='127.0.0.1', pattern='(\\d{1,3}\.){3}\\d{1,3}', required)
+    if rqst.user.is_admin
+      div.form-group
+        label.col-md-2.control-label(for='owner_id') Owner ID
+        div.col-md-6
+          input.form-control(type='text', name='owner_id', value=server.owner_id, pattern='\\d+', required, disabled)
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../includes/form-buttons.jade

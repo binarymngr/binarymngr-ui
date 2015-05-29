@@ -1,6 +1,7 @@
 Spine    = @Spine or require('spine')
 Binary   = require('models/binary')
 Category = require('models/binary_category')
+Request  = require('http/request')
 User     = require('models/user')
 Version  = require('models/binary_version')
 
@@ -60,6 +61,7 @@ class BinaryForm extends Spine.Controller
     require('views/binaries/form')
       binary: binary
       categories: Category.all()
+      rqst: Request.get()
       versions: versions
 
 module?.exports = BinaryForm

@@ -6,6 +6,8 @@ class NavigationComponent extends Spine.Controller
   elements:
     '.navbar-primary': 'primary_nav'
     '.navbar-utility': 'utility_nav'
+  events:
+    'click .spine-clear-messages': 'destroyMessages'
 
   constructor: ->
     super
@@ -43,6 +45,9 @@ class NavigationComponent extends Spine.Controller
         nav.find('a[href="'+link+'"]').parent('li').addClass('active')
       when @utility_nav
         nav.find('a[href="'+link+'"]').parents('li').not('.dropdown').addClass('active')
+
+  destroyMessages: ->
+    Message.destroyAll()
 
   render: =>
     @html @template Message.all()
