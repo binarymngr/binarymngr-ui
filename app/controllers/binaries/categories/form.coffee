@@ -46,12 +46,12 @@ class BinaryCategoryForm extends Spine.Controller
       msg = @category.validate()
       return alert msg
 
-  template: (item) ->
+  template: (category) ->
     binaries = null
-    binaries = item.getBinaries() if item?
+    binaries = category.getBinaries() if category?
 
     require('views/binaries/categories/form')
       binaries: binaries
-      category: item
+      category: category
 
 module?.exports = BinaryCategoryForm

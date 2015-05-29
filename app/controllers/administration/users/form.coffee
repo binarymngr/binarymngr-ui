@@ -52,15 +52,15 @@ class UserForm extends Spine.Controller
       msg = @user.validate()
       return alert msg
 
-  template: (item) ->
+  template: (user) ->
     binaries = null
-    binaries = item.binaries().all() if item?
+    binaries = user.binaries().all() if user?
     servers  = null
-    servers  = item.servers().all() if item?
+    servers  = user.servers().all() if user?
 
     require('views/administration/users/form')
       binaries: binaries
-      user: item
+      user: user
       roles: Role.all()
       servers: servers
 

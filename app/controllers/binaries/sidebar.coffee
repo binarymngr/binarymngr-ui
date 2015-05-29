@@ -32,8 +32,8 @@ class BinariesSidebar extends Spine.Controller
   render: =>
     @html @template Category.all()
 
-  template: (items) ->
+  template: (categories) ->
     require('views/binaries/sidebar')
-      categories: items
+      categories: categories
 
 module?.exports = BinariesSidebar

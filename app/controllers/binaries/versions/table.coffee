@@ -13,9 +13,9 @@ class BinaryVersionsTable extends Spine.Controller
     @html @template Version.all()
     @append new BinaryVersionsTableAddModal  # TODO: do not init a new one every time
 
-  template: (items) ->
+  template: (versions) ->
     require('views/binaries/versions/table')
-      versions: items
+      versions: versions
 
 module?.exports = BinaryVersionsTable
 
@@ -57,6 +57,6 @@ class BinaryVersionsTableAddModal extends Spine.Controller
       msg = @version.validate()
       return alert msg
 
-  template: (items) ->
+  template: (binaries) ->
     require('views/binaries/versions/add-modal')
-      binaries: items
+      binaries: binaries

@@ -8,12 +8,13 @@ class DashboardSidebar extends Spine.Controller
     super
 
     Message.bind 'refresh change', @render
+    @render()
 
   render: =>
     @html @template Message.all()
 
-  template: (items) ->
+  template: (messages) ->
     require('views/dashboard/sidebar')
-      messages: items
+      messages: messages
 
 module?.exports = DashboardSidebar

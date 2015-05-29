@@ -53,12 +53,12 @@ class BinaryForm extends Spine.Controller
       msg = @binary.validate()
       return alert msg
 
-  template: (item) ->
+  template: (binary) ->
     versions = null
-    versions = item.versions().all() if item?
+    versions = binary.versions().all() if binary?
 
     require('views/binaries/form')
-      binary: item
+      binary: binary
       categories: Category.all()
       versions: versions
 

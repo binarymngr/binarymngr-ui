@@ -12,9 +12,9 @@ class BinaryCategoriesTable extends Spine.Controller
     @html @template Category.all()
     @append new BinaryCategoriesTableAddModal  # TODO: do not init a new one every time
 
-  template: (items) ->
+  template: (categories) ->
     require('views/binaries/categories/table')
-      categories: items
+      categories: categories
 
 module?.exports = BinaryCategoriesTable
 

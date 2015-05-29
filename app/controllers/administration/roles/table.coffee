@@ -14,9 +14,9 @@ class RolesTable extends Spine.Controller
     @html @template Role.all()
     @append new RolesTableAddModal  # TODO: do not init a new one every time
 
-  template: (items) ->
+  template: (roles) ->
     require('views/administration/roles/table')
-      roles: items
+      roles: roles
       rqst: Request.get()
 
 module?.exports = RolesTable

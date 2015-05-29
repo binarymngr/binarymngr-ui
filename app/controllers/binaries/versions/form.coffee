@@ -51,15 +51,15 @@ class BinaryVersionForm extends Spine.Controller
       msg = @version.validate()
       return alert msg
 
-  template: (item) ->
+  template: (version) ->
     binary  = null
-    binary  = item.binary() if item?
+    binary  = version.binary() if version?
     servers = null
-    servers = item.getServers() if item?
+    servers = version.getServers() if version?
 
     require('views/binaries/versions/form')
       binary: binary
       servers: servers
-      version: item
+      version: version
 
 module?.exports = BinaryVersionForm

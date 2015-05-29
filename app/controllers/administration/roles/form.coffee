@@ -46,12 +46,12 @@ class RoleForm extends Spine.Controller
       msg = @role.validate()
       return alert msg
 
-  template: (item) ->
+  template: (role) ->
     users = null
-    users = item.getUsers() if item?
+    users = role.getUsers() if role?
 
     require('views/administration/roles/form')
-      role: item
+      role: role
       users: users
 
 module?.exports = RoleForm

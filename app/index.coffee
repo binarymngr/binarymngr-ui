@@ -41,12 +41,12 @@ class App extends Spine.Controller
     @append @navigation, @content
 
     # initially fetch all model records
+    Message.fetch()
     Binary.fetch()
     Category.fetch()
-    Message.fetch()
-    Role.fetch()
-    Server.fetch()
-    User.fetch()
     Version.fetch()
+    Server.fetch()
+    Role.fetch()
+    User.fetch()
 
 module?.exports = App

@@ -12,9 +12,9 @@ class BinariesTable extends Spine.Controller
     @html @template Binary.all()
     @append new BinariesTableAddModal  # TODO: do not init a new one every time
 
-  template: (items) ->
+  template: (binaries) ->
     require('views/binaries/table')
-      binaries: items
+      binaries: binaries
 
 module?.exports = BinariesTable
 

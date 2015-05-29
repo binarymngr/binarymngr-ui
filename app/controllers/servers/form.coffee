@@ -49,12 +49,12 @@ class ServerForm extends Spine.Controller
       msg = @server.validate()
       return alert msg
 
-  template: (item) ->
+  template: (server) ->
     binary_versions = null
-    binary_versions = item.getBinaryVersions() if item?
+    binary_versions = server.getBinaryVersions() if server?
 
     require('views/servers/form')
       binary_versions: binary_versions
-      server: item
+      server: server
 
 module?.exports = ServerForm

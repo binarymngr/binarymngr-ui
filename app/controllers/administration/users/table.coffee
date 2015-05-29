@@ -13,10 +13,10 @@ class UsersTable extends Spine.Controller
     @html @template User.all()
     @append new UsersTableAddModal  # TODO: do not init a new one every time
 
-  template: (items) ->
+  template: (users) ->
     require('views/administration/users/table')
       rqst: Request.get()
-      users: items
+      users: users
 
 module?.exports = UsersTable
 
