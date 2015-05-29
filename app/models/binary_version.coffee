@@ -31,6 +31,14 @@ class BinaryVersion extends Spine.Model
     else
       Notification.warning 'An error encountered during the save process.'
 
+  toJSON: (version) =>
+    data = @attributes()
+    if data?.eol?
+      date = data.eol.split('/')
+      date = new Date(date[2], date[0], date[1])
+      data.eol = "#{date.getFullYear()}-#{date.getMonth()}-#{date.getDate()} 00:00:00"
+    return data
+
   validate: ->
     return 'Identifier is required' unless @identifier
     return 'Binary ID is required' unless @binary_id
