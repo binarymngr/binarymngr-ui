@@ -45,6 +45,6 @@ class User extends Spine.Model
 
   validate: ->
     return 'Email is required' unless @email
-    return 'Password is required' unless @password
+    # return 'Password is required' unless @password
 
 module?.exports = User
