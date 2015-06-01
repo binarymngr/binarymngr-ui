@@ -1,7 +1,11 @@
 BUGS:
     - If saving/destroying fails, the record is still added/removed to/from the internal collection leading to wrong data.
+    - The 'modal-open' class is added to the body tag causing scrolling problems (overflow hidden).
+
+IMPROVEMENTS:
+    - performance: prevent to many re-render, don't init a new modal instance every time etc.
 
 TODOS:
     - Dashboard
     - Views need refactoring (outsource tables etc.)
-    - All M2M relations lack the ability to add new records.
+    - Some M2M relations lack the ability to add new records.

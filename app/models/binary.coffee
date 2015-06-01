@@ -25,18 +25,14 @@ class Binary extends Spine.Model
     @category_ids ?= new Array
     return (Category.find(category_id) for category_id in @category_ids when Category.exists(category_id))
 
-  getVersions: =>
-    @version_ids ?= new Array
-    return (Version.find(version_id) for version_id in @version_ids when Version.exists(version_id))
-
   hasCategories: =>
     return @getCategories().length isnt 0
 
   hasVersions: =>
-    return @getVersions().length isnt 0
+    return @versions().length isnt 0
 
   isInstalled: =>
-    _.each @getVersions(), (version) ->
+    _.each @versions(), (version) ->
       return true if version.isInstalled()
     return false
 
