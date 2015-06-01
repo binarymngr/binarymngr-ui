@@ -1,4 +1,3 @@
-//- TODO: own controller for add new
 ol.breadcrumb
   li
     a(href='/#/') Home
@@ -17,7 +16,8 @@ if binaries && binaries.length
     tbody.items
       each binary in binaries
         tr
-          td #{binary.id}
+          td
+            a(href='/#/binaries/' + binary.id) #{binary.id}
           td
             a(href='/#/binaries/' + binary.id) #{binary.name}
           td
