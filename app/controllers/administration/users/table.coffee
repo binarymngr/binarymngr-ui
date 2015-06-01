@@ -1,7 +1,6 @@
-Spine   = @Spine or require 'spine'
-Request = require 'lib/http/request'
-User    = require 'models/user'
-$       = Spine.$
+Spine = @Spine or require 'spine'
+User  = require 'models/user'
+$     = Spine.$
 
 class UsersTable extends Spine.Controller
   constructor: ->
@@ -16,7 +15,6 @@ class UsersTable extends Spine.Controller
 
   template: (users) ->
     require('views/administration/users/table')
-      rqst: Request.get()
       users: users
 
 module?.exports = UsersTable

@@ -1,6 +1,5 @@
 Spine   = @Spine or require 'spine'
 Binary  = require 'models/binary'
-Request = require 'lib/http/request'
 Server  = require 'models/server'
 Version = require 'models/binary_version'
 
@@ -55,7 +54,6 @@ class ServerForm extends Spine.Controller
 
     require('views/servers/form')
       binary_versions: binary_versions
-      rqst: Request.get()
       server: server
 
 module?.exports = ServerForm

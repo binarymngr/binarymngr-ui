@@ -1,7 +1,6 @@
 Spine   = @Spine or require 'spine'
 Binary  = require 'models/binary'
 Message = require 'models/message'
-Request = require 'lib/http/request'
 Role    = require 'models/role'
 Server  = require 'models/server'
 User    = require 'models/user'
@@ -67,7 +66,6 @@ class UserForm extends Spine.Controller
       messages: messages
       user: user
       roles: Role.all()
-      rqst: Request.get()
       servers: servers
 
 module?.exports = UserForm

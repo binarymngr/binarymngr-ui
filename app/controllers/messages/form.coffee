@@ -1,6 +1,5 @@
 Spine   = @Spine or require 'spine'
 Message = require 'models/message'
-Request = require 'lib/http/request'
 
 class MessageForm extends Spine.Controller
   className: 'col-xs-12'
@@ -30,6 +29,5 @@ class MessageForm extends Spine.Controller
   template: (message) ->
     require('views/messages/form')
       message: message
-      rqst: Request.get()
 
 module?.exports = MessageForm

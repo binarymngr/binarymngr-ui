@@ -1,6 +1,5 @@
 Spine   = @Spine or require 'spine'
 Message = require 'models/message'
-Request = require 'lib/http/request'
 
 class NavigationComponent extends Spine.Controller
   elements:
@@ -57,6 +56,5 @@ class NavigationComponent extends Spine.Controller
   template: (messages) ->
     require('views/components/navigation')
       messages: messages
-      rqst: Request.get()
 
 module?.exports = NavigationComponent

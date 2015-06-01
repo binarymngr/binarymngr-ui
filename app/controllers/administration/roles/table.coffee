@@ -1,7 +1,6 @@
-Spine   = @Spine or require 'spine'
-Role    = require 'models/role'
-Request = require 'lib/http/request'
-$       = Spine.$
+Spine = @Spine or require 'spine'
+Role  = require 'models/role'
+$     = Spine.$
 
 class RolesTable extends Spine.Controller
   constructor: ->
@@ -17,7 +16,6 @@ class RolesTable extends Spine.Controller
   template: (roles) ->
     require('views/administration/roles/table')
       roles: roles
-      rqst: Request.get()
 
 module?.exports = RolesTable
 
