@@ -1,5 +1,6 @@
 Spine   = @Spine or require 'spine'
 Binary  = require 'models/binary'
+Message = require 'models/message'
 Request = require 'lib/http/request'
 Role    = require 'models/role'
 Server  = require 'models/server'
@@ -56,11 +57,14 @@ class UserForm extends Spine.Controller
   template: (user) ->
     binaries = null
     binaries = user.binaries().all() if user?
+    messages = null
+    messages = user.messages().all() if user?
     servers  = null
     servers  = user.servers().all() if user?
 
     require('views/administration/users/form')
       binaries: binaries
+      messages: messages
       user: user
       roles: Role.all()
       rqst: Request.get()

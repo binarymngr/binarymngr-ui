@@ -21,7 +21,7 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
             ul.list-group
               each message in _.sortBy(messages, 'date')
                 li.list-group-item
-                  a(href='/#/messages' + message.id)
+                  a(href='/#/messages/' + message.id)
                     span.i.pficon.pficon-info
                     |  #{message.title}
             div.footer
@@ -33,6 +33,9 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
           b.caret
         //- utility dropdown
         ul.dropdown-menu
+          li
+            a(href='/#/messages') Messages
+          li.divider
           if rqst.user.is_admin
             li.dropdown-submenu
               a(href='#', tabindex='-1') Administration
@@ -43,7 +46,7 @@ nav.navbar.navbar-default.navbar-pf(role='navigation')
                   a(href='/#/administration/users') Users
           else
             li
-              a(href='/#/user/profile') Profile
+              a(href='/#/administration/users') Profile
           li.divider
           li
             a(href='/auth/logout') Logout

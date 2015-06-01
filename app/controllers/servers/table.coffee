@@ -15,9 +15,9 @@ class ServersTable extends Spine.Controller
     @html @template Server.all()
     @append new ServersTableAddModal  # FIXME: do not init a new one every time
 
-  template: (items) ->
+  template: (servers) ->
     require('views/servers/table')
-      servers: items
+      servers: servers
 
 module?.exports = ServersTable
 

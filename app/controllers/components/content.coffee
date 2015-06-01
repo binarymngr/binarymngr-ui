@@ -2,6 +2,7 @@ Spine          = @Spine or require 'spine'
 Administration = require 'controllers/administration/page'
 Binaries       = require 'controllers/binaries/page'
 Dashboard      = require 'controllers/dashboard/page'
+Messages       = require 'controllers/messages/page'
 Servers        = require 'controllers/servers/page'
 
 class ContentComponent extends Spine.Stack
@@ -11,6 +12,7 @@ class ContentComponent extends Spine.Stack
     administration: Administration
     binaries:       Binaries
     dashboard:      Dashboard
+    messages:       Messages
     servers:        Servers
 
   default: 'dashboard'
@@ -18,6 +20,7 @@ class ContentComponent extends Spine.Stack
   routes:
     '/administration/:page': 'administration'
     '/binaries'            : 'binaries'
+    '/messages'            : 'messages'
     '/servers'             : 'servers'
     '/'                    : 'dashboard'
 

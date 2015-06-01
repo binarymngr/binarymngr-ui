@@ -1,5 +1,6 @@
-Spine = @Spine or require 'spine'
-$     = Spine.$
+Spine   = @Spine or require 'spine'
+Request = require 'lib/http/request'
+$       = Spine.$
 
 class AdministrationSidebar extends Spine.Controller
   className: 'col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left'
@@ -18,7 +19,8 @@ class AdministrationSidebar extends Spine.Controller
     @router.add /^\/administration\/users(\/.*)?$/, =>
       @activateLink '/#/administration/users'
 
-    @html require('views/administration/sidebar')()
+    @html require('views/administration/sidebar')
+      rqst: Request.get()
 
   activateLink: (link) =>
     # remove active class from all sections

@@ -23,6 +23,8 @@ class NavigationComponent extends Spine.Controller
       @activateLink @utility_nav, '/#/administration/roles'
     @router.add /^\/administration\/users(\/.*)?$/, =>
       @activateLink @utility_nav, '/#/administration/users'
+    @router.add /^\/messages(\/.*)?$/, =>
+      @activateLink @utility_nav, '/#/messages'
 
     # primary navigation
     @router.add /^\/binaries(\/.*)?$/, =>

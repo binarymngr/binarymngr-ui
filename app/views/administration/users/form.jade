@@ -69,6 +69,28 @@ if user
       span.pficon.pficon-info
       | This user owns no binaries.
   hr
+  h2 Messages
+  if messages && messages.length
+    table.datatable.table.table-striped.table-bordered
+      thead
+        tr
+          th ID
+          th Title
+          th Body
+      tbody
+        each message in messages
+          tr
+            td
+              a(href='/#/messages/' + message.id) #{message.id}
+            td
+              a(href='/#/messages/' + message.id) #{message.title}
+            td #{message.body}
+    include ../../includes/datatables-js.jade
+  else
+    div.alert.alert-info
+      span.pficon.pficon-info
+      | This user has no messages.
+  hr
   h2 Servers
   if servers && servers.length
     table.datatable.table.table-striped.table-bordered
