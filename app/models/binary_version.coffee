@@ -11,6 +11,10 @@ class BinaryVersion extends Spine.Model
 
   @url: '/binaries/versions'
 
+  constructor: (object) ->
+    object.eol = object.eol.substring(0, 10) if object?.eol?
+    super
+
   destroy: =>
     super
       done: -> Notification.error 'Binary version has successfully been deleted.'
@@ -34,9 +38,7 @@ class BinaryVersion extends Spine.Model
   toJSON: (version) =>
     data = @attributes()
     if data?.eol?
-      date = data.eol.split('/')
-      date = new Date(date[2], date[0], date[1])
-      data.eol = "#{date.getFullYear()}-#{date.getMonth()}-#{date.getDate()} 00:00:00"
+      data.eol += " 00:00:00"
     return data
 
   validate: ->

@@ -29,7 +29,7 @@ if version
     div.form-group
       label.col-md-2.control-label(for='eol') EOL
       div.col-md-6
-        input.form-control(type='date', name='eol', value=binary.eol, placeholder='mm/dd/yyyy', pattern='\\d{2}/\\d{2}/\\d{4}')
+        input.form-control(type='date', name='eol', value=binary.eol, placeholder='yyyy-mm-dd', pattern='\\d{4}-\\d{2}-\\d{2}')
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../../includes/form-buttons.jade
