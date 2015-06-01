@@ -14,6 +14,7 @@ class DashboardMain extends Spine.Controller
 
   constructor: ->
     super
+
     @html require('views/dashboard/main')()
 
   refresh: ->

@@ -29,9 +29,9 @@ class BinaryForm extends Spine.Controller
     User.bind 'refresh change', @render
     Version.bind 'refresh change', @render
 
-    @routes
-      '/binaries/:id': (params) ->
-        @render params
+  activate: (params) =>
+    super
+    @render params
 
   cancel: (event) =>
     @navigate '/binaries'

@@ -23,9 +23,9 @@ class RoleForm extends Spine.Controller
     Role.bind 'refresh change', @render
     User.bind 'refresh change', @render
 
-    @routes
-      '/administration/roles/:id': (params) ->
-        @render params
+  activate: (params) =>
+    super
+    @render params
 
   cancel: (event) =>
     @navigate '/administration/roles'

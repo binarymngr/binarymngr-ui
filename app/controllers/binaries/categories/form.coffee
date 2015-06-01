@@ -22,9 +22,9 @@ class BinaryCategoryForm extends Spine.Controller
     Binary.bind 'refresh change', @render
     Category.bind 'refresh change', @render
 
-    @routes
-      '/binaries/categories/:id': (params) ->
-        @render params
+  activate: (params) =>
+    super
+    @render params
 
   cancel: (event) =>
     @navigate '/binaries/categories'

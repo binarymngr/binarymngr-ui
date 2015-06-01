@@ -11,9 +11,10 @@ class MessageForm extends Spine.Controller
     super
 
     Message.bind 'refresh change', @render
-    @routes
-      '/messages/:id': (params) ->
-        @render params
+
+  activate: (params) =>
+    super
+    @render params
 
   cancel: (event) =>
     @navigate '/messages'

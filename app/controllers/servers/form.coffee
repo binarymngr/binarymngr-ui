@@ -25,9 +25,9 @@ class ServerForm extends Spine.Controller
     Server.bind 'refresh change', @render
     Version.bind 'refresh change', @render
 
-    @routes
-      '/servers/:id': (params) ->
-        @render params
+  activate: (params) =>
+    super
+    @render params
 
   cancel: (event) =>
     @navigate '/servers'
