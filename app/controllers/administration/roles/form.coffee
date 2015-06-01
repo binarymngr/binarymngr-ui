@@ -1,6 +1,7 @@
-Spine = @Spine or require('spine')
-Role  = require('models/role')
-User  = require('models/user')
+Spine   = @Spine or require 'spine'
+Request = require 'lib/http/request'
+Role    = require 'models/role'
+User    = require 'models/user'
 
 class RoleForm extends Spine.Controller
   events:
@@ -52,6 +53,7 @@ class RoleForm extends Spine.Controller
 
     require('views/administration/roles/form')
       role: role
+      rqst: Request.get()
       users: users
 
 module?.exports = RoleForm

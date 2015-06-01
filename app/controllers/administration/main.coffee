@@ -1,8 +1,8 @@
-Spine = @Spine or require('spine')
-Role  = require('controllers/administration/roles/form')
-Roles = require('controllers/administration/roles/table')
-User  = require('controllers/administration/users/form')
-Users = require('controllers/administration/users/table')
+Spine = @Spine or require 'spine'
+Role  = require 'controllers/administration/roles/form'
+Roles = require 'controllers/administration/roles/table'
+User  = require 'controllers/administration/users/form'
+Users = require 'controllers/administration/users/table'
 
 class AdministrationMain extends Spine.Stack
   className: 'col-sm-9 col-md-10 col-sm-push-3 col-md-push-2 spine stack'

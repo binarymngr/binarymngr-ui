@@ -1,6 +1,6 @@
-Spine        = @Spine or require('spine')
-Notification = require('services/notification_service')
-User         = require('models/user')
+Spine        = @Spine or require 'spine'
+Notification = require 'services/notification_service'
+User         = require 'models/user'
 
 class Server extends Spine.Model
   @configure 'Server', 'name', 'ipv4', 'owner_id', 'binary_version_ids'
@@ -18,7 +18,7 @@ class Server extends Spine.Model
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
   getBinaryVersions: =>
-    Version = require('models/binary_version')  # FIXME: fails with Binary = empty object if placed on top
+    Version = require 'models/binary_version'  # FIXME: fails with Binary = empty object if placed on top
 
     @binary_version_ids ?= new Array
     return (Version.find(version_id) for version_id in @binary_version_ids when Version.exists(version_id))

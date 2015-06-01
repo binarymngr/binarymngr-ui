@@ -1,8 +1,9 @@
-Spine  = @Spine or require('spine')
-Binary = require('models/binary')
-Role   = require('models/role')
-Server = require('models/server')
-User   = require('models/user')
+Spine   = @Spine or require 'spine'
+Binary  = require 'models/binary'
+Request = require 'lib/http/request'
+Role    = require 'models/role'
+Server  = require 'models/server'
+User    = require 'models/user'
 
 class UserForm extends Spine.Controller
   events:
@@ -12,10 +13,9 @@ class UserForm extends Spine.Controller
 
   modelVar: 'user'
   bindings:
-    # '.item input[name="id"]'      : 'id'
     '.item input[name="email"]'   : 'email'
     '.item input[name="password"]': 'password'
-    '.item select[name="roles"]'  : 'role_ids'
+    # '.item select[name="roles"]'  : 'role_ids'
 
   @extend Spine.Bindings
 
@@ -47,6 +47,8 @@ class UserForm extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
+    @user.role_ids = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
+
     unless @user.isValid() and User.save(@user)
       msg = @user.validate()
       return alert msg
@@ -61,6 +63,7 @@ class UserForm extends Spine.Controller
       binaries: binaries
       user: user
       roles: Role.all()
+      rqst: Request.get()
       servers: servers
 
 module?.exports = UserForm

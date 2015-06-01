@@ -1,5 +1,6 @@
-Spine    = @Spine or require('spine')
-Category = require('models/binary_category')
+Spine    = @Spine or require 'spine'
+Category = require 'models/binary_category'
+$        = Spine.$
 
 class BinaryCategoriesTable extends Spine.Controller
   constructor: ->
@@ -10,7 +11,7 @@ class BinaryCategoriesTable extends Spine.Controller
 
   render: =>
     @html @template Category.all()
-    @append new BinaryCategoriesTableAddModal  # TODO: do not init a new one every time
+    @append new BinaryCategoriesTableAddModal  # FIXME: do not init a new one every time
 
   template: (categories) ->
     require('views/binaries/categories/table')
@@ -46,9 +47,9 @@ class BinaryCategoriesTableAddModal extends Spine.Controller
     if @category.isValid() and Category.save(@category)
       @category = new Category
       @applyBindings()
-      # TODO: fix hide backdrop
+      # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        this.remove()
+        @.remove()
     else
       msg = @category.validate()
       return alert msg

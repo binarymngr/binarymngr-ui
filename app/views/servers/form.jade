@@ -14,11 +14,11 @@ if server
     div.form-group
       label.col-md-2.control-label(for='name') Name
       div.col-md-6
-        input.form-control(type='text', name='name', value=server.name, placeholder='localhost', required)
+        input.form-control(type='text', name='name', value=server.name, required)
     div.form-group
       label.col-md-2.control-label(for='ipv4') IPv4 Address
       div.col-md-6
-        input.form-control(type='text', name='ipv4', value=server.ipv4, placeholder='127.0.0.1', pattern='(\\d{1,3}\.){3}\\d{1,3}', required)
+        input.form-control(type='text', name='ipv4', value=server.ipv4, pattern='(\\d{1,3}\.){3}\\d{1,3}', required)
     if rqst.user.is_admin
       div.form-group
         label.col-md-2.control-label(for='owner_id') Owner ID

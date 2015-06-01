@@ -1,6 +1,6 @@
-Spine   = @Spine or require('spine')
-Role    = require('models/role')
-Request = require('http/request')
+Spine   = @Spine or require 'spine'
+Role    = require 'models/role'
+Request = require 'lib/http/request'
 $       = Spine.$
 
 class RolesTable extends Spine.Controller
@@ -12,7 +12,7 @@ class RolesTable extends Spine.Controller
 
   render: =>
     @html @template Role.all()
-    @append new RolesTableAddModal  # TODO: do not init a new one every time
+    @append new RolesTableAddModal  # FIXME: do not init a new one every time
 
   template: (roles) ->
     require('views/administration/roles/table')
@@ -51,7 +51,7 @@ class RolesTableAddModal extends Spine.Controller
       @applyBindings()
       # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        this.remove()
+        @.remove()
     else
       msg = @role.validate()
       return alert msg

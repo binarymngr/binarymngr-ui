@@ -1,8 +1,8 @@
-Spine   = @Spine or require('spine')
-Binary  = require('models/binary')
-Request = require('http/request')
-Server  = require('models/server')
-Version = require('models/binary_version')
+Spine   = @Spine or require 'spine'
+Binary  = require 'models/binary'
+Request = require 'lib/http/request'
+Server  = require 'models/server'
+Version = require 'models/binary_version'
 
 class ServerForm extends Spine.Controller
   className: 'col-xs-12'
@@ -13,7 +13,6 @@ class ServerForm extends Spine.Controller
 
   modelVar: 'server'
   bindings:
-  #  '.item input[name="id"]'   : 'id'
     '.item input[name="name"]': 'name'
     '.item input[name="ipv4"]': 'ipv4'
 
@@ -23,9 +22,9 @@ class ServerForm extends Spine.Controller
     super
 
     @server = null
-    Binary.bind 'refresh', @render
+    Binary.bind 'refresh change', @render
     Server.bind 'refresh change', @render
-    Version.bind 'refresh', @render
+    Version.bind 'refresh change', @render
 
     @routes
       '/servers/:id': (params) ->

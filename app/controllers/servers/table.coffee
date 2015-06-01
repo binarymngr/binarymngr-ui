@@ -1,5 +1,6 @@
-Spine  = @Spine or require('spine')
-Server = require('models/server')
+Spine  = @Spine or require 'spine'
+Server = require 'models/server'
+$      = Spine.$
 
 class ServersTable extends Spine.Controller
   className: 'col-xs-12'
@@ -12,7 +13,7 @@ class ServersTable extends Spine.Controller
 
   render: =>
     @html @template Server.all()
-    @append new ServersTableAddModal  # TODO: do not init a new one every time
+    @append new ServersTableAddModal  # FIXME: do not init a new one every time
 
   template: (items) ->
     require('views/servers/table')
@@ -48,9 +49,9 @@ class ServersTableAddModal extends Spine.Controller
     if @server.isValid() and Server.save(@server)
       @server = new Server
       @applyBindings()
-      # TODO: fix hide backdrop
+      # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        this.remove()
+        @.remove()
     else
       msg = @server.validate()
       return alert msg

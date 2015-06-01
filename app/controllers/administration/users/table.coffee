@@ -1,6 +1,7 @@
-Spine   = @Spine or require('spine')
-Request = require('http/request')
-User    = require('models/user')
+Spine   = @Spine or require 'spine'
+Request = require 'lib/http/request'
+User    = require 'models/user'
+$       = Spine.$
 
 class UsersTable extends Spine.Controller
   constructor: ->
@@ -11,7 +12,7 @@ class UsersTable extends Spine.Controller
 
   render: =>
     @html @template User.all()
-    @append new UsersTableAddModal  # TODO: do not init a new one every time
+    @append new UsersTableAddModal  # FIXME: do not init a new one every time
 
   template: (users) ->
     require('views/administration/users/table')
@@ -50,7 +51,7 @@ class UsersTableAddModal extends Spine.Controller
       @applyBindings()
       # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        this.remove()
+        @.remove()
     else
       msg = @user.validate()
       return alert msg

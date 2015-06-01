@@ -1,5 +1,5 @@
-Spine        = @Spine or require('spine')
-Notification = require('services/notification_service')
+Spine        = @Spine or require 'spine'
+Notification = require 'services/notification_service'
 
 class Role extends Spine.Model
   @configure 'Role', 'name', 'description', 'user_ids'
@@ -15,7 +15,7 @@ class Role extends Spine.Model
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
   getUsers: =>
-    User = require('models/user')  # FIXME: fails with User = empty object if placed on top
+    User = require 'models/user'  # FIXME: fails with User = empty object if placed on top
 
     @user_ids ?= new Array
     return (User.find(user_id) for user_id in @user_ids when User.exists(user_id))

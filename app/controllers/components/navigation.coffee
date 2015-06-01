@@ -1,6 +1,6 @@
-Spine   = @Spine or require('spine')
-Message = require('models/message')
-Request = require('http/request')
+Spine   = @Spine or require 'spine'
+Message = require 'models/message'
+Request = require 'lib/http/request'
 
 class NavigationComponent extends Spine.Controller
   elements:

@@ -1,5 +1,5 @@
-Spine   = @Spine or require('spine')
-Message = require('models/message')
+Spine   = @Spine or require 'spine'
+Message = require 'models/message'
 
 class DashboardSidebar extends Spine.Controller
   className: 'col-sm-4 col-md-3 sidebar-pf sidebar-pf-right'

@@ -1,6 +1,7 @@
-Spine   = @Spine or require('spine')
-Binary  = require('models/binary')
-Version = require('models/binary_version')
+Spine   = @Spine or require 'spine'
+Binary  = require 'models/binary'
+Version = require 'models/binary_version'
+$       = Spine.$
 
 class BinaryVersionsTable extends Spine.Controller
   constructor: ->
@@ -11,7 +12,7 @@ class BinaryVersionsTable extends Spine.Controller
 
   render: =>
     @html @template Version.all()
-    @append new BinaryVersionsTableAddModal  # TODO: do not init a new one every time
+    @append new BinaryVersionsTableAddModal  # FIXME do not init a new one every time
 
   template: (versions) ->
     require('views/binaries/versions/table')
@@ -29,7 +30,7 @@ class BinaryVersionsTableAddModal extends Spine.Controller
     '.item input[name="identifier"]': 'identifier'
     '.item textarea[name="note"]'   : 'note'
     '.item input[name="eol"]'       : 'eol'
-    '.item select[name="binary_id"]': 'binary_id'
+    # '.item select[name="binary_id"]': 'binary_id'
 
   @extend Spine.Bindings
 
@@ -47,12 +48,14 @@ class BinaryVersionsTableAddModal extends Spine.Controller
   save: (event) =>
     event.preventDefault()
 
+    @version.binary_id = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
+
     if @version.isValid() and Version.save(@version)
       @version = new Version
       @applyBindings()
-      # TODO: fix hide backdrop
+      # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        this.remove()
+        @.remove()
     else
       msg = @version.validate()
       return alert msg

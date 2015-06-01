@@ -1,4 +1,4 @@
-Spine = @Spine or require('spine')
+Spine = @Spine or require 'spine'
 $     = Spine.$
 
 class AdministrationSidebar extends Spine.Controller

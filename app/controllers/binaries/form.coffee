@@ -1,9 +1,9 @@
-Spine    = @Spine or require('spine')
-Binary   = require('models/binary')
-Category = require('models/binary_category')
-Request  = require('http/request')
-User     = require('models/user')
-Version  = require('models/binary_version')
+Spine    = @Spine or require 'spine'
+Binary   = require 'models/binary'
+Category = require 'models/binary_category'
+Request  = require 'lib/http/request'
+User     = require 'models/user'
+Version  = require 'models/binary_version'
 
 class BinaryForm extends Spine.Controller
   events:
@@ -13,10 +13,9 @@ class BinaryForm extends Spine.Controller
 
   modelVar: 'binary'
   bindings:
-    # '.item input[name="id"]'            : 'id'
     '.item input[name="name"]'          : 'name'
     '.item textarea[name="description"]': 'description'
-    '.item select[name="categories"]'   : 'category_ids'
+    # '.item select[name="categories"]'   : 'category_ids'
     '.item input[name="homepage"]'      : 'homepage'
     '.item input[name="eol"]'           : 'eol'
 
@@ -29,7 +28,7 @@ class BinaryForm extends Spine.Controller
     Binary.bind 'refresh change', @render
     Category.bind 'refresh change', @render
     User.bind 'refresh change', @render
-    Version.bind 'refresh change', @render  # TODO: add change because we can add one from this controller
+    Version.bind 'refresh change', @render
 
     @routes
       '/binaries/:id': (params) ->
@@ -49,6 +48,8 @@ class BinaryForm extends Spine.Controller
 
   save: (event) =>
     event.preventDefault()
+
+    @binary.category_ids = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
 
     unless @binary.isValid() and Binary.save(@binary)
       msg = @binary.validate()

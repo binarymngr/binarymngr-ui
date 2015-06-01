@@ -1,4 +1,4 @@
-Spine = @Spine or require('spine')
+Spine = @Spine or require 'spine'
 
 class Request extends Spine.Module
   @extend Spine.Events

@@ -1,6 +1,6 @@
-Spine   = @Spine or require('spine')
-Main    = require('controllers/binaries/main')
-Sidebar = require('controllers/binaries/sidebar')
+Spine   = @Spine or require 'spine'
+Main    = require 'controllers/binaries/main'
+Sidebar = require 'controllers/binaries/sidebar'
 
 class BinariesPage extends Spine.Controller
   className: 'row page-binaries'

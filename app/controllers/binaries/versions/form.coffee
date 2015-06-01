@@ -1,8 +1,8 @@
-Spine   = @Spine or require('spine')
-Binary  = require('models/binary')
-Server  = require('models/server')
-User    = require('models/user')
-Version = require('models/binary_version')
+Spine   = @Spine or require 'spine'
+Binary  = require 'models/binary'
+Server  = require 'models/server'
+User    = require 'models/user'
+Version = require 'models/binary_version'
 
 class BinaryVersionForm extends Spine.Controller
   events:
@@ -12,7 +12,6 @@ class BinaryVersionForm extends Spine.Controller
 
   modelVar: 'version'
   bindings:
-    # '.item input[name="id"]'        : 'id'
     '.item input[name="identifier"]': 'identifier'
     '.item textarea[name="note"]'   : 'note'
     '.item input[name="eol"]'       : 'eol'

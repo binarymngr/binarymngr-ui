@@ -14,7 +14,7 @@ if binary
     div.form-group
       label.col-md-2.control-label(for='name') Name
       div.col-md-6
-        input.form-control(type='text', name='name', value='#{binary.name}', placeholder='binarymngr', required)
+        input.form-control(type='text', name='name', value=binary.name, required)
     div.form-group
       label.col-md-2.control-label(for='description') Description
       div.col-md-6
@@ -22,7 +22,10 @@ if binary
     div.form-group
       label.col-md-2.control-label(for='homepage') Homepage
       div.col-md-6
-        input.form-control(type='url', name='homepage', value='#{binary.homepage}')
+        if binary.homepage
+          input.form-control(type='url', name='homepage', value=binary.homepage)
+        else
+          input.form-control(type='url', name='homepage')
     div.form-group
       label.col-md-2.control-label(for='categories') Categories
       div.col-md-10

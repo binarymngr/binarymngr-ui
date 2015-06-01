@@ -1,6 +1,6 @@
-Spine    = @Spine or require('spine')
-Binary   = require('models/binary')
-Category = require('models/binary_category')
+Spine    = @Spine or require 'spine'
+Binary   = require 'models/binary'
+Category = require 'models/binary_category'
 
 class BinaryCategoryForm extends Spine.Controller
   events:
@@ -10,7 +10,6 @@ class BinaryCategoryForm extends Spine.Controller
 
   modelVar: 'category'
   bindings:
-    # '.item input[name="id"]'            : 'id'
     '.item input[name="name"]'          : 'name'
     '.item textarea[name="description"]': 'description'
 

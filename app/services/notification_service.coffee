@@ -1,5 +1,5 @@
-Spine   = @Spine or require('spine')
-Service = require('services/service')
+Spine   = @Spine or require 'spine'
+Service = require 'services/service'
 $       = Spine.$
 
 class NotificationService extends Service

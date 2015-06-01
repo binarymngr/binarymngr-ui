@@ -1,4 +1,4 @@
-Spine = @Spine or require('spine')
+Spine = @Spine or require 'spine'
 
 class Message extends Spine.Model
   @configure 'Message', 'title', 'body', 'created_at', 'user_id'

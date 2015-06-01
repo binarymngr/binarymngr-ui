@@ -1,16 +1,16 @@
-require('lib/setup')
+require 'lib/setup'
 
-Spine      = @Spine or require('spine')
-Binary     = require('models/binary')
-Category   = require('models/binary_category')
-Content    = require('controllers/components/content')
-Message    = require('models/message')
-Navigation = require('controllers/components/navigation')
-Request    = require('http/request')
-Role       = require('models/role')
-Server     = require('models/server')
-User       = require('models/user')
-Version    = require('models/binary_version')
+Spine      = @Spine or require 'spine'
+Binary     = require 'models/binary'
+Category   = require 'models/binary_category'
+Content    = require 'controllers/components/content'
+Message    = require 'models/message'
+Navigation = require 'controllers/components/navigation'
+Request    = require 'lib/http/request'
+Role       = require 'models/role'
+Server     = require 'models/server'
+User       = require 'models/user'
+Version    = require 'models/binary_version'
 $          = Spine.$
 
 class App extends Spine.Controller
@@ -22,7 +22,7 @@ class App extends Spine.Controller
       if Spine.Ajax.pending
         return 'Data is still being sent to the server; you may lose unsaved changes if you close the page.'
 
-    # create a new request object after every location change(/click?)
+    # create a new request object after every location change(/click)
     Spine.Route.bind 'change', ->
       Request.hydrate()
 

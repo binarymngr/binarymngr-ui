@@ -15,23 +15,24 @@ if user
     div.form-group
       label.col-md-2.control-label(for='email') Email
       div.col-md-6
-        input.form-control(type='email', name='email', value=user.email, placeholder='account@domain.tld', required)
+        input.form-control(type='email', name='email', value=user.email, required)
     div.form-group
       label.col-md-2.control-label(for='password') Password
       div.col-md-6
-        input.form-control(type='password', name='password', required)
-    div.form-group
-      label.col-md-2.control-label(for='roles') Roles
-      div.col-md-10
-        select#bootstrapSelect.selectpicker(name='roles', multiple, data-selected-text-format='count>2')
-          if roles
-            - var role_ids = _.pluck(user.getRoles(), 'id')
-            each role in _.sortBy(roles, 'name')
-              if _.contains(role_ids, role.id)
-                option(value=role.id, data-subtext=role.description, checked) #{role.name}
-              else
-                option(value=role.id, data-subtext=role.description) #{role.name}
-            include ../../includes/selectpicker-js.jade
+        input.form-control(type='password', name='password')
+    if rqst.user.is_admin
+      div.form-group
+        label.col-md-2.control-label(for='roles') Roles
+        div.col-md-10
+          select#bootstrapSelect.selectpicker.show-menu-arrow(name='roles', multiple, data-selected-text-format='count>2')
+            if roles
+              - var role_ids = _.pluck(user.getRoles(), 'id')
+              each role in _.sortBy(roles, 'name')
+                if _.contains(role_ids, role.id)
+                  option(value=role.id, data-subtext=role.description, checked) #{role.name}
+                else
+                  option(value=role.id, data-subtext=role.description) #{role.name}
+              include ../../includes/selectpicker-js.jade
     div.form-group
       div.col-md-10.col-md-offset-2
         include ../../includes/form-buttons.jade

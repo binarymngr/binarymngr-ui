@@ -1,8 +1,8 @@
-Spine        = @Spine or require('spine')
-Message      = require('models/message')
-Notification = require('services/notification_service')
-Role         = require('models/role')
-Server       = require('models/server')
+Spine        = @Spine or require 'spine'
+Message      = require 'models/message'
+Notification = require 'services/notification_service'
+Role         = require 'models/role'
+Server       = require 'models/server'
 
 class User extends Spine.Model
   @configure 'User', 'email', 'password', 'role_ids'

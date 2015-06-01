@@ -1,5 +1,5 @@
-Spine        = @Spine or require('spine')
-Notification = require('services/notification_service')
+Spine        = @Spine or require 'spine'
+Notification = require 'services/notification_service'
 
 class BinaryCategory extends Spine.Model
   @configure 'BinaryCategory', 'name', 'description', 'binary_ids'
@@ -15,7 +15,7 @@ class BinaryCategory extends Spine.Model
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
   getBinaries: =>
-    Binary = require('models/binary')  # FIXME: Binary = empty object if placed on top
+    Binary = require 'models/binary'  # FIXME: Binary = empty object if placed on top
 
     @binary_ids ?= new Array
     return (Binary.find(binary_id) for binary_id in @binary_ids when Binary.exists(binary_id))

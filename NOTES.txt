@@ -2,6 +2,7 @@ BUGS:
     - Adding a new binary version complains about missing binary_id. Might be because of bootstrap-select
     - If saving/destroying fails, the record is still added/removed to/from the internal collection leading to wrong data.
     - bootstrap-select does not use checked=true attribute of the underlaying select options elements.
+    - Dates are not formatted correctly.
 
 TODOS:
     - Dashboard
