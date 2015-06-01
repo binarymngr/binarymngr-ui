@@ -29,7 +29,7 @@ if user
               - var role_ids = _.pluck(user.getRoles(), 'id')
               each role in _.sortBy(roles, 'name')
                 if _.contains(role_ids, role.id)
-                  option(value=role.id, data-subtext=role.description, checked) #{role.name}
+                  option(value=role.id, data-subtext=role.description, selected) #{role.name}
                 else
                   option(value=role.id, data-subtext=role.description) #{role.name}
               include ../../includes/selectpicker-js.jade
