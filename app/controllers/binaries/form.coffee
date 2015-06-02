@@ -33,8 +33,7 @@ class BinaryForm extends Spine.Controller
     super
     @render params
 
-  cancel: (event) =>
-    @navigate '/binaries'
+  cancel: (event) => @navigate '/binaries'
 
   destroy: (event) =>
     if @binary.destroy()
@@ -43,16 +42,16 @@ class BinaryForm extends Spine.Controller
   render: (params) =>
     @binary = Binary.find params.id if params?.id?
     @html @template @binary
-    @applyBindings() if @binary?
+    do @applyBindings if @binary?
 
   save: (event) =>
     event.preventDefault()
 
     @binary.category_ids = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
 
-    unless @binary.isValid() and Binary.save(@binary)
+    unless @binary.save()
       msg = @binary.validate()
-      return alert msg
+      alert msg
 
   template: (binary) ->
     versions = null

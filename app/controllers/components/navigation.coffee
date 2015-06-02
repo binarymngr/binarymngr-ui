@@ -47,11 +47,9 @@ class NavigationComponent extends Spine.Controller
       when @utility_nav
         nav.find('a[href="'+link+'"]').parents('li').not('.dropdown').addClass('active')
 
-  destroyMessages: ->
-    Message.destroyAll()
+  destroyMessages: -> Message.destroyAll()
 
-  render: =>
-    @html @template Message.all()
+  render: => @html @template Message.all()
 
   template: (messages) ->
     require('views/components/navigation')

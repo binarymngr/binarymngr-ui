@@ -16,8 +16,7 @@ class MessageForm extends Spine.Controller
     super
     @render params
 
-  cancel: (event) =>
-    @navigate '/messages'
+  cancel: (event) => @navigate '/messages'
 
   destroy: (event) =>
     if @message.destroy()

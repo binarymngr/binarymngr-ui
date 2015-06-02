@@ -26,8 +26,7 @@ class BinaryCategoryForm extends Spine.Controller
     super
     @render params
 
-  cancel: (event) =>
-    @navigate '/binaries/categories'
+  cancel: (event) => @navigate '/binaries/categories'
 
   destroy: (event) =>
     if @category.destroy()
@@ -36,14 +35,14 @@ class BinaryCategoryForm extends Spine.Controller
   render: (params) =>
     @category = Category.find params.id if params?.id?
     @html @template @category
-    @applyBindings() if @category?
+    do @applyBindings if @category?
 
   save: (event) =>
     event.preventDefault()
 
-    unless @category.isValid() and Category.save(@category)
+    unless @category.save()
       msg = @category.validate()
-      return alert msg
+      alert msg
 
   template: (category) ->
     binaries = null

@@ -31,8 +31,7 @@ class BinaryVersionForm extends Spine.Controller
     super
     @render params
 
-  cancel: (event) =>
-    @navigate '/binaries/versions'
+  cancel: (event) => @navigate '/binaries/versions'
 
   destroy: (event) =>
     if @version.destroy()
@@ -41,14 +40,14 @@ class BinaryVersionForm extends Spine.Controller
   render: (params) =>
     @version = Version.find params.id if params?.id?
     @html @template @version
-    @applyBindings() if @version?
+    do @applyBindings if @version?
 
   save: (event) =>
     event.preventDefault()
 
-    unless @version.isValid() and Version.save(@version)
+    unless @version.save()
       msg = @version.validate()
-      return alert msg
+      alert msg
 
   template: (version) ->
     binary  = null

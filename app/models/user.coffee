@@ -16,32 +16,29 @@ class User extends Spine.Model
 
   @url: '/users'
 
-  destroy: =>
+  create: ->
+    super
+      done: -> Notification.success 'User has sucessfully been created.'
+      fail: -> Notification.warning 'An error encountered during the creation process.'
+
+  destroy: ->
     super
       done: -> Notification.error 'User has successfully been deleted.'
       fail: -> Notification.warning 'An error encountered during the deletion process.'
 
   getRoles: =>
     @role_ids ?= new Array
-    return (Role.find(role_id) for role_id in @role_ids when Role.exists(role_id))
+    (Role.find(role_id) for role_id in @role_ids when Role.exists(role_id))
 
-  hasMessages: =>
-    return @messages().length isnt 0
+  hasMessages:  => @messages().length isnt 0
+  hasRoles:     => @getRoles().length isnt 0
+  ownsBinaries: => @binaries().length isnt 0
+  ownsServers:  => @servers().length isnt 0
 
-  hasRoles: =>
-    return @getRoles().length isnt 0
-
-  ownsBinaries: =>
-    return @binaries().length isnt 0
-
-  ownsServers: =>
-    return @servers().length isnt 0
-
-  @save: (user) ->
-    if user.save()
-      Notification.success 'User has successfully been saved.'
-    else
-      Notification.warning 'An error encountered during the save process.'
+  update: ->
+    super
+      done: -> Notification.success 'User has sucessfully been updated.'
+      fail: -> Notification.warning 'An error encountered during the update process.'
 
   validate: ->
     return 'Email is required' unless @email

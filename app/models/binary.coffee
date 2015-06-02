@@ -14,6 +14,11 @@ class Binary extends Spine.Model
 
   @url: '/binaries'
 
+  create: ->
+    super
+      done: -> Notification.success 'Binary has sucessfully been created.'
+      fail: -> Notification.warning 'An error encountered during the creation process.'
+
   destroy: =>
     super
       done: -> Notification.error 'Binary has successfully been deleted.'
@@ -23,24 +28,20 @@ class Binary extends Spine.Model
     Category = require 'models/binary_category'  # FIXME: Category = empty object if placed on top
 
     @category_ids ?= new Array
-    return (Category.find(category_id) for category_id in @category_ids when Category.exists(category_id))
+    (Category.find(category_id) for category_id in @category_ids when Category.exists(category_id))
 
-  hasCategories: =>
-    return @getCategories().length isnt 0
-
-  hasVersions: =>
-    return @versions().length isnt 0
+  hasCategories: => @getCategories().length isnt 0
+  hasVersions:   => @versions().length isnt 0
 
   isInstalled: =>
     _.each @versions(), (version) ->
-      return true if version.isInstalled()
-    return false
+      return yes if version.isInstalled()
+    no
 
-  @save: (binary) ->
-    if binary.save()
-      Notification.success 'Binary has successfully been saved.'
-    else
-      Notification.warning 'An error encountered during the save process.'
+  update: ->
+    super
+      done: -> Notification.success 'Binary has sucessfully been updated.'
+      fail: -> Notification.warning 'An error encountered during the update process.'
 
   validate: ->
     return 'Name is required' unless @name

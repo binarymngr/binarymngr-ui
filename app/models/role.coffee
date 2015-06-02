@@ -9,6 +9,11 @@ class Role extends Spine.Model
 
   @url: '/roles'
 
+  create: ->
+    super
+      done: -> Notification.success 'Role has sucessfully been created.'
+      fail: -> Notification.warning 'An error encountered during the creation process.'
+
   destroy: =>
     super
       done: -> Notification.error 'Role has successfully been deleted.'
@@ -18,16 +23,14 @@ class Role extends Spine.Model
     User = require 'models/user'  # FIXME: fails with User = empty object if placed on top
 
     @user_ids ?= new Array
-    return (User.find(user_id) for user_id in @user_ids when User.exists(user_id))
+    (User.find(user_id) for user_id in @user_ids when User.exists(user_id))
 
-  hasUsers: =>
-    return @getUsers().length isnt 0
+  hasUsers: => @getUsers().length isnt 0
 
-  @save: (role) ->
-    if role?.save()
-      Notification.success 'Role has successfully been saved.'
-    else
-      Notification.warning 'An error encountered during the save process.'
+  update: ->
+    super
+      done: -> Notification.success 'Role has sucessfully been updated.'
+      fail: -> Notification.warning 'An error encountered during the update process.'
 
   validate: ->
     return 'Name is required' unless @name

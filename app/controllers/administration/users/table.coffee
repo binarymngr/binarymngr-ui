@@ -7,7 +7,7 @@ class UsersTable extends Spine.Controller
     super
 
     User.bind 'refresh change', @render
-    @render()
+    do @render
 
   render: =>
     @html @template User.all()
@@ -35,18 +35,18 @@ class UsersTableAddModal extends Spine.Controller
     super
 
     @user = new User
-    @render()
+    do @render
 
   render: =>
     @html require('views/administration/users/add-modal')()
-    @applyBindings()
+    do @applyBindings
 
   save: (event) =>
     event.preventDefault()
 
-    if @user.isValid() and User.save(@user)
+    if @user.save()
       @user = new User
-      @applyBindings()
+      do @applyBindings
       # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         @.remove()

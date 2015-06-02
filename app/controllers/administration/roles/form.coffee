@@ -27,8 +27,7 @@ class RoleForm extends Spine.Controller
     super
     @render params
 
-  cancel: (event) =>
-    @navigate '/administration/roles'
+  cancel: (event) => @navigate '/administration/roles'
 
   destroy: (event) =>
     if @role.destroy()
@@ -37,14 +36,14 @@ class RoleForm extends Spine.Controller
   render: (params) =>
     @role = Role.find params.id if params?.id?
     @html @template @role
-    @applyBindings() if @role?
+    do @applyBindings if @role?
 
   save: (event) =>
     event.preventDefault()
 
-    unless @role.isValid() and Role.save(@role)
+    unless @role.save()
       msg = @role.validate()
-      return alert msg
+      alert msg
 
   template: (role) ->
     users = null

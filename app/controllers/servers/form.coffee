@@ -29,8 +29,7 @@ class ServerForm extends Spine.Controller
     super
     @render params
 
-  cancel: (event) =>
-    @navigate '/servers'
+  cancel: (event) => @navigate '/servers'
 
   destroy: (event) =>
     if @server.destroy()
@@ -39,14 +38,14 @@ class ServerForm extends Spine.Controller
   render: (params) =>
     @server = Server.find params.id if params?.id?
     @html @template @server
-    @applyBindings() if @server?
+    do @applyBindings if @server?
 
   save: (event) =>
     event.preventDefault()
 
-    unless @server.isValid() and Server.save(@server)
+    unless @server.save()
       msg = @server.validate()
-      return alert msg
+      alert msg
 
   template: (server) ->
     binary_versions = null

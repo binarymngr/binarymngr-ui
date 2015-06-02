@@ -32,8 +32,7 @@ class UserForm extends Spine.Controller
     super
     @render params
 
-  cancel: (event) =>
-    @navigate '/administration/users'
+  cancel: (event) => @navigate '/administration/users'
 
   destroy: (event) =>
     if @user.destroy()
@@ -42,16 +41,16 @@ class UserForm extends Spine.Controller
   render: (params) =>
     @user = User.find params.id if params?.id?
     @html @template @user
-    @applyBindings() if @user?
+    do @applyBindings if @user?
 
   save: (event) =>
     event.preventDefault()
 
     @user.role_ids = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
 
-    unless @user.isValid() and User.save(@user)
+    unless @user.save()
       msg = @user.validate()
-      return alert msg
+      alert msg
 
   template: (user) ->
     binaries = null

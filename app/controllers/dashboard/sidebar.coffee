@@ -10,13 +10,11 @@ class DashboardSidebar extends Spine.Controller
     super
 
     Message.bind 'refresh change', @render
-    @render()
+    do @render
 
-  destroyMessages: ->
-    Message.destroyAll()
+  destroyMessages: -> Message.destroyAll()
 
-  render: =>
-    @html @template Message.all()
+  render: => @html @template Message.all()
 
   template: (messages) ->
     require('views/dashboard/sidebar')

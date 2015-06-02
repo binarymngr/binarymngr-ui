@@ -19,7 +19,7 @@ class BinariesSidebar extends Spine.Controller
       @activateLink ''
 
     Category.bind 'refresh change', @render
-    @render()
+    do @render
 
   activateLink: (link) =>
     # remove active class from all categories
@@ -27,8 +27,7 @@ class BinariesSidebar extends Spine.Controller
     # add active again to current one
     @category_nav.find('a[href="'+link+'"]').parent('li').addClass('active')
 
-  render: =>
-    @html @template Category.all()
+  render: => @html @template Category.all()
 
   template: (categories) ->
     require('views/binaries/sidebar')

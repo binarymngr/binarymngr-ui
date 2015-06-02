@@ -20,7 +20,7 @@ class App extends Spine.Controller
     # warn the user on page leave if transactions are still pending
     $(window).on 'beforeunload', ->
       if Spine.Ajax.pending
-        return 'Data is still being sent to the server; you may lose unsaved changes if you close the page.'
+        'Data is still being sent to the server; you may lose unsaved changes if you close the page.'
 
     # create a new request object after every location change(/click)
     Spine.Route.bind 'change', ->

@@ -15,6 +15,11 @@ class BinaryVersion extends Spine.Model
     object.eol = object.eol.substring(0, 10) if object?.eol?
     super
 
+  create: ->
+    super
+      done: -> Notification.success 'Binary version has sucessfully been created.'
+      fail: -> Notification.warning 'An error encountered during the creation process.'
+
   destroy: =>
     super
       done: -> Notification.error 'Binary version has successfully been deleted.'
@@ -24,22 +29,20 @@ class BinaryVersion extends Spine.Model
     Server = require 'models/server'  # FIXME: fails with Server = empty object if placed on top
 
     @server_ids ?= new Array
-    return (Server.find(server_id) for server_id in @server_ids when Server.exists(server_id))
+    (Server.find(server_id) for server_id in @server_ids when Server.exists(server_id))
 
-  isInstalled: =>
-    return @getServers().length isnt 0
+  isInstalled: => @getServers().length isnt 0
 
-  @save: (version) ->
-    if version.save()
-      Notification.success 'Binary version has successfully been saved.'
-    else
-      Notification.warning 'An error encountered during the save process.'
+  update: ->
+    super
+      done: -> Notification.success 'Binary version has sucessfully been updated.'
+      fail: -> Notification.warning 'An error encountered during the update process.'
 
   toJSON: (version) =>
     data = @attributes()
     if data?.eol?
       data.eol += " 00:00:00"
-    return data
+    data
 
   validate: ->
     return 'Identifier is required' unless @identifier

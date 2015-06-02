@@ -8,7 +8,7 @@ class BinaryVersionsTable extends Spine.Controller
     super
 
     Version.bind 'refresh change', @render
-    @render()
+    do @render
 
   render: =>
     @html @template Version.all()
@@ -39,11 +39,11 @@ class BinaryVersionsTableAddModal extends Spine.Controller
 
     @version = new Version
     Binary.bind 'refresh change', @render
-    @render()
+    do @render
 
   render: =>
     @html @template Binary.all()
-    @applyBindings()
+    do @applyBindings
 
   save: (event) =>
     event.preventDefault()
@@ -52,13 +52,13 @@ class BinaryVersionsTableAddModal extends Spine.Controller
 
     if @version.isValid() and Version.save(@version)
       @version = new Version
-      @applyBindings()
+      do @applyBindings
       # FIXME: hide backdrop
       $('.modal-backdrop.fade.in').fadeOut 'fast', ->
         @.remove()
     else
       msg = @version.validate()
-      return alert msg
+      alert msg
 
   template: (binaries) ->
     require('views/binaries/versions/add-modal')

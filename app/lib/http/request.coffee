@@ -17,8 +17,7 @@ class Request extends Spine.Module
     Object.freeze @date
     Object.freeze this
 
-  @get: =>
-    return @current
+  @get: => @current
 
   @hydrate: =>
     rqst = new Request
