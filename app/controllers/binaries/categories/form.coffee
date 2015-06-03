@@ -1,5 +1,4 @@
 Spine    = @Spine or require 'spine'
-Binary   = require 'models/binary'
 Category = require 'models/binary_category'
 
 class BinaryCategoryForm extends Spine.Controller
@@ -18,38 +17,30 @@ class BinaryCategoryForm extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     @category = null
-    Binary.bind 'refresh change', @render
-    Category.bind 'refresh change', @render
+    Category.bind 'refresh', @render
 
-  activate: (params) =>
-    super
-    @render params
+  cancel:  -> @navigate '/binaries/categories'
+  destroy: -> @navigate '/binaries/categories' if @category.destroy()
 
-  cancel: (event) => @navigate '/binaries/categories'
-
-  destroy: (event) =>
-    if @category.destroy()
-      @navigate '/binaries/categories'
-
-  render: (params) =>
-    @category = Category.find params.id if params?.id?
-    @html @template @category
-    do @applyBindings if @category?
+  render: (category) =>
+    if @isActive
+      @category = Category.find(category.id) if category?.id?
+      @html @template @category
+      if @category?
+        @category.bind 'change', @render
+        @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     unless @category.save()
       msg = @category.validate()
       alert msg
 
   template: (category) ->
-    binaries = null
-    binaries = category.getBinaries() if category?
-
     require('views/binaries/categories/form')
-      binaries: binaries
+      binaries: category?.getBinaries()
       category: category
 
 module?.exports = BinaryCategoryForm

@@ -2,7 +2,14 @@ Spine   = @Spine or require 'spine'
 Service = require 'services/service'
 $       = Spine.$
 
+#
+# The NotificationService class allows showing notifications
+# to the user. It uses the noty jQuery library for that purpose.
+#
 class NotificationService extends Service
+  #
+  # Noty notification types constants.
+  #
   @ALERT      : 'alert'
   @CONFIRM    : 'confirm'
   @ERROR      : 'error'
@@ -10,6 +17,11 @@ class NotificationService extends Service
   @SUCCESS    : 'success'
   @WARNING    : 'warning'
 
+  #
+  # Constructor to initialize a new instance.
+  #
+  # defaults: A 'settings' object that gets passed to noty
+  #
   constructor: (defaults) ->
     super
 
@@ -26,18 +38,63 @@ class NotificationService extends Service
       closeWith: ['button', 'click']
     _.extend $.noty.defaults, defaults
 
-  alert: (alert, options = {}) =>
+  #
+  # Shows a new notification with level 'ALERT'.
+  #
+  # alert:   The content to display.
+  # options: Optional options to pass to noty.
+  #
+  # return: void
+  #
+  alert: (alert, options = {}) ->
     @notify NotificationService.ALERT, alert, options
+    return
 
-  confirm: (question, options = {}) =>
+  #
+  # Shows a new notification with level 'CONFIRM'.
+  #
+  # alert:   The content to display.
+  # options: Optional options to pass to noty.
+  #
+  # return: void
+  #
+  confirm: (question, options = {}) ->
     @notify NotificationService.CONFIRM, question, options
+    return
 
-  error: (error, options = {}) =>
+  #
+  # Shows a new notification with level 'ERROR'.
+  #
+  # alert:   The content to display.
+  # options: Optional options to pass to noty.
+  #
+  # return: void
+  #
+  error: (error, options = {}) ->
     @notify NotificationService.ERROR, error, options
+    return
 
-  info: (info, options = {}) =>
+  #
+  # Shows a new notification with level 'INFO'.
+  #
+  # alert:   The content to display.
+  # options: Optional options to pass to noty.
+  #
+  # return: void
+  #
+  info: (info, options = {}) ->
     @notify NotificationService.INFORMATION, info, options
+    return
 
+  #
+  # Creates and shows a new notification.
+  #
+  # type:    The notification type.
+  # text:    The content to show.
+  # options: Optional options to pass to noty.
+  #
+  # return: void
+  #
   notify: (type, text, options = {}) ->
     options = _.extend {
       text: text
@@ -45,11 +102,30 @@ class NotificationService extends Service
     }, options
 
     noty options
+    return
 
-  success: (sucess, options = {}) =>
+  #
+  # Shows a new notification with level 'SUCCESS'.
+  #
+  # alert:   The content to display.
+  # options: Optional options to pass to noty.
+  #
+  # return: void
+  #
+  success: (sucess, options = {}) ->
     @notify NotificationService.SUCCESS, sucess, options
+    return
 
-  warning: (warning, options = {}) =>
+  #
+  # Shows a new notification with level 'WARNING'.
+  #
+  # alert:   The content to display.
+  # options: Optional options to pass to noty.
+  #
+  # return: void
+  #
+  warning: (warning, options = {}) ->
     @notify NotificationService.WARNING, warning, options
+    return
 
 module?.exports = new NotificationService

@@ -1,17 +1,17 @@
 Spine    = @Spine or require 'spine'
 Category = require 'models/binary_category'
-$        = Spine.$
 
 class BinaryCategoriesTable extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     Category.bind 'refresh change', @render
-    do @render
 
   render: =>
-    @html @template Category.all()
-    @append new BinaryCategoriesTableAddModal  # FIXME: do not init a new one every time
+    if @isActive
+      @html @template Category.all()
+      @append new BinaryCategoriesTableAddModal  # FIXME
 
   template: (categories) ->
     require('views/binaries/categories/table')
@@ -35,21 +35,17 @@ class BinaryCategoriesTableAddModal extends Spine.Controller
     super
 
     @category = new Category
-    do @render
+    @render()
 
   render: =>
     @html require('views/binaries/categories/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     if @category.save()
-      @category = new Category
-      do @applyBindings
-      # FIXME: hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        @.remove()
+      $('body').removeClass('modal-open')  # FIXME
+      $('body').find('.modal-backdrop.fade.in').remove()
     else
       msg = @category.validate()
-      return alert msg
+      alert msg

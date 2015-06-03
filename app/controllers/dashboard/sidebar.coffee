@@ -3,6 +3,7 @@ Message = require 'models/message'
 
 class DashboardSidebar extends Spine.Controller
   className: 'col-sm-4 col-md-3 sidebar-pf sidebar-pf-right'
+
   events:
     'click .spine-clear-messages': 'destroyMessages'
 
@@ -10,7 +11,7 @@ class DashboardSidebar extends Spine.Controller
     super
 
     Message.bind 'refresh change', @render
-    do @render
+    @render()
 
   destroyMessages: -> Message.destroyAll()
 

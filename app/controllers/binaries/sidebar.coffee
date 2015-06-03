@@ -3,6 +3,7 @@ Category = require 'models/binary_category'
 
 class BinariesSidebar extends Spine.Controller
   className: 'col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left'
+
   elements:
     '.nav-category': 'category_nav'
 
@@ -14,14 +15,14 @@ class BinariesSidebar extends Spine.Controller
     @router = Spine.Route.create()
 
     @router.add /^\/binaries\/categories(\/.*)?$/, (params) =>
-      @activateLink '/#' + params?.match?[0]
+      @activateLink('/#' + params?.match?[0])
     @router.add /^\/binaries(\/.*)?$/, =>
       @activateLink ''
 
     Category.bind 'refresh change', @render
-    do @render
+    @render()
 
-  activateLink: (link) =>
+  activateLink: (link) ->
     # remove active class from all categories
     @category_nav.find('.active').removeClass('active')
     # add active again to current one

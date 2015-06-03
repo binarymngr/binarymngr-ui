@@ -9,7 +9,7 @@ require 'spine/lib/route'
 
 Request = require 'lib/http/request'
 
-window.rqst = Request.get()  # set the initial dummy request
+window.rqst = Request.hydrate()
 Request.bind 'ready', (rqst) ->
   window.rqst = rqst
   $(window).trigger 'resize'  # PF sidebar heigth hack

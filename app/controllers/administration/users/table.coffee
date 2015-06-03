@@ -6,12 +6,13 @@ class UsersTable extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     User.bind 'refresh change', @render
-    do @render
 
   render: =>
-    @html @template User.all()
-    @append new UsersTableAddModal  # FIXME: do not init a new one every time
+    if @isActive
+      @html @template User.all()
+      @append new UsersTableAddModal  # FIXME
 
   template: (users) ->
     require('views/administration/users/table')
@@ -35,21 +36,17 @@ class UsersTableAddModal extends Spine.Controller
     super
 
     @user = new User
-    do @render
+    @render()
 
   render: =>
     @html require('views/administration/users/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     if @user.save()
-      @user = new User
-      do @applyBindings
-      # FIXME: hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        @.remove()
+      $('body').removeClass('modal-open')  # FIXME
+      $('body').find('.modal-backdrop.fade.in').remove()
     else
       msg = @user.validate()
-      return alert msg
+      alert msg

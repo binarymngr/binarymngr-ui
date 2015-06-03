@@ -3,6 +3,7 @@ Message = require 'models/message'
 
 class MessageForm extends Spine.Controller
   className: 'col-xs-12'
+
   events:
     'click .spine-cancel' : 'cancel'
     'click .spine-destroy': 'destroy'
@@ -10,21 +11,18 @@ class MessageForm extends Spine.Controller
   constructor: ->
     super
 
-    Message.bind 'refresh change', @render
+    @active @render
+    @message = null
+    Message.bind 'refresh', @render
 
-  activate: (params) =>
-    super
-    @render params
-
-  cancel: (event) => @navigate '/messages'
-
-  destroy: (event) =>
-    if @message.destroy()
-      @navigate '/messages'
+  cancel:  -> @navigate '/messages'
+  destroy: -> @navigate '/messages' if @message.destroy()
 
   render: (params) =>
-    @message = Message.find params.id if params?.id?
-    @html @template @message
+    if @isActive
+      @message = Message.find(params.id) if params?.id?
+      @message.bind('change', @render) if @message?
+      @html @template @message
 
   template: (message) ->
     require('views/messages/form')

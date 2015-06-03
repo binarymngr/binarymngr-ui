@@ -1,18 +1,18 @@
 Spine   = @Spine or require 'spine'
 Binary  = require 'models/binary'
 Version = require 'models/binary_version'
-$       = Spine.$
 
 class BinaryVersionsTable extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     Version.bind 'refresh change', @render
-    do @render
 
   render: =>
-    @html @template Version.all()
-    @append new BinaryVersionsTableAddModal  # FIXME do not init a new one every time
+    if @isActive
+      @html @template Version.all()
+      @append new BinaryVersionsTableAddModal  # FIXME
 
   template: (versions) ->
     require('views/binaries/versions/table')
@@ -39,23 +39,18 @@ class BinaryVersionsTableAddModal extends Spine.Controller
 
     @version = new Version
     Binary.bind 'refresh change', @render
-    do @render
+    @render()
 
   render: =>
     @html @template Binary.all()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     @version.binary_id = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
-
-    if @version.isValid() and Version.save(@version)
-      @version = new Version
-      do @applyBindings
-      # FIXME: hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        @.remove()
+    if @version.save()
+      $('body').removeClass('modal-open')  # FIXME
+      $('body').find('.modal-backdrop.fade.in').remove()
     else
       msg = @version.validate()
       alert msg

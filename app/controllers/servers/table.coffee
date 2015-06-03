@@ -1,6 +1,5 @@
 Spine  = @Spine or require 'spine'
 Server = require 'models/server'
-$      = Spine.$
 
 class ServersTable extends Spine.Controller
   className: 'col-xs-12'
@@ -8,12 +7,13 @@ class ServersTable extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     Server.bind 'refresh change', @render
-    do @render
 
   render: =>
-    @html @template Server.all()
-    @append new ServersTableAddModal  # FIXME: do not init a new one every time
+    if @isActive
+      @html @template Server.all()
+      @append new ServersTableAddModal  # FIXME
 
   template: (servers) ->
     require('views/servers/table')
@@ -37,21 +37,17 @@ class ServersTableAddModal extends Spine.Controller
     super
 
     @server = new Server
-    do @render
+    @render()
 
   render: =>
     @html require('views/servers/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     if @server.save()
-      @server = new Server
-      do @applyBindings
-      # FIXME: hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        @.remove()
+      $('body').removeClass('modal-open')  # FIXME
+      $('body').find('.modal-backdrop.fade.in').remove()
     else
       msg = @server.validate()
       alert msg

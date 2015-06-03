@@ -1,50 +1,82 @@
 Spine        = @Spine or require 'spine'
 Notification = require 'services/notification_service'
-User         = require 'models/user'
-Version      = require 'models/binary_version'
 
+#
+# Spine model for the server-side \App\Models\Binary model.
+#
 class Binary extends Spine.Model
-  @configure 'Binary', 'name', 'description', 'homepage', 'owner_id', 'category_ids', 'version_ids'
+  @configure 'Binary', 'name', 'description', 'homepage', 'owner_id', \
+             'binary_category_ids', 'binary_version_ids'
 
-  @extend Spine.Events
   @extend Spine.Model.Ajax
 
-  @belongsTo 'owner', User
-  @hasMany 'versions', Version
+  @belongsTo 'owner', 'models/user'
+  @hasMany 'versions', 'models/binary_version'
 
   @url: '/binaries'
 
+  #
+  # Override: To show notifications.
+  #
   create: ->
     super
       done: -> Notification.success 'Binary has sucessfully been created.'
-      fail: -> Notification.warning 'An error encountered during the creation process.'
+      fail: -> Notification.error   'An error encountered during the creation process.'
 
-  destroy: =>
+  #
+  # Override: To show notifications.
+  #
+  destroy: ->
     super
-      done: -> Notification.error 'Binary has successfully been deleted.'
-      fail: -> Notification.warning 'An error encountered during the deletion process.'
+      done: -> Notification.warning 'Binary has successfully been deleted.'
+      fail: -> Notification.error   'An error encountered during the deletion process.'
 
+  #
+  # Returns an array of categories this binary belongs to.
+  #
+  # Note: The lookup is not real, the binary's binary_category_ids property is used.
+  #
+  # return: Array
+  #
   getCategories: =>
-    Category = require 'models/binary_category'  # FIXME: Category = empty object if placed on top
+    Category = require 'models/binary_category'
+    @binary_category_ids ?= new Array
+    (Category.find(cid) for cid in @binary_category_ids when Category.exists(cid))
 
-    @category_ids ?= new Array
-    (Category.find(category_id) for category_id in @category_ids when Category.exists(category_id))
+  #
+  # Checks if this binary has categories associated with it.
+  #
+  # return: Boolean true if at least one category is associated with the binary.
+  #
+  hasCategories: -> @getCategories().length isnt 0
 
-  hasCategories: => @getCategories().length isnt 0
-  hasVersions:   => @versions().length isnt 0
+  #
+  # Checks if this binary has versions.
+  #
+  # return: Boolean true if at least one version exists.
+  #
+  hasVersions: -> @versions().length isnt 0
 
-  isInstalled: =>
-    _.each @versions(), (version) ->
-      return yes if version.isInstalled()
+  #
+  # Checks if this binary is installed.
+  #
+  # return: Boolean true if installed on at least one server.
+  #
+  isInstalled: ->
+    _.each @versions(), (version) -> return yes if version.isInstalled()
     no
 
+  #
+  # Override: To show notifications.
+  #
   update: ->
     super
       done: -> Notification.success 'Binary has sucessfully been updated.'
       fail: -> Notification.warning 'An error encountered during the update process.'
 
-  validate: ->
-    return 'Name is required' unless @name
-    # return 'Owner ID is required' unless @owner_id
+  #
+  # Override: For custom implementation.
+  #
+  validate: -> 'Name is required' unless @name
 
 module?.exports = Binary

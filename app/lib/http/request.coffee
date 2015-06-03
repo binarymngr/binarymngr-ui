@@ -1,10 +1,26 @@
 Spine = @Spine or require 'spine'
 
-class Request extends Spine.Module
+#
+# The request class can be used to have an object that
+# reflects user requests (e.g. clicks).
+#
+# Its best placed as a global variable attached to window.
+#
+class Request extends Spine.Class
   @extend Spine.Events
 
-  @current = new Request  # fixes cannot read 'is_admin' of null on 1st load
+  #
+  # Stores the current request object.
+  #
+  # var: lib/http/Request
+  #
+  @current = new Request
 
+  #
+  # Constructor to initialize a new Request instance.
+  #
+  # Attn: Should not be called directly.
+  #
   constructor: ->
     super
 
@@ -17,12 +33,24 @@ class Request extends Spine.Module
     Object.freeze @date
     Object.freeze this
 
-  @get: => @current
+  #
+  # Returns the current request object.
+  #
+  # return: lib/http/Request
+  #
+  @get: -> @current
 
-  @hydrate: =>
+  #
+  # Hydrates/populates the current request with new values.
+  #
+  # This method is best used as a callback to e.g. window.location.hash.change
+  #
+  # return: lib/http/Request
+  #
+  @hydrate: ->
     rqst = new Request
-    unless rqst.location is ''  # i.e. dropdown triggers
-      @current = rqst
-      Request.trigger 'ready', @get()
+    @current = rqst
+    Request.trigger 'ready', @get()
+    @get()
 
 module?.exports = Request

@@ -1,17 +1,17 @@
 Spine  = @Spine or require 'spine'
 Binary = require 'models/binary'
-$      = Spine.$
 
 class BinariesTable extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     Binary.bind 'refresh change', @render
-    do @render
 
   render: =>
-    @html @template Binary.all()
-    @append new BinariesTableAddModal  # FIXME: do not init a new one every time
+    if @isActive
+      @html @template Binary.all()
+      @append new BinariesTableAddModal  # FIXME
 
   template: (binaries) ->
     require('views/binaries/table')
@@ -36,21 +36,17 @@ class BinariesTableAddModal extends Spine.Controller
     super
 
     @binary = new Binary
-    do @render
+    @render()
 
   render: =>
     @html require('views/binaries/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     if @binary.save()
-      @binary = new Binary
-      do @applyBindings
-      # FIXME: hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        @.remove()
+      $('body').removeClass('modal-open')  # FIXME
+      $('body').find('.modal-backdrop.fade.in').remove()
     else
       msg = @binary.validate()
       alert msg

@@ -6,12 +6,13 @@ class RolesTable extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     Role.bind 'refresh change', @render
-    do @render
 
   render: =>
-    @html @template Role.all()
-    @append new RolesTableAddModal  # FIXME: do not init a new one every time
+    if @isActive
+      @html @template Role.all()
+      @append new RolesTableAddModal  # FIXME
 
   template: (roles) ->
     require('views/administration/roles/table')
@@ -35,21 +36,17 @@ class RolesTableAddModal extends Spine.Controller
     super
 
     @role = new Role
-    do @render
+    @render()
 
   render: =>
     @html require('views/administration/roles/add-modal')()
-    do @applyBindings
+    @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     if @role.save()
-      @role = new Role
-      do @applyBindings
-      # FIXME: hide backdrop
-      $('.modal-backdrop.fade.in').fadeOut 'fast', ->
-        @.remove()
+      $('body').removeClass('modal-open')  # FIXME
+      $('body').find('.modal-backdrop.fade.in').remove()
     else
       msg = @role.validate()
       alert msg

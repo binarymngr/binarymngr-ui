@@ -1,38 +1,72 @@
 Spine        = @Spine or require 'spine'
 Notification = require 'services/notification_service'
 
+#
+# Spine model for the server-side \App\Models\Role model.
+#
 class Role extends Spine.Model
   @configure 'Role', 'name', 'description', 'user_ids'
 
-  @extend Spine.Events
   @extend Spine.Model.Ajax
 
   @url: '/roles'
 
+  #
+  # override: to bind to events
+  #
+  constructor: (object) ->
+    super
+
+    User = require 'models/user'
+    User.bind 'change', (u) =>
+      @trigger 'change' if _.contains(u.role_ids, @id) \
+                           and not _.contains(@user_ids, u.id)
+
+  #
+  # override: To show notifications.
+  #
   create: ->
     super
       done: -> Notification.success 'Role has sucessfully been created.'
-      fail: -> Notification.warning 'An error encountered during the creation process.'
+      fail: -> Notification.error  'An error encountered during the creation process.'
 
-  destroy: =>
+  #
+  # override: To show notifications.
+  #
+  destroy: ->
     super
-      done: -> Notification.error 'Role has successfully been deleted.'
-      fail: -> Notification.warning 'An error encountered during the deletion process.'
+      done: -> Notification.warning 'Role has successfully been deleted.'
+      fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  getUsers: =>
-    User = require 'models/user'  # FIXME: fails with User = empty object if placed on top
+  #
+  # Returns an array of user objects belonging to this role.
+  #
+  # return: Array
+  #
+  getUsers: ->
+    User = require 'models/user'
+    # @user_ids ?= new Array
+    # (User.find(uid) for uid in @user_ids when User.exists(uid))
+    User.select (u) => _.contains(u.role_ids, @id)
 
-    @user_ids ?= new Array
-    (User.find(user_id) for user_id in @user_ids when User.exists(user_id))
+  #
+  # Checks if users are associated with this role.
+  #
+  # return: Boolean true if at least one user has this role.
+  #
+  hasUsers: -> @getUsers().length isnt 0
 
-  hasUsers: => @getUsers().length isnt 0
-
+  #
+  # override: To show notifications.
+  #
   update: ->
     super
       done: -> Notification.success 'Role has sucessfully been updated.'
       fail: -> Notification.warning 'An error encountered during the update process.'
 
-  validate: ->
-    return 'Name is required' unless @name
+  #
+  # override: For custom implementation.
+  #
+  validate: -> 'Name is required' unless @name
 
 module?.exports = Role

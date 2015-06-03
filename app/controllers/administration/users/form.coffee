@@ -1,8 +1,5 @@
 Spine   = @Spine or require 'spine'
-Binary  = require 'models/binary'
-Message = require 'models/message'
 Role    = require 'models/role'
-Server  = require 'models/server'
 User    = require 'models/user'
 
 class UserForm extends Spine.Controller
@@ -22,49 +19,34 @@ class UserForm extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     @user = null
-    Binary.bind 'refresh change', @render
-    Role.bind 'refresh change', @render
-    Server.bind 'refresh change', @render
-    User.bind 'refresh change', @render
+    User.bind 'refresh', @render
 
-  activate: (params) =>
-    super
-    @render params
+  cancel:  -> @navigate '/administration/users'
+  destroy: -> @navigate '/administration/users' if @user.destroy()
 
-  cancel: (event) => @navigate '/administration/users'
-
-  destroy: (event) =>
-    if @user.destroy()
-      @navigate '/administration/users'
-
-  render: (params) =>
-    @user = User.find params.id if params?.id?
-    @html @template @user
-    do @applyBindings if @user?
+  render: (user) =>
+    if @isActive
+      @user = User.find(user.id) if user?.id?
+      @html @template @user
+      if @user?
+        @user.bind 'change', @render
+        @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
-    @user.role_ids = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
-
+    @user.role_ids = @$('.selectpicker').selectpicker('val')
     unless @user.save()
       msg = @user.validate()
       alert msg
 
   template: (user) ->
-    binaries = null
-    binaries = user.binaries().all() if user?
-    messages = null
-    messages = user.messages().all() if user?
-    servers  = null
-    servers  = user.servers().all() if user?
-
     require('views/administration/users/form')
-      binaries: binaries
-      messages: messages
+      binaries: user?.binaries().all()
+      messages: user?.messages().all()
       user: user
       roles: Role.all()
-      servers: servers
+      servers: user?.servers().all()
 
 module?.exports = UserForm

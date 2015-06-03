@@ -1,6 +1,5 @@
 Spine = @Spine or require 'spine'
 Role  = require 'models/role'
-User  = require 'models/user'
 
 class RoleForm extends Spine.Controller
   events:
@@ -19,38 +18,30 @@ class RoleForm extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     @role = null
-    Role.bind 'refresh change', @render
-    User.bind 'refresh change', @render
+    Role.bind 'refresh', @render
 
-  activate: (params) =>
-    super
-    @render params
+  cancel:  -> @navigate '/administration/roles'
+  destroy: -> @navigate '/administration/roles' if @role.destroy()
 
-  cancel: (event) => @navigate '/administration/roles'
-
-  destroy: (event) =>
-    if @role.destroy()
-      @navigate '/administration/roles'
-
-  render: (params) =>
-    @role = Role.find params.id if params?.id?
-    @html @template @role
-    do @applyBindings if @role?
+  render: (role) =>
+    if @isActive
+      @role = Role.find(role.id) if role?.id?
+      @html @template @role
+      if @role?
+        @role.bind 'change', @render
+        @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
     unless @role.save()
       msg = @role.validate()
       alert msg
 
   template: (role) ->
-    users = null
-    users = role.getUsers() if role?
-
     require('views/administration/roles/form')
       role: role
-      users: users
+      users: role?.getUsers()
 
 module?.exports = RoleForm

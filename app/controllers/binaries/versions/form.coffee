@@ -1,7 +1,4 @@
 Spine   = @Spine or require 'spine'
-Binary  = require 'models/binary'
-Server  = require 'models/server'
-User    = require 'models/user'
 Version = require 'models/binary_version'
 
 class BinaryVersionForm extends Spine.Controller
@@ -21,43 +18,31 @@ class BinaryVersionForm extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     @version = null
-    Binary.bind 'refresh change', @render
-    Server.bind 'refresh change', @render
-    User.bind 'refresh change', @render
-    Version.bind 'refresh change', @render
+    Version.bind 'refresh', @render
 
-  activate: (params) =>
-    super
-    @render params
+  cancel:  -> @navigate '/binaries/versions'
+  destroy: -> @navigate '/binaries/versions' if @version.destroy()
 
-  cancel: (event) => @navigate '/binaries/versions'
-
-  destroy: (event) =>
-    if @version.destroy()
-      @navigate '/binaries/versions'
-
-  render: (params) =>
-    @version = Version.find params.id if params?.id?
-    @html @template @version
-    do @applyBindings if @version?
+  render: (version) =>
+    if @isActive
+      @version = Version.find(version.id) if version?.id?
+      @html @template @version
+      if @version?
+        @version.bind 'change', @render
+        @applyBindings() if @version?
 
   save: (event) =>
     event.preventDefault()
-
     unless @version.save()
       msg = @version.validate()
       alert msg
 
   template: (version) ->
-    binary  = null
-    binary  = version.binary() if version?
-    servers = null
-    servers = version.getServers() if version?
-
     require('views/binaries/versions/form')
-      binary: binary
-      servers: servers
+      binary: version?.binary()
+      servers: version?.getServers()
       version: version
 
 module?.exports = BinaryVersionForm

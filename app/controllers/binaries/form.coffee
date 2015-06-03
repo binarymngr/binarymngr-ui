@@ -1,8 +1,6 @@
 Spine    = @Spine or require 'spine'
 Binary   = require 'models/binary'
 Category = require 'models/binary_category'
-User     = require 'models/user'
-Version  = require 'models/binary_version'
 
 class BinaryForm extends Spine.Controller
   events:
@@ -23,43 +21,32 @@ class BinaryForm extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     @binary = null
-    Binary.bind 'refresh change', @render
-    Category.bind 'refresh change', @render
-    User.bind 'refresh change', @render
-    Version.bind 'refresh change', @render
+    Binary.bind 'refresh', @render
 
-  activate: (params) =>
-    super
-    @render params
+  cancel:  -> @navigate '/binaries'
+  destroy: -> @navigate '/binaries' if @binary.destroy()
 
-  cancel: (event) => @navigate '/binaries'
-
-  destroy: (event) =>
-    if @binary.destroy()
-      @navigate '/binaries'
-
-  render: (params) =>
-    @binary = Binary.find params.id if params?.id?
-    @html @template @binary
-    do @applyBindings if @binary?
+  render: (binary) =>
+    if @isActive
+      @binary = Binary.find(binary.id) if binary?.id?
+      @html @template @binary
+      if @binary?
+        @binary.bind 'change', @render
+        @applyBindings()
 
   save: (event) =>
     event.preventDefault()
-
-    @binary.category_ids = @$('.selectpicker').selectpicker('val')  # FIXME: is a hack
-
+    @binary.binary_category_ids = @$('.selectpicker').selectpicker('val')
     unless @binary.save()
       msg = @binary.validate()
       alert msg
 
   template: (binary) ->
-    versions = null
-    versions = binary.versions().all() if binary?
-
     require('views/binaries/form')
       binary: binary
       categories: Category.all()
-      versions: versions
+      versions: binary?.versions().all()
 
 module?.exports = BinaryForm

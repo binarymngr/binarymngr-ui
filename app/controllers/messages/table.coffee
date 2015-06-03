@@ -7,10 +7,10 @@ class MessagesTable extends Spine.Controller
   constructor: ->
     super
 
+    @active @render
     Message.bind 'refresh change', @render
-    do @render
 
-  render: => @html @template Message.all()
+  render: => (@html @template Message.all()) if @isActive
 
   template: (messages) ->
     require('views/messages/table')

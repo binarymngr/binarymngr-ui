@@ -9,12 +9,12 @@ Version  = require 'models/binary_version'
 
 class DashboardMain extends Spine.Controller
   className: 'col-sm-8 col-md-9'
+
   events:
     'click .spine-refresh': 'refresh'
 
   constructor: ->
     super
-
     @html require('views/dashboard/main')()
 
   refresh: ->
