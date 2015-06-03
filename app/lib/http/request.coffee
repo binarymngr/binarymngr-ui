@@ -6,6 +6,10 @@ Spine = @Spine or require 'spine'
 #
 # Its best placed as a global variable attached to window.
 #
+# Attn: The request gets its input from the global 'server' variable,
+#       so make sure to provide that one.
+#       At least 'csrf_token' and 'user' properties should exist.
+#
 class Request extends Spine.Class
   @extend Spine.Events
 
@@ -24,11 +28,11 @@ class Request extends Spine.Class
   constructor: ->
     super
 
-    @csrf_token = laravel.csrf_token
+    @csrf_token = server?.csrf_token
     @date = new Date
     @location = _.trimLeft window.location.hash, '#'
     @referrer = Request.current?.location
-    @user = laravel.user
+    @user = server?.user
     # immutability
     Object.freeze @date
     Object.freeze this

@@ -41,12 +41,13 @@
     <script src="/application.js" charset="utf-8"></script>
     <script charset="utf-8">
     // Server-side populated objects
-    var laravel = {};
-    laravel.csrf_token = '{{ csrf_token() }}';
-    laravel.user = {!! $user !!};
-    laravel.user.is_admin = {{$user->isAdmin() ? 'true' : 'false'}};
-    Object.freeze(laravel.user);
-    Object.freeze(laravel);
+    var server = {};
+    server.csrf_token = '{{ csrf_token() }}';
+    server.user = {};
+    server.user.id = {{$user->id}}
+    server.user.is_admin = {{$user->isAdmin() ? 'true' : 'false'}};
+    Object.freeze(server.user);
+    Object.freeze(server);
 
     // SpineJS application
     var exports = this;
