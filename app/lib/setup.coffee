@@ -1,15 +1,13 @@
-require 'spine'
-require 'spine/lib/ajax'
-require 'spine/lib/bindings'
-require 'spine/lib/manager'
-require 'spine/lib/relation'
-require 'spine/lib/route'
+require('spine')
+require('spine/lib/ajax')
+require('spine/lib/manager')
+require('spine/lib/relation')
+require('spine/lib/route')
 
-# this is a good place to do settings that aren't related to spine
-
-Request = require 'lib/http/request'
-
+# HTTP request simulation
+Request = require('lib/http/request')
+Request.var = window.server
 window.rqst = Request.hydrate()
 Request.bind 'ready', (rqst) ->
   window.rqst = rqst
-  $(window).trigger 'resize'  # PF sidebar heigth hack
+  $(window).trigger 'resize'  # PF sidebar

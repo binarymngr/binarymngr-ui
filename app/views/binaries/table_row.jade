@@ -1,0 +1,17 @@
+if item
+  td: a(href='/#/binaries/' + item.id) #{item.id}
+  td: a(href='/#/binaries/' + item.id) #{item.name}
+  td #{item.description}
+  td
+    - var categories = item.getCategories()
+    if categories.length
+      ul
+        each category in categories
+          li: a(href='/#/binaries/categories/' + category.id) #{category.name}
+    else
+      | -
+  td
+    if item.homepage
+      a(href=item.homepage, target='_blank') #{item.homepage}
+    else
+      | -

@@ -1,15 +1,20 @@
-Spine   = @Spine or require 'spine'
-Main    = require 'controllers/binaries/main'
-Sidebar = require 'controllers/binaries/sidebar'
+Spine      = @Spine or require('spine')
+Controller = require('framework/core').Controller
+Main       = require('controllers/binaries/main')
+Sidebar    = require('controllers/binaries/sidebar')
 
-class BinariesPage extends Spine.Controller
-  className: 'row page-binaries'
+class BinariesPage extends Controller
+  className: 'row'
 
   constructor: ->
     super
-
     @main = new Main
     @sidebar = new Sidebar
-    @append @main, @sidebar
+    @render()
+
+  render: =>
+    @el.empty()
+    @append @main, @sidebar.render()
+    super
 
 module?.exports = BinariesPage

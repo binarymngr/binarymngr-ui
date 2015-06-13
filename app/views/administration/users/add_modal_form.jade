@@ -1,0 +1,19 @@
+if item
+  div.modal-body
+    div.form-group
+      label.col-md-3.control-label(for='Email') Email
+      div.col-md-9
+        if item.email
+          input.form-control(type='email', name='email', value=item.email, placeholder='account@domain.tld', required)
+        else
+          input.form-control(type='email', name='email', placeholder='account@domain.tld', required)
+    div.form-group
+      label.col-md-3.control-label(for='password') Password
+      div.col-md-9
+        if item.password
+          input.form-control(type='password', name='password', value=item.password, required)
+        else
+          input.form-control(type='password', name='password', required)
+  div.modal-footer
+    button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+    button.btn.btn-primary.spine-submit(type='submit') Save

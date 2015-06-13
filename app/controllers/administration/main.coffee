@@ -1,16 +1,17 @@
-Spine = @Spine or require 'spine'
-Role  = require 'controllers/administration/roles/form'
-Roles = require 'controllers/administration/roles/table'
-User  = require 'controllers/administration/users/form'
-Users = require 'controllers/administration/users/table'
+Spine = @Spine or require('spine')
+Stack = require('framework/managers').Stack
+Role  = require('controllers/administration/roles/page_form')
+Roles = require('controllers/administration/roles/page_table')
+User  = require('controllers/administration/users/page_form')
+Users = require('controllers/administration/users/page_table')
 
-class AdministrationMain extends Spine.Stack
-  className: 'col-sm-9 col-md-10 col-sm-push-3 col-md-push-2 spine stack'
+class AdministrationStack extends Stack
+  className: 'spine stack col-sm-9 col-md-10 col-sm-push-3 col-md-push-2'
 
   controllers:
-    role:  Role
+    role : Role
     roles: Roles
-    user:  User
+    user : User
     users: Users
 
   default: 'roles'
@@ -21,4 +22,4 @@ class AdministrationMain extends Spine.Stack
     '/administration/users/:id': 'user'
     '/administration/users'    : 'users'
 
-module?.exports = AdministrationMain
+module?.exports = AdministrationStack

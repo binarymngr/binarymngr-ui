@@ -1,57 +1,72 @@
-Spine   = @Spine or require 'spine'
-Message = require 'models/message'
+Spine      = @Spine or require('spine')
+Controller = require('framework/core').Controller
+$          = Spine.$
 
-class NavigationComponent extends Spine.Controller
-  elements:
-    '.navbar-primary': 'primary_nav'
-    '.navbar-utility': 'utility_nav'
-
-  events:
-    'click .spine-clear-messages': 'destroyMessages'
+class Navigation extends Controller
+  className: 'nav navbar-nav'
+  tag: 'ul'
 
   constructor: ->
     super
-    Message.bind 'refresh change', @render
+    @items = []
 
-    # create a new router instance so we can listen to route changes
-    # independent of the other app logic
+  addItem: (item) =>
+    item.bind 'activated', => @trigger 'activated', @
+    item.bind 'activated', @itemActivated
+    @bind 'deactivated', item.deactivate
+    @items.push item
+
+  deactivate: => @trigger 'deactivated', @
+
+  itemActivated: (activated) =>
+    $.each @items, (i, item) -> item.deactivate() unless item is activated
+
+  render: =>
+    @el.empty()
+    $.each @items, (i, item) => @append item.render()
+    @el
+
+class NavItem extends Controller
+  tag: 'li'
+
+  activate: =>
+    unless @isActive()
+      @el.addClass 'active'
+      @trigger 'activated', @
+      @trigger 'toggled', @
+
+  deactivate: =>
+    if @isActive()
+      @el.removeClass 'active'
+      @trigger 'deactivated', @
+      @trigger 'toggled', @
+
+  isActive: => @el.hasClass 'active'
+
+  toggle: =>
+    if @isActive()
+      @deactivate()
+    else @activate()
+
+class Link extends NavItem
+  events:
+    'click > a' : 'clicked'
+
+  constructor: ->
+    super
+    throw new Error('@link is required') unless @link
+    throw new Error('@text is required') unless @text
+    @external = false unless @external
     @router = Spine.Route.create()
+    @router.add new RegExp("^#{@link}(\\/[^\\/])*$"), @activate
 
-    # utility navigation
-    @router.add /^\/administration\/roles(\/.*)?$/, =>
-      @activateLink(@utility_nav, '/#/administration/roles')
-    @router.add /^\/administration\/users(\/.*)?$/, =>
-      @activateLink(@utility_nav, '/#/administration/users')
-    @router.add /^\/messages(\/.*)?$/, =>
-      @activateLink(@utility_nav, '/#/messages')
+  clicked: (event) => @trigger 'clicked', @
 
-    # primary navigation
-    @router.add /^\/binaries(\/.*)?$/, =>
-      @activateLink(@primary_nav, '/#/binaries')
-    @router.add /^\/servers(\/.*)?$/,  =>
-      @activateLink(@primary_nav, '/#/servers')
-    @router.add /^\/$/, => @activateLink(@primary_nav, '/#/')
+  render: =>
+    if @external
+      @html $("<a href='#{@link}'>#{@text}</a>")
+    else @html $("<a href='/##{@link}'>#{@text}</a>")
 
-    @render()
-
-  activateLink: (nav, link) ->
-    # remove active class from all navs
-    @primary_nav.find('.active').removeClass('active')
-    @utility_nav.find('.active').removeClass('active')
-
-    # add active again to current one
-    switch nav
-      when @primary_nav
-        nav.find('a[href="'+link+'"]').parent('li').addClass('active')
-      when @utility_nav
-        nav.find('a[href="'+link+'"]').parents('li').not('.dropdown').addClass('active')
-
-  destroyMessages: -> Message.destroyAll()
-
-  render: => @html @template Message.all()
-
-  template: (messages) ->
-    require('views/components/navigation')
-      messages: messages
-
-module?.exports = NavigationComponent
+module?.exports      = Navigation
+module?.exports.Item = NavItem
+module?.exports.Link = Link

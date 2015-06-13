@@ -1,117 +1,38 @@
-if user
-  ol.breadcrumb
-    li
-      a(href='/#/') Home
-    li Administration
-    li
-      a(href='/#/administration/users') Users
-    li #{user.email}
-  h1 #{user.email}
-  form.form-horizontal.item(action='#')
-    div.form-group
-      label.col-md-2.control-label(for='id') ID
-      div.col-md-6
-        input.form-control(type='text', name='id', value=user.id, pattern='\\d+', required, disabled)
-    div.form-group
-      label.col-md-2.control-label(for='email') Email
-      div.col-md-6
-        input.form-control(type='email', name='email', value=user.email, required)
-    div.form-group
-      label.col-md-2.control-label(for='password') Password
-      div.col-md-6
-        input.form-control(type='password', name='password')
-    if rqst.user.is_admin
-      div.form-group
-        label.col-md-2.control-label(for='roles') Roles
-        div.col-md-10
-          select#bootstrapSelect.selectpicker.show-menu-arrow(name='roles', multiple, data-selected-text-format='count>2')
-            if roles
-              - var role_ids = _.pluck(user.getRoles(), 'id')
-              each role in _.sortBy(roles, 'name')
-                if _.contains(role_ids, role.id)
-                  option(value=role.id, data-subtext=role.description, selected) #{role.name}
-                else
-                  option(value=role.id, data-subtext=role.description) #{role.name}
-              include ../../includes/selectpicker-js.jade
-    div.form-group
-      div.col-md-10.col-md-offset-2
-        include ../../includes/form-buttons.jade
-  if rqst.user.is_admin
-    hr
-    h2 Binaries
-    if binaries && binaries.length
-      table.datatable.table.table-striped.table-bordered
-        thead
-          tr
-            th ID
-            th Name
-            th Description
-            th Homepage
-        tbody
-          each binary in binaries
-            tr
-              td
-                a(href='/#/binaries/' + binary.id) #{binary.id}
-              td
-                a(href='/#/binaries/' + binary.id) #{binary.name}
-              td
-                if binary.description
-                  | #{binary.description}
-                else
-                  | -
-              td
-                if binary.homepage
-                  a(href=binary.homepage, target='_blank') #{binary.homepage}
-                else
-                  | -
-      include ../../includes/datatables-js.jade
-    else
-      div.alert.alert-info
-        span.pficon.pficon-info
-        | This user owns no binaries.
-    hr
-    h2 Messages
-    if messages && messages.length
-      table.datatable.table.table-striped.table-bordered
-        thead
-          tr
-            th ID
-            th Title
-            th Body
-        tbody
-          each message in messages
-            tr
-              td
-                a(href='/#/messages/' + message.id) #{message.id}
-              td
-                a(href='/#/messages/' + message.id) #{message.title}
-              td #{message.body}
-      include ../../includes/datatables-js.jade
-    else
-      div.alert.alert-info
-        span.pficon.pficon-info
-        | This user has no messages.
-    hr
-    h2 Servers
-    if servers && servers.length
-      table.datatable.table.table-striped.table-bordered
-        thead
-          tr
-            th ID
-            th Name
-            th IPv4 Address
-        tbody
-          each server in servers
-            tr
-              td
-                a(href='/#/servers/' + server.id) #{server.id}
-              td
-                a(href='/#/servers/' + server.id) #{server.name}
-              td #{server.ipv4}
-      include ../../includes/datatables-js.jade
-    else
-      div.alert.alert-info
-        span.pficon.pficon-info
-        | This user owns no servers.
+if item
+  h1 User: #{item.id}
+  div.form-group
+    label.col-md-2.control-label(for='id') ID
+    div.col-md-6
+      input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
+  div.form-group
+    label.col-md-2.control-label(for='email') Email
+    div.col-md-6
+      input.form-control(type='email', name='email', placeholder='account@domain.tld', value=item.email, required)
+  div.form-group
+    label.col-md-2.control-label(for='password') Password
+    div.col-md-6
+      input.form-control(type='password', name='password', value=item.password)
+  div.form-group
+    label.col-md-2.control-label(for='role_ids') Roles
+    div.col-md-6
+      select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple)
+        each role in roles
+          if _.contains(item.role_ids, role.id)
+            option(value=role.id, data-subtext=role.description, selected) #{role.name}
+          else
+            option(value=role.id, data-subtext=role.description) #{role.name}
+      include ../../shared/helpers
+      +selectpicker('.selectpicker')
+  div.form-group
+    div.col-md-10.col-md-offset-2
+      button.btn.btn-primary.spine-save(type='submit') Save
+      button.btn.btn-default.spine-cancel(type='button') Cancel
+      if rqst.user.is_admin
+        button.btn.btn-danger.spine-destroy(type='button', data-toggle='confirmation') Delete
+        script(charset='utf-8').
+          $(function () {
+            $('[data-toggle=confirmation]').confirmation();
+          });
 else
-  include ../../includes/not-found.jade
+  include ../../shared/helpers
+  +not-found('user')

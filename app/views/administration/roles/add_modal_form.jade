@@ -1,0 +1,13 @@
+if item
+  div.modal-body
+    div.form-group
+      label.col-md-3.control-label(for='Name') Name
+      div.col-md-9
+        input.form-control(type='text', name='name', value=item.name, placeholder='admins', required)
+    div.form-group
+      label.col-md-3.control-label(for='description') Description
+      div.col-md-9
+        textarea.form-control(name='description', rows='5', placeholder='Full-privileged admin accounts.', required) #{item.description}
+  div.modal-footer
+    button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+    button.btn.btn-primary.spine-submit(type='submit') Save

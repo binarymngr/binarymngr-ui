@@ -3,41 +3,62 @@
 /*
  | Generic styles
  */
-table
-    // fixes bottom spacing for lists in tables
-    ol, ul
-        margin-bottom: 0
-        padding-left: 20px
+// more spacing between page titles + content
+h1
+  margin-bottom: 20px
+  .page-header &
+    margin-bottom: 10px // dashboard title
 
+// more spacing between sub-table titles + content
+h2
+  hr + &
+    margin-bottom: 20px
+
+// fixes bottom spacing for lists in tables
+table
+  ol, ul
+    margin-bottom: 0
+    padding-left: 20px
+  &:last-child
+    margin-bottom: 20px // ensure doesnt stick at bottom
+
+// hacky space between buttons in forms
+.btn
+  margin-right: 2px
+  &:last-child
+    margin-right: 0
+  // add new button
+  &[data-toggle='modal']
+    margin-top: -45px
+
+// decreased spacing between the modal form and the buttons
+.modal-footer
+  margin-top: -25px
 
 /*
  | Core application
  */
-.spine
-    &.stack
-        > *:not(.active)
-            display: none
+.spine.stack
+  > *
+    display: none
+    &.active
+      display: block
 
-// hacky space between buttons in forms
-.btn
-    margin-right: 2px
-    &:last-child
-        margin-right: 0
 
 /*
  | Special components
  */
 #noscript
-    margin: 40vh auto 0
-    padding: 0 20px
-    max-width: 600px
-    font-size: 24px
-    text-align: center
-    img
-        max-width: 100%
-    p
-        margin-top: 30px
+  margin: 40vh auto 0
+  padding: 0 20px
+  max-width: 600px
+  font-size: 24px
+  text-align: center
+  img
+    max-width: 100%
+  p
+    margin-top: 30px
 
 #noty_topRight_layout_container
-    > li
-        border-radius: 0 !important
+  > li
+    border-radius: 0 !important

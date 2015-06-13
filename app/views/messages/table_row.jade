@@ -1,0 +1,5 @@
+if item
+  td: a(href='/#/messages/' + item.id) #{item.id}
+  td: a(href='/#/messages/' + item.id) #{item.title}
+  td #{item.body}
+  td #{item.created_at}

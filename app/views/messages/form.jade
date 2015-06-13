@@ -1,37 +1,34 @@
-if message
-  ol.breadcrumb
-    li
-      a(href='/#/') Home
-    li Account
-    li
-      a(href='/#/messages') Messages
-    li #{message.id}
-  h1 Message
-  form.form-horizontal.item(action='#')
+if item
+  h1 Message: #{item.id}
+  div.form-group
+    label.col-md-2.control-label(for='id') ID
+    div.col-md-6
+      input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
+  div.form-group
+    label.col-md-2.control-label(for='title') Title
+    div.col-md-6
+      input.form-control(type='text', name='title', value=item.title, disabled, required)
+  div.form-group
+    label.col-md-2.control-label(for='body') Body
+    div.col-md-6
+      textarea.form-control(name='body', rows='5', disabled, required) #{item.body}
+  div.form-group
+    label.col-md-2.control-label(for='created_at') Created At
+    div.col-md-6
+      input.form-control(type='datetime', name='created_at', value=item.created_at, disabled, required)
+  if rqst.user.is_admin
     div.form-group
-      label.col-md-2.control-label(for='id') ID
+      label.col-md-2.control-label(for='user_id') User ID
       div.col-md-6
-        input.form-control(type='text', name='id', value=message.id, pattern='\\d+', required, disabled)
-    div.form-group
-      label.col-md-2.control-label(for='title') Title
-      div.col-md-6
-        input.form-control(type='text', name='title', value=message.title, required, disabled)
-    div.form-group
-      label.col-md-2.control-label(for='body') Body
-      div.col-md-6
-        textarea.form-control(name='body', rows='5', required, disabled) #{message.body}
-    if rqst.user.is_admin
-      div.form-group
-        label.col-md-2.control-label(for='user_id') User ID
-        div.col-md-6
-          input.form-control(type='text', name='user_id', value=message.user_id, pattern='\\d+', required, disabled)
-    div.form-group
-      div.col-md-10.col-md-offset-2
-        button.btn.btn-default.spine-cancel(type='button') Cancel
-        button.btn.btn-danger.spine-destroy(type='button', data-toggle='confirmation') Delete
-        script(charset='utf-8').
-          $(function () {
-            $('[data-toggle=confirmation]').confirmation();
-          });
+        input.form-control(type='text', name='user_id', value=item.user_id, pattern='\\d+', required, disabled)
+  div.form-group
+    div.col-md-10.col-md-offset-2
+      button.btn.btn-default.spine-cancel(type='button') Cancel
+      button.btn.btn-danger.spine-destroy(type='button', data-toggle='confirmation') Delete
+      script(charset='utf-8').
+        $(function () {
+          $('[data-toggle=confirmation]').confirmation();
+        });
 else
-  include ../includes/not-found.jade
+  include ../shared/helpers
+  +not-found('message')

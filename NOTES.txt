@@ -1,11 +1,10 @@
-BUGS:
-    - If saving/destroying fails, the record is still added/removed to/from the internal collection leading to wrong data.
-    - The 'modal-open' class is added to the body tag causing scrolling problems (overflow hidden).
-
-IMPROVEMENTS:
-    - performance: prevent to many re-render, don't init a new modal instance every time etc.
-
 TODOS:
-    - Dashboard
-    - Views need refactoring (outsource tables etc.)
-    - Some M2M relations lack the ability to add new records.
+  - Remove M2M related records on destroy (e.g. server when user is deleted).
+    With the new 'fix' to re-add destroyed objects where the server reports an error that doesn't work.
+  - Add some kind of breadcrumb
+  - Smart solution to set the window title
+  - Datatables Tables
+  - Binaries sidebar highlighting
+  - Submitting form does not trigger HTML5 validation
+  - Chaning the password results in 401 (server-side)
+  - Smarter bootstrap-select (selectpicker) implementation

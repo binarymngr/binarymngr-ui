@@ -1,15 +1,20 @@
-Spine   = @Spine or require 'spine'
-Main    = require 'controllers/dashboard/main'
-Sidebar = require 'controllers/dashboard/sidebar'
+Spine      = @Spine or require('spine')
+Controller = require('framework/core').Controller
+Main       = require('controllers/dashboard/main')
+Sidebar    = require('controllers/dashboard/sidebar')
 
-class DashboardPage extends Spine.Controller
-  className: 'row page-dashboard'
+class DashboardPage extends Controller
+  className: 'row'
 
   constructor: ->
     super
-
     @main = new Main
     @sidebar = new Sidebar
-    @append @main, @sidebar
+    @render()
+
+  render: =>
+    @el.empty()
+    @append @main.render(), @sidebar.render()
+    super
 
 module?.exports = DashboardPage

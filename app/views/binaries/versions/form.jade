@@ -1,59 +1,34 @@
-if version
-  ol.breadcrumb
-    li
-      a(href='/#/') Home
-    li
-      a(href='/#/binaries') Binaries
-    li
-      a(href='/#/binaries/' + binary.id) #{binary.name}
-    li
-      a(href='/#/binaries/versions') Versions
-    li #{version.identifier}
-  h1
-    | #{binary.name} 
-    span.fa.fa-angle-right
-    |  #{version.identifier}
-  form.form-horizontal.item(action='#')
-    div.form-group
-      label.col-md-2.control-label(for='id') ID
-      div.col-md-6
-        input.form-control(type='text', name='id', value=version.id, pattern='\\d+', required, disabled)
-    div.form-group
-      label.col-md-2.control-label(for='identifier') Identifier
-      div.col-md-6
-        input.form-control(type='text', name='identifier', value=version.identifier, required)
-    div.form-group
-      label.col-md-2.control-label(for='note') Note
-      div.col-md-6
-        textarea.form-control(name='note', rows='5') #{version.note}
-    div.form-group
-      label.col-md-2.control-label(for='eol') EOL
-      div.col-md-6
-        input.form-control(type='date', name='eol', value=version.eol, placeholder='yyyy-mm-dd', pattern='\\d{4}-\\d{2}-\\d{2}')
-    div.form-group
-      div.col-md-10.col-md-offset-2
-        include ../../includes/form-buttons.jade
-  hr
-  h2 Servers
-  if servers && servers.length
-    table.datatable.table.table-striped.table-bordered
-      thead
-        tr
-          th ID
-          th Name
-          th IPv4 Address
-      tbody
-        each server in servers
-          tr
-            td
-              a(href='/#/servers/' + server.id) #{server.id}
-            td
-              a(href='/#/servers/' + server.id) #{server.name}
-            td #{server.ipv4}
-    include ../../includes/datatables-js.jade
-  else
-    div.alert.alert-info
-      span.pficon.pficon-info
-      | This version is not installed.
+if item
+  h1 Binary Version: #{item.id}
+  div.form-group
+    label.col-md-2.control-label(for='id') ID
+    div.col-md-6
+      input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
+  div.form-group
+    label.col-md-2.control-label(for='binary') Binary
+    div.col-md-6
+      input.form-control(type='text', name='binary', value=item.binary().name, required, disabled)
+  div.form-group
+    label.col-md-2.control-label(for='identifier') Identifier
+    div.col-md-6
+      input.form-control(type='text', name='identifier', placeholder='0.1.0', value=item.identifier, required)
+  div.form-group
+    label.col-md-2.control-label(for='note') Note
+    div.col-md-6
+      textarea.form-control(name='note', rows='5', placeholder='Fixes issue #190.') #{item.note}
+  div.form-group
+    label.col-md-2.control-label(for='eol') EOL
+    div.col-md-6
+      input.form-control(type='date', name='eol', value=item.eol, placeholder='2015-12-31', pattern='\\d{4}-\\d{2}-\\d{2}')
+  div.form-group
+    div.col-md-10.col-md-offset-2
+      button.btn.btn-primary.spine-save(type='submit') Save
+      button.btn.btn-default.spine-cancel(type='button') Cancel
+      button.btn.btn-danger.spine-destroy(type='button', data-toggle='confirmation') Delete
+      script(charset='utf-8').
+        $(function () {
+          $('[data-toggle=confirmation]').confirmation();
+        });
 else
-  include ../../includes/not-found.jade
+  include ../../shared/helpers
+    +not-found('binary version')

@@ -1,0 +1,14 @@
+mixin not-found(model)
+  h1 Not found
+  div.alert.alert-warning
+    span.pficon-layered
+      span.pficon.pficon-warning-triangle
+      span.pficon.pficon-warning-exclamation
+    | The requested #{model} does not exist.
+
+mixin selectpicker(el)
+  script(charset='utf-8').
+    $('#{el}').selectpicker({
+      mobile: true,
+      selectedTextFormat: 'count > 2'
+    });

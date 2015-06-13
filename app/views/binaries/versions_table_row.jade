@@ -1,0 +1,9 @@
+if item
+  td: a(href='/#/binaries/versions/' + item.id) #{item.id}
+  td: a(href='/#/binaries/versions/' + item.id) #{item.identifier}
+  td #{item.note}
+  td
+    if item.eol
+      | #{item.eol}
+    else
+      | -
