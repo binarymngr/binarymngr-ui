@@ -17,8 +17,8 @@ class ServerFormPage extends Controller
     @render()
 
   render: =>
-    @html @form.render
-    @append @binaryVersionsTable.render
+    @html @form.render()
+    @append @binaryVersionsTable.render()
 
 class ServerForm extends Form
   model: Server

@@ -21,6 +21,10 @@ class Binary extends Spine.Model
       done: -> Notification.warning 'Binary has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
+  @fetch: ->
+    super
+      fail: -> Notification.error 'Fetching binaries from the remote server failed.'
+
   getCategories: =>
     Category = require 'models/binary_category'
     @binary_category_ids ?= new Array

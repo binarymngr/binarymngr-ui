@@ -28,7 +28,7 @@ class BinaryForm extends RecordForm
   submit: (event) =>
     event.preventDefault()
     @trigger 'submitted', @, event
-    @record = @record.fromForm(@el)
+    @record.fromForm(@el)
     @record.binary_category_ids = @$('.selectpicker').selectpicker('val')
     if @record.save()
       @success @record

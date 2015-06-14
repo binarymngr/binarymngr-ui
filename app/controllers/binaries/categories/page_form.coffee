@@ -15,8 +15,8 @@ class BinaryCategoryFormPage extends Controller
     @render()
 
   render: =>
-    @html @form.render
-    @append @binariesTable.render
+    @html @form.render()
+    @append @binariesTable.render()
 
 class BinaryCategoryForm extends Form
   model: BinaryCategory

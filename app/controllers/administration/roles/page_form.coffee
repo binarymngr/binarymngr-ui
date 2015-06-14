@@ -16,8 +16,8 @@ class RoleFormPage extends Controller
     @render()
 
   render: =>
-    @html @form.render
-    @append @userTable.render
+    @html @form.render()
+    @append @userTable.render()
     @el
 
 class RoleForm extends RecordForm

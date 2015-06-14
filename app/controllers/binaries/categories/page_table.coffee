@@ -36,10 +36,7 @@ class NewBinaryCategoryForm extends RecordForm
     @record = new @model
     @render()
 
-  render: =>
-    super
-    @record.unbind('change', @render) if @record
-    @el
+  render: => @html @template @record
 
 class AddBinaryCategoryModal extends Modal
   id   : 'add-binary-category-modal'

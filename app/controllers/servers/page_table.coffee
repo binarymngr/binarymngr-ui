@@ -38,10 +38,7 @@ class NewServerForm extends RecordForm
     @record = new @model
     @render()
 
-  render: =>
-    super
-    @record.unbind('change', @render) if @record
-    @el
+  render: => @html @template @record
 
 class AddServerModal extends Modal
   id   : 'add-server-modal'

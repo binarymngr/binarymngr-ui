@@ -22,10 +22,10 @@ class UserFormPage extends Controller
     @render()
 
   render: =>
-    @html @form.render
-    @append @binariesTable.render
-    @append @messagesTable.render
-    @append @serversTable.render
+    @html @form.render()
+    @append @binariesTable.render()
+    @append @messagesTable.render()
+    @append @serversTable.render()
 
 class UserForm extends RecordForm
   model: User
@@ -35,7 +35,7 @@ class UserForm extends RecordForm
   submit: (event) =>
     event.preventDefault()
     @trigger 'submitted', @, event
-    @record = @record.fromForm(@el)
+    @record.fromForm(@el)
     @record.role_ids = @$('.selectpicker').selectpicker('val')
     if @record.save()
       @success @record

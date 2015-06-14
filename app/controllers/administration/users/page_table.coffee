@@ -38,10 +38,7 @@ class NewUserForm extends RecordForm
     @record = new @model
     @render()
 
-  render: =>
-    super
-    @record.unbind('change', @render) if @record
-    @el
+  render: => @html @template @record
 
 class AddUserModal extends Modal
   id   : 'add-user-modal'

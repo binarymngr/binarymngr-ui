@@ -37,7 +37,7 @@ class NewBinaryVersionForm extends RecordForm
   submit: (event) =>
     event.preventDefault()
     @trigger 'submitted', @, event
-    @record = @record.fromForm(@el)
+    @record.fromForm(@el)
     @record.binary_id = @$('.selectpicker').selectpicker('val')
     if @record.save()
       @success @record
@@ -50,10 +50,7 @@ class NewBinaryVersionForm extends RecordForm
     @record = new @model
     @render()
 
-  render: =>
-    super
-    @record.unbind('change', @render) if @record
-    @el
+  render: => @html @template @record
 
   template: (record) =>
     require(@view)

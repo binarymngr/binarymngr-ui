@@ -18,6 +18,10 @@ class Server extends Spine.Model
       done: -> Notification.warning 'Server has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
+  @fetch: ->
+    super
+      fail: -> Notification.error 'Fetching servers from the remote server failed.'
+
   getBinaryVersions: ->
     Version = require 'models/binary_version'
     @binary_version_ids ?= new Array

@@ -38,10 +38,7 @@ class NewRoleForm extends RecordForm
     @record = new @model
     @render()
 
-  render: =>
-    super
-    @record.unbind('change', @render) if @record
-    @el
+  render: => @html @template @record
 
 class AddRoleModal extends Modal
   id   : 'add-role-modal'

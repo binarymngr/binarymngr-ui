@@ -24,6 +24,10 @@ class BinaryVersion extends Spine.Model
       done: -> Notification.warning 'Binary version has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
+  @fetch: ->
+    super
+      fail: -> Notification.error 'Fetching binary versions from the remote server failed.'
+
   getServers: =>
     Server = require 'models/server'
     Server.select (s) => _.contains(s.binary_version_ids, @id)
