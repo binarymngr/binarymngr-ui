@@ -50,7 +50,8 @@ class Dropdown extends Item
     @items.push item
 
   itemActivated: (activated) =>
-    $.each @items, (i, item) -> item.deactivate() unless item is activated
+    for item in @items
+      item.deactivate() unless item is activated
 
   render: =>
     @html $("<a href='#' class='dropdown-toggle' data-toggle='dropdown'> \
@@ -69,7 +70,7 @@ class Submenu extends Dropdown
   render: =>
     @html $("<a href='#' class='dropdown-toggle'>#{@text}</a>")
     menu = $("<ul class='dropdown-menu'></ul>")
-    $.each @items, (index, item) -> menu.append item.render()
+    menu.append(item.render()) for item in @items
     @append menu
     @el
 

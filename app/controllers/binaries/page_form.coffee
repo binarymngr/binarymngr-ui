@@ -62,7 +62,7 @@ class BinaryVersionsTable extends _BinaryVersionsTable
     if binary
       super
       @heading.insertBefore @el
-      $.each binary.versions().all(), (i, version) => @addOne version
+      @addOne(v) for v in binary.versions().all()
     @el
 
 module?.exports               = BinaryFormPage

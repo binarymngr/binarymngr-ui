@@ -39,7 +39,7 @@ class RoleUsersTable extends UsersTable
     if role
       super
       @heading.insertBefore @el
-      $.each role.getUsers(), (i, user) => @addOne user
+      @addOne(u) for u in role.getUsers()
     @el
 
 module?.exports            = RoleFormPage

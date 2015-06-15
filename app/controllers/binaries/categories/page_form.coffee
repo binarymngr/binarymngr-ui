@@ -37,7 +37,7 @@ class CategoryBinariesTable extends BinariesTable
     if category
       super
       @heading.insertBefore @el
-      $.each category.getBinaries(), (i, binary) => @addOne binary
+      @addOne(c) for c in category.getBinaries()
     @el
 
 module?.exports               = BinaryCategoryFormPage

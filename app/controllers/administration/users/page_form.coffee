@@ -63,7 +63,7 @@ class UserBinariesTable extends BinariesTable
     if user
       super
       @heading.insertBefore @el
-      $.each user.binaries().all(), (i, binary) => @addOne binary
+      @addOne(b) for b in user.binaries().all()
     @el
 
 class UserMessagesTable extends MessagesTable

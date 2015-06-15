@@ -36,7 +36,7 @@ class BinaryVersionServersTable extends ServersTable
     if version
       super
       @heading.insertBefore @el
-      $.each version.getServers(), (i, server) => @addOne server
+      @addOne(s) for s in version.getServers()
     @el
 
 module?.exports              = BinaryVersionFormPage

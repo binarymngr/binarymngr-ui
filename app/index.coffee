@@ -24,29 +24,31 @@ class App extends Controller
       you may lose unsaved changes if you close the page.''' if Spine.Ajax.pending
 
     # create a new request object after every location change(/click)
-    Spine.Route.bind 'change', -> setTimeout Request.hydrate, 0  # FIXME
+    Spine.Route.bind 'change', => @delay Request.hydrate, 0  # FIXME
 
     # setup Ajax module to send the CSRF token with every request
     _.extend Spine.Ajax.defaults.headers,
       'X-CSRF-Token': Request.get().csrf_token
 
-    # bootstrap the UI
+    # initialize the UI components
     header = new Header
     content = new Content
-    @append header.render(), content
 
     # setup the routing
     Spine.Route.setup()
     Spine.Route.navigate '/'
 
-    # initially fetch all model records (order: first visible)
-    # TOOD: parallel .... throws errors (model not ready, e.g. binary/version)
-    Message.fetch parallel: false
-    Binary.fetch parallel: false
-    BinaryCategory.fetch parallel: false
-    BinaryVersion.fetch parallel: false
-    Server.fetch parallel: false
-    Role.fetch parallel: false
-    User.fetch parallel: false
+    # render the UI
+    @html header.render()
+    @append content
+
+    # initially fetch all model records
+    BinaryCategory.fetch()
+    Binary.fetch()
+    BinaryVersion.fetch()
+    Message.fetch()
+    Role.fetch()
+    Server.fetch()
+    User.fetch()
 
 module?.exports = App

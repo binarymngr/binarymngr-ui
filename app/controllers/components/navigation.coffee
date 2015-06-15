@@ -19,11 +19,12 @@ class Navigation extends Controller
   deactivate: => @trigger 'deactivated', @
 
   itemActivated: (activated) =>
-    $.each @items, (i, item) -> item.deactivate() unless item is activated
+    for item in @items
+      item.deactivate() unless item is activated
 
   render: =>
     @el.empty()
-    $.each @items, (i, item) => @append item.render()
+    @append(item.render()) for item in @items
     @el
 
 class NavItem extends Controller

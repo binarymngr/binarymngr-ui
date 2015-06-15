@@ -1,4 +1,6 @@
+Spine = @Spine or require('spine')
 Core = require('framework/core')
+$    = Spine.$
 
 # Collections
 class Collection extends Core.ViewController
@@ -45,7 +47,7 @@ class Table extends Collection
   render: =>
     return super if @view isnt Core.DUMMY_VIEW
     thead = $('<thead><tr></tr></thead>')
-    $.each @columns, (i, column) ->
+    for column in @columns
       thead.find('tr').append $("<th>#{column}</th>")
     @html thead
     @append $('<tbody class="items"></tbody>')

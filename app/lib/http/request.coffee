@@ -1,5 +1,4 @@
 Spine = @Spine or require('spine')
-$     = Spine.$
 
 #
 # The request class can be used to have an object that
