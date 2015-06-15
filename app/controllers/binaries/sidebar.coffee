@@ -7,8 +7,6 @@ ListItem       = require('framework/controllers').ListItem
 Sidebar        = require('controllers/components/sidebar')
 $              = Spine.$
 
-# TODO: remove category highlight on categories/versions link click
-# and on page leave
 class BinariesSidebar extends Sidebar
   constructor: ->
     super
@@ -21,7 +19,8 @@ class BinaryCategoryItem extends ListItem
     super
     @link = "/binaries/categories/#{@record.id}"
     @router = Spine.Route.create()
-    @router.add @link, @activate
+    @router.add new RegExp("^#{@link}$"), @activate
+    @router.add new RegExp("^(?!#{@link}$).*$"), @deactivate  # FIXME
 
   activate: =>
     unless @isActive()
@@ -42,20 +41,9 @@ class BinaryCategoriesNav extends List
   model : BinaryCategory
   record: BinaryCategoryItem
 
-  constructor: ->
-    super
-    @categories = []
-
   addOne: (record) =>
     item = super
     item.bind 'activated', => @trigger 'activated', @
-    item.bind 'activated', @itemActivated
-    @bind 'deactivated', item.deactivate
-    item.record.bind 'destroy', => _.remove(@categories, item)  # cleanup
-    @categories.push item
-
-  itemActivated: (activated) =>
-    $.each @categories, (i, cat) -> cat.deactivate() unless cat is activated
 
 module?.exports                    = BinariesSidebar
 module?.exports.CategoriesNav      = BinaryCategoriesNav
