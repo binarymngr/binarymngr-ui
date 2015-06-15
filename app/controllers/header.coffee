@@ -18,8 +18,8 @@ class Header extends ViewController
     super
     @primaryNav = new PrimaryNav
     @utilityNav = new UtilityNav
-    @primaryNav.bind 'activated', => @utilityNav.deactivate()
-    @utilityNav.bind 'activated', => @primaryNav.deactivate()
+    @primaryNav.bind 'activated', @utilityNav.deactivate
+    @utilityNav.bind 'activated', @primaryNav.deactivate
 
   render: =>
     super

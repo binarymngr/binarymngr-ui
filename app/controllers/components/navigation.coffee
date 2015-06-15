@@ -33,20 +33,13 @@ class NavItem extends Controller
     unless @isActive()
       @el.addClass 'active'
       @trigger 'activated', @
-      @trigger 'toggled', @
 
   deactivate: =>
     if @isActive()
       @el.removeClass 'active'
       @trigger 'deactivated', @
-      @trigger 'toggled', @
 
   isActive: => @el.hasClass 'active'
-
-  toggle: =>
-    if @isActive()
-      @deactivate()
-    else @activate()
 
 class Link extends NavItem
   events:

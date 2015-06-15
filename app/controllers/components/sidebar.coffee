@@ -1,5 +1,6 @@
 Spine      = @Spine or require('spine')
 Controller = require('framework/core').Controller
+Navigation = require('controllers/components/navigation')
 $          = Spine.$
 
 class Sidebar extends Controller
@@ -9,40 +10,13 @@ class Sidebar extends Controller
     super
     @items = []
 
-  addItem: (item) => @items.push item
-
-  render: =>
-    @el.empty()
-    $.each @items, (i, item) => @append item.render()
-    @el
-
-class SidebarElement extends Controller
-
-class NavBlock extends SidebarElement
-  className: 'nav-category'
-
-  constructor: ->
-    super
-    throw new Error('@nav is required') unless @nav
-    throw new Error('@title is required') unless @title
-
-  render: =>
-    @el.empty()
-    @html @title.render()
-    @append @nav.render()
-    @el
-
-class Nav extends Controller
-  className: 'items nav nav-pills nav-stacked'
-  tag: 'ul'
-
-  constructor: ->
-    super
-    @items = []
-
   addItem: (item) =>
+    item.bind 'activated', => @trigger 'activated', @
     item.bind 'activated', @itemActivated
+    @bind 'deactivated', item.deactivate
     @items.push item
+
+  deactivate: => @trigger 'deactivated', @
 
   itemActivated: (activated) =>
     $.each @items, (i, item) -> item.deactivate() unless item is activated
@@ -52,40 +26,43 @@ class Nav extends Controller
     $.each @items, (i, item) => @append item.render()
     @el
 
-class NavItem extends Controller
-  tag: 'li'
-
-  events:
-    'click > a': 'clicked'
-
-  constructor: ->
-    super
-    throw new Error('@link is required') unless @link
-    throw new Error('@text is required') unless @text
-    @router = Spine.Route.create()
-    @router.add new RegExp("^#{@link}(\\/[^\\/])*$"), @activate
-
+class SidebarElement extends Controller
   activate: =>
     unless @isActive()
       @el.addClass 'active'
       @trigger 'activated', @
-      @trigger 'toggled', @
-
-  clicked: => @trigger 'clicked', @
 
   deactivate: =>
     if @isActive()
       @el.removeClass 'active'
       @trigger 'deactivated', @
-      @trigger 'toggled', @
 
   isActive: => @el.hasClass 'active'
-  render:   => @html $("<a href='/##{@link}'>#{@text}</a>")
 
-  toggle: =>
-    if @isActive()
-      @deactivate()
-    else @activate()
+class NavBlock extends SidebarElement
+  className: 'nav-category'
+
+  constructor: ->
+    super
+    throw new Error('@nav is required') unless @nav
+    throw new Error('@title is required') unless @title
+    @nav.bind 'activated', => @trigger 'activated', @
+    @title.bind 'activated', => @trigger 'activated', @
+    @nav.bind 'activated', @title.deactivate
+    @title.bind 'activated', @nav.deactivate
+    @bind 'deactivated', @nav.deactivate
+    @bind 'deactivated', @title.deactivate
+
+  render: =>
+    @el.empty()
+    @html @title.render()
+    @append @nav.render()
+    @el
+
+class Nav extends Navigation
+  className: 'nav nav-pills nav-stacked'
+
+class NavItem extends Navigation.Link
 
 class Title extends SidebarElement
   constructor: ->
@@ -101,27 +78,8 @@ class LinkTitle extends Title
     @router = Spine.Route.create()
     @router.add new RegExp("^#{@link}(\\/[^\\/])*$"), @activate
 
-  activate: =>
-    unless @isActive()
-      @el.addClass 'active'
-      @trigger 'activated', @
-      @trigger 'toggled', @
-
   clicked: => @trigger 'clicked', @
-
-  deactivate: =>
-    if @isActive()
-      @el.removeClass 'active'
-      @trigger 'deactivated', @
-      @trigger 'toggled', @
-
-  isActive: => @el.hasClass 'active'
-  render:   => @html $("<h2 class='h5'><a href='/##{@link}'>#{@text}</a></h2>")
-
-  toggle: =>
-    if @isActive()
-      @deactivate()
-    else @activate()
+  render:  => @html $("<h2 class='h5'><a href='/##{@link}'>#{@text}</a></h2>")
 
 module?.exports                   = Sidebar
 module?.exports.Element           = SidebarElement

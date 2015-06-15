@@ -31,7 +31,6 @@ class Divider extends Item
 
   activate:   -> # NOP
   deactivate: -> # NOP
-  toggle:     -> # NOP
 
 class Dropdown extends Item
   className: 'dropdown'
@@ -52,8 +51,6 @@ class Dropdown extends Item
 
   itemActivated: (activated) =>
     $.each @items, (i, item) -> item.deactivate() unless item is activated
-
-  hasItems: => @items.length isnt 0
 
   render: =>
     @html $("<a href='#' class='dropdown-toggle' data-toggle='dropdown'> \
