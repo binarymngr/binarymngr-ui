@@ -3,20 +3,35 @@ BinariesTable  = require('controllers/binaries/page_table').Table
 BinaryCategory = require('models/binary_category')
 Controller     = require('framework/core').Controller
 Form           = require('framework/controllers').RecordForm
+Tabs           = require('controllers/components/tabs')
 $              = Spine.$
 
 class BinaryCategoryFormPage extends Controller
   constructor: ->
     super
+
     @form = new BinaryCategoryForm
+    @tabs = new Tabs.Nav
+    @tabsContainer = new Tabs.Container
+
+    @binariesTab = new Tabs.Tab(name: 'binaries')
     @binariesTable = new CategoryBinariesTable
+    @tabs.addItem new Tabs.Nav.Item(tab: @binariesTab, text: 'Binaries')
+    @tabsContainer.addItem @binariesTab
+
+
     @active @form.render
     @active @binariesTable.render
+
+    _.first(@tabs.items).activate()
     @render()
 
   render: =>
     @html @form.render()
-    @append @binariesTable.render()
+    @append $('<hr/>')
+    @append @tabs.render()
+    @binariesTab.append @binariesTable.render()
+    @append @tabsContainer.render()
 
 class BinaryCategoryForm extends Form
   model: BinaryCategory
@@ -24,19 +39,13 @@ class BinaryCategoryForm extends Form
   view : 'views/binaries/categories/form'
 
 class CategoryBinariesTable extends BinariesTable
-  constructor: ->
-    super
-    @heading = $('<hr><h2>Binaries</h2>')
-
   addAll: -> # NOP
 
   render: (params) =>
-    @heading.remove()
     @el.empty()
     category = BinaryCategory.find(params.id) if params?.id?
     if category
       super
-      @heading.insertBefore @el
       @addOne(c) for c in category.getBinaries()
     @el
 

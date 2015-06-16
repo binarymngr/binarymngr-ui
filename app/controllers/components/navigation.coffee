@@ -25,7 +25,6 @@ class Navigation extends Controller
   render: =>
     @el.empty()
     @append(item.render()) for item in @items
-    @el
 
 class NavItem extends Controller
   tag: 'li'

@@ -1,11 +1,12 @@
 Spine          = @Spine or require('spine')
 Controller     = require('framework/core').Controller
-List           = require('framework/controllers').List
-ListItem       = require('framework/controllers').ListItem
+Controllers    = require('framework/controllers')
+List           = Controllers.List
+ListItem       = Controllers.ListItem
 Message        = require('models/message')
 Sidebar        = require('controllers/components/sidebar')
-SidebarElement = require('controllers/components/sidebar').Element
-Title          = require('controllers/components/sidebar').Title
+SidebarElement = Sidebar.Element
+Title          = Sidebar.Title
 $              = Spine.$
 
 class DashboardSidebar extends Sidebar

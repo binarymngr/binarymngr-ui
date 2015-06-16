@@ -1,14 +1,15 @@
 Spine          = @Spine or require('spine')
 Binary         = require('models/binary')
 BinaryVersion  = require('models/binary_version')
-Core           = require('framework/core')
-Modal          = require('framework/controllers').Modal
-RecordForm     = require('framework/controllers').RecordForm
-Table          = require('framework/controllers').Table
-TableRow       = require('framework/controllers').TableRow
+Controller     = require('framework/core').Controller
+Controllers    = require('framework/controllers')
+Form           = Controllers.RecordForm
+Modal          = Controllers.Modal
+Table          = Controllers.Table
+TableRow       = Controllers.TableRow
 $              = Spine.$
 
-class BinaryVersionsTablePage extends Core.Controller
+class BinaryVersionsTablePage extends Controller
   constructor: ->
     super
     @modal = new AddBinaryVersionModal
@@ -16,16 +17,15 @@ class BinaryVersionsTablePage extends Core.Controller
     @render()
 
   render: =>
-    @el.empty()
     @html $('<h1>Binary Versions</h1>')
     # TODO: create framework controller for button
     @append $("<button class='btn btn-primary pull-right' type='button' \
                 data-toggle='modal' data-target='##{@modal.id}'>Add New</button>")
+    @append $('<hr/>')
     @append @table.render()
     @append @modal.render()
-    @el
 
-class NewBinaryVersionForm extends RecordForm
+class NewBinaryVersionForm extends Form
   model: BinaryVersion
   view : 'views/binaries/versions/add_modal_form'
 

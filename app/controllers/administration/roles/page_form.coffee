@@ -1,7 +1,8 @@
 Spine      = @Spine or require('spine')
 Controller = require('framework/core').Controller
-RecordForm = require('framework/controllers').RecordForm
+Form       = require('framework/controllers').RecordForm
 Role       = require('models/role')
+Tabs       = require('controllers/components/tabs')
 User       = require('models/user')
 UsersTable = require('controllers/administration/users/page_table').Table
 $          = Spine.$
@@ -9,36 +10,42 @@ $          = Spine.$
 class RoleFormPage extends Controller
   constructor: ->
     super
+
     @form = new RoleForm
-    @userTable = new RoleUsersTable
+    @tabs = new Tabs.Nav
+    @tabsContainer = new Tabs.Container
+
+    @usersTab = new Tabs.Tab(name: 'users')
+    @usersTable = new RoleUsersTable
+    @tabs.addItem new Tabs.Nav.Item(tab: @usersTab, text: 'Users')
+    @tabsContainer.addItem @usersTab
+
     @active @form.render
-    @active @userTable.render
+    @active @usersTable.render
+
+    _.first(@tabs.items).activate()
     @render()
 
   render: =>
     @html @form.render()
-    @append @userTable.render()
-    @el
+    @append $('<hr/>')
+    @append @tabs.render()
+    @usersTab.append @usersTable.render()
+    @append @tabsContainer.render()
 
-class RoleForm extends RecordForm
+class RoleForm extends Form
   model: Role
   url  : '/administration/roles'
   view : 'views/administration/roles/form'
 
 class RoleUsersTable extends UsersTable
-  constructor: ->
-    super
-    @heading = $('<hr><h2>Members</h2>')
-
   addAll: -> # NOP
 
   render: (params) =>
-    @heading.remove()
     @el.empty()
     role = Role.find(params.id) if params?.id?
     if role
       super
-      @heading.insertBefore @el
       @addOne(u) for u in role.getUsers()
     @el
 

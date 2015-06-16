@@ -13,8 +13,7 @@ class BinariesPage extends Controller
     @render()
 
   render: =>
-    @el.empty()
-    @append @main, @sidebar.render()
-    super
+    @html @main
+    @append @sidebar.render()
 
 module?.exports = BinariesPage

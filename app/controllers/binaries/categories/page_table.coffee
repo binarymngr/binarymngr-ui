@@ -1,13 +1,14 @@
 Spine          = @Spine or require('spine')
 BinaryCategory = require('models/binary_category')
-Core           = require('framework/core')
-Modal          = require('framework/controllers').Modal
-RecordForm     = require('framework/controllers').RecordForm
-Table          = require('framework/controllers').Table
-TableRow       = require('framework/controllers').TableRow
+Controller     = require('framework/core').Controller
+Controllers    = require('framework/controllers')
+Form           = Controllers.RecordForm
+Modal          = Controllers.Modal
+Table          = Controllers.Table
+TableRow       = Controllers.TableRow
 $              = Spine.$
 
-class BinaryCategoriesTablePage extends Core.Controller
+class BinaryCategoriesTablePage extends Controller
   constructor: ->
     super
     @modal = new AddBinaryCategoryModal
@@ -15,16 +16,15 @@ class BinaryCategoriesTablePage extends Core.Controller
     @render()
 
   render: =>
-    @el.empty()
     @html $('<h1>Binary Categories</h1>')
     # TODO: create framework controller for button
     @append $("<button class='btn btn-primary pull-right' type='button' \
                 data-toggle='modal' data-target='##{@modal.id}'>Add New</button>")
+    @append $('<hr/>')
     @append @table.render()
     @append @modal.render()
-    @el
 
-class NewBinaryCategoryForm extends RecordForm
+class NewBinaryCategoryForm extends Form
   model: BinaryCategory
   view : 'views/binaries/categories/add_modal_form'
 

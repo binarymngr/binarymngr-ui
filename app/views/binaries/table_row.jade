@@ -5,7 +5,7 @@ if item
   td
     - var categories = item.getCategories()
     if categories.length
-      ul
+      ul.list-unstyled
         each category in categories
           li: a(href='/#/binaries/categories/' + category.id) #{category.name}
     else

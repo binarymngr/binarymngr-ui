@@ -1,6 +1,6 @@
 Spine      = @Spine or require('spine')
 Navigation = require('controllers/components/navigation')
-Link       = require('controllers/components/navigation').Link
+Link       = Navigation.Link
 $          = Spine.$
 
 class PrimaryNav extends Navigation

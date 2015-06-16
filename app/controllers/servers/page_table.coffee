@@ -1,11 +1,12 @@
-Spine      = @Spine or require('spine')
-Controller = require('framework/core').Controller
-Modal      = require('framework/controllers').Modal
-RecordForm = require('framework/controllers').RecordForm
-Server     = require('models/server')
-Table      = require('framework/controllers').Table
-TableRow   = require('framework/controllers').TableRow
-$          = Spine.$
+Spine       = @Spine or require('spine')
+Controller  = require('framework/core').Controller
+Controllers = require('framework/controllers')
+Form        = Controllers.RecordForm
+Modal       = Controllers.Modal
+Server      = require('models/server')
+Table       = Controllers.Table
+TableRow    = Controllers.TableRow
+$           = Spine.$
 
 class ServersTablePage extends Controller
   className: 'col-xs-12'
@@ -17,16 +18,15 @@ class ServersTablePage extends Controller
     @render()
 
   render: =>
-    @el.empty()
     @html $('<h1>Servers</h1>')
     # TODO: create framework controller for button
     @append $("<button class='btn btn-primary pull-right' type='button' \
                 data-toggle='modal' data-target='##{@modal.id}'>Add New</button>")
+    @append $('<hr/>')
     @append @table.render()
     @append @modal.render()
-    @el
 
-class NewServerForm extends RecordForm
+class NewServerForm extends Form
   model: Server
   view : 'views/servers/add_modal_form'
 

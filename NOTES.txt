@@ -4,7 +4,5 @@ TODOS:
   - Add some kind of breadcrumb
   - Smart solution to set the window title
   - Datatables Tables
-  - Binaries sidebar highlighting
-  - Submitting form does not trigger HTML5 validation
-  - Chaning the password results in 401 (server-side)
+  - Submitting form does not trigger HTML5 validation in Safari
   - Smarter bootstrap-select (selectpicker) implementation

@@ -1,7 +1,7 @@
 Spine      = @Spine or require('spine')
 Controller = require('framework/core').Controller
+Form       = require('framework/controllers').RecordForm
 Message    = require('models/message')
-RecordForm = require('framework/controllers').RecordForm
 
 class MessageFormPage extends Controller
   className: 'col-xs-12'
@@ -14,7 +14,7 @@ class MessageFormPage extends Controller
 
   render: => @html @form.render()
 
-class MessageForm extends RecordForm
+class MessageForm extends Form
   model: Message
   url  : '/messages'
   view : 'views/messages/form'

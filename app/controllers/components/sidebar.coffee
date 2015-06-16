@@ -25,7 +25,6 @@ class Sidebar extends Controller
   render: =>
     @el.empty()
     @append(item.render()) for item in @items
-    @el
 
 class SidebarElement extends Controller
   activate: =>
@@ -39,6 +38,11 @@ class SidebarElement extends Controller
       @trigger 'deactivated', @
 
   isActive: => @el.hasClass 'active'
+
+class Nav extends Navigation
+  className: 'nav nav-pills nav-stacked'
+
+class NavItem extends Navigation.Link
 
 class NavBlock extends SidebarElement
   className: 'nav-category'
@@ -58,12 +62,6 @@ class NavBlock extends SidebarElement
     @el.empty()
     @html @title.render()
     @append @nav.render()
-    @el
-
-class Nav extends Navigation
-  className: 'nav nav-pills nav-stacked'
-
-class NavItem extends Navigation.Link
 
 class Title extends SidebarElement
   constructor: ->
@@ -82,12 +80,12 @@ class LinkTitle extends Title
   clicked: => @trigger 'clicked', @
   render:  => @html $("<h2 class='h5'><a href='/##{@link}'>#{@text}</a></h2>")
 
-module?.exports                   = Sidebar
-module?.exports.Element           = SidebarElement
+module?.exports           = Sidebar
+module?.exports.Element   = SidebarElement
 # Navs
-module?.exports.NavBlock          = NavBlock
-module?.exports.NavBlock.Nav      = Nav
-module?.exports.NavBlock.Nav.Item = NavItem
+module?.exports.Nav       = Nav
+module?.exports.Nav.Item  = NavItem
+module?.exports.NavBlock  = NavBlock
 # Titles
-module?.exports.Title             = Title
-module?.exports.LinkTitle         = LinkTitle
+module?.exports.Title     = Title
+module?.exports.LinkTitle = LinkTitle

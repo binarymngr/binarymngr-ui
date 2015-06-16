@@ -1,14 +1,15 @@
-Spine      = @Spine or require('spine')
-Core       = require('framework/core')
-Modal      = require('framework/controllers').Modal
-RecordForm = require('framework/controllers').RecordForm
-Request    = require('lib/http/request')
-Table      = require('framework/controllers').Table
-TableRow   = require('framework/controllers').TableRow
-User       = require('models/user')
-$          = Spine.$
+Spine       = @Spine or require('spine')
+Controller  = require('framework/core').Controller
+Controllers = require('framework/controllers')
+Form        = Controllers.RecordForm
+Modal       = Controllers.Modal
+Request     = require('lib/http/request')
+Table       = Controllers.Table
+TableRow    = Controllers.TableRow
+User        = require('models/user')
+$           = Spine.$
 
-class UsersTablePage extends Core.Controller
+class UsersTablePage extends Controller
   constructor: ->
     super
     @modal = new AddUserModal if Request.get().user.is_admin
@@ -16,17 +17,16 @@ class UsersTablePage extends Core.Controller
     @render()
 
   render: =>
-    @el.empty()
     @html $('<h1>Users</h1>')
     if Request.get().user.is_admin
       # TODO: create framework controller for button
       @append $("<button class='btn btn-primary pull-right' type='button' \
                   data-toggle='modal' data-target='##{@modal.id}'>Add New</button>")
+    @append $('<hr/>')
     @append @table.render()
     @append @modal.render() if Request.get().user.is_admin
-    @el
 
-class NewUserForm extends RecordForm
+class NewUserForm extends Form
   model: User
   view : 'views/administration/users/add_modal_form'
 

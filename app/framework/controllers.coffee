@@ -32,26 +32,22 @@ class List extends Collection
 
 # TODO: DataTables
 class Table extends Collection
-  className: 'datatable table table-striped table-bordered'
-  tag: 'table'
+  className: 'table-responsive'
+  tag: 'div'
 
   constructor: ->
     super
     throw new Error('@columns is required') unless @columns
 
-  addOne: (record) =>
-    record = new @record(record: record)
-    @append record.render()
-    record
-
   render: =>
     return super if @view isnt Core.DUMMY_VIEW
-    thead = $('<thead><tr></tr></thead>')
+    table = $('<table class="datatable table table-striped table-bordered"> \
+                 <thead><tr></tr></thead> \
+               </table>')
     for column in @columns
-      thead.find('tr').append $("<th>#{column}</th>")
-    @html thead
-    @append $('<tbody class="items"></tbody>')
-    @el
+      table.find('tr').append $("<th>#{column}</th>")
+    table.append $('<tbody class="items"></tbody>')
+    @html table
 
 # Forms
 class Form extends Core.ViewController
@@ -69,17 +65,18 @@ class Form extends Core.ViewController
 
 class RecordForm extends Form
   events:
-    'click .spine-cancel' :  'cancel'
+    'click .spine-cancel' : 'cancel'
     'click .spine-destroy': 'destroy'
 
   constructor: ->
     super
     throw new Error('@model is required') unless @model
+    @record  = null
+    # callbacks
     @error   = ((record) ->
       msg = record.validate()
       alert msg
     ) unless @error
-    @record  = null
     @success = (->) unless @success
 
   cancel:  => @navigate @url
@@ -120,7 +117,6 @@ class Modal extends Core.ViewController
     @el.attr 'id', @id
 
   render: =>
-    @el.empty()
     @html $("<div class='modal-dialog'><div class='modal-content'>\
         <div class='modal-header'>\
           <button class='close' type='button' data-dismiss='modal' aria-hidden='true'>\

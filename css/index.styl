@@ -9,18 +9,13 @@ h1
   .page-header &
     margin-bottom: 10px // dashboard title
 
-// more spacing between sub-table titles + content
-h2
-  hr + &
-    margin-bottom: 20px
-
 // fixes bottom spacing for lists in tables
 table
   ol, ul
     margin-bottom: 0
     padding-left: 20px
   &:last-child
-    margin-bottom: 20px // ensure doesnt stick at bottom
+    margin-bottom: 20px // ensure doesn't stick at bottom
 
 // hacky space between buttons in forms
 .btn
@@ -34,6 +29,24 @@ table
 // decreased spacing between the modal form and the buttons
 .modal-footer
   margin-top: -25px
+
+// fixes the administration dropdown positioning
+.navbar-pf
+  .navbar-utility
+    li
+      &.dropdown
+        > .dropdown-toggle
+          .pficon-settings
+            @media(max-width: 767px)
+              position: absolute
+              top: 10px
+              left: 20px
+
+// ensure tab content doesn't stick at tab nav
+.tab-content
+  > .tab-pane
+    padding-top: 10px
+
 
 /*
  | Core application
@@ -62,14 +75,3 @@ table
 #noty_topRight_layout_container
   > li
     border-radius: 0 !important
-
-#spinner
-  background: rgba(255,255,255,.9)
-  position: fixed
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  z-index: 9999
-  .spinner
-    margin: 40vh auto 0

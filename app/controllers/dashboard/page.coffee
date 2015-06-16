@@ -13,8 +13,7 @@ class DashboardPage extends Controller
     @render()
 
   render: =>
-    @el.empty()
-    @append @main.render(), @sidebar.render()
-    super
+    @html @main.render()
+    @append @sidebar.render()
 
 module?.exports = DashboardPage

@@ -2,25 +2,39 @@ Spine                   = @Spine or require('spine')
 Binary                  = require('models/binary')
 BinaryCategory          = require('models/binary_category')
 _BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Table
-_BinaryVersionsTableRow = require('controllers/binaries/versions/page_table').Table.Row
+_BinaryVersionsTableRow = _BinaryVersionsTable.Row
 Controller              = require('framework/core').Controller
-RecordForm              = require('framework/controllers').RecordForm
+Form                    = require('framework/controllers').RecordForm
+Tabs                    = require('controllers/components/tabs')
 $                       = Spine.$
 
 class BinaryFormPage extends Controller
   constructor: ->
     super
+
     @form = new BinaryForm
+    @tabs = new Tabs.Nav
+    @tabsContainer = new Tabs.Container
+
+    @versionsTab = new Tabs.Tab(name: 'binaries')
     @versionsTable = new BinaryVersionsTable
+    @tabs.addItem new Tabs.Nav.Item(tab: @versionsTab, text: 'Versions')
+    @tabsContainer.addItem @versionsTab
+
     @active @form.render
     @active @versionsTable.render
+
+    _.first(@tabs.items).activate()
     @render()
 
   render: =>
     @html @form.render
-    @append @versionsTable.render
+    @append $('<hr/>')
+    @append @tabs.render()
+    @versionsTab.append @versionsTable.render()
+    @append @tabsContainer.render()
 
-class BinaryForm extends RecordForm
+class BinaryForm extends Form
   model: Binary
   url  : '/binaries'
   view : 'views/binaries/form'
@@ -49,19 +63,13 @@ class BinaryVersionsTable extends _BinaryVersionsTable
   columns: ['ID', 'Identifier', 'Note', 'EOL']
   record : BinaryVersionsTableRow
 
-  constructor: ->
-    super
-    @heading = $('<hr><h2>Versions</h2>')
-
   addAll: -> # NOP
 
   render: (params) =>
-    @heading.remove()
     @el.empty()
     binary = Binary.find(params.id) if params?.id?
     if binary
       super
-      @heading.insertBefore @el
       @addOne(v) for v in binary.versions().all()
     @el
 

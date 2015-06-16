@@ -1,10 +1,11 @@
 Spine          = @Spine or require('spine')
 BinaryCategory = require('models/binary_category')
-LinkTitle      = require('controllers/components/sidebar').LinkTitle
-NavBlock       = require('controllers/components/sidebar').NavBlock
-List           = require('framework/controllers').List
-ListItem       = require('framework/controllers').ListItem
+Controllers    = require('framework/controllers')
+List           = Controllers.List
+ListItem       = Controllers.ListItem
 Sidebar        = require('controllers/components/sidebar')
+LinkTitle      = Sidebar.LinkTitle
+NavBlock       = Sidebar.NavBlock
 $              = Spine.$
 
 class BinariesSidebar extends Sidebar

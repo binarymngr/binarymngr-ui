@@ -1,12 +1,13 @@
-Spine      = @Spine or require('spine')
-Core       = require('framework/core')
-Message    = require('models/message')
-RecordForm = require('framework/controllers').RecordForm
-Table      = require('framework/controllers').Table
-TableRow   = require('framework/controllers').TableRow
-$          = Spine.$
+Spine       = @Spine or require('spine')
+Controller  = require('framework/core').Controller
+Controllers = require('framework/controllers')
+Form        = Controllers.RecordForm
+Message     = require('models/message')
+Table       = Controllers.Table
+TableRow    = Controllers.TableRow
+$           = Spine.$
 
-class MessagesTablePage extends Core.Controller
+class MessagesTablePage extends Controller
   className: 'col-xs-12'
 
   constructor: ->
@@ -15,10 +16,9 @@ class MessagesTablePage extends Core.Controller
     @render()
 
   render: =>
-    @el.empty()
     @html $('<h1>Messages</h1>')
+    @append $('<hr/>')
     @append @table.render()
-    @el
 
 class MessagesTableRow extends TableRow
   view: 'views/messages/table_row'

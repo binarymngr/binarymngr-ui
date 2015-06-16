@@ -1,7 +1,6 @@
 Spine      = @Spine or require('spine')
 Navigation = require('controllers/components/navigation')
-Item       = require('controllers/components/navigation').Item
-Link       = require('controllers/components/navigation').Link
+Link       = Navigation.Link
 Request    = require('lib/http/request')
 $          = Spine.$
 
@@ -26,13 +25,13 @@ class UtilityNav extends Navigation
                              external: true)
     @addItem account
 
-class Divider extends Item
+class Divider extends Navigation.Item
   className: 'divider'
 
   activate:   -> # NOP
   deactivate: -> # NOP
 
-class Dropdown extends Item
+class Dropdown extends Navigation.Item
   className: 'dropdown'
 
   events:
@@ -58,9 +57,9 @@ class Dropdown extends Item
               #{@text}<b class='caret'></b></a>")
     @$('a').prepend($("<span class='#{@icon}'></span>")) if @icon
     menu = $("<ul class='dropdown-menu'></ul>")
-    $.each @items, (index, item) -> menu.append item.render()
+    for item in @items
+      menu.append item.render()
     @append menu
-    @el
 
   triggered: => @trigger 'triggered', @
 
@@ -72,7 +71,6 @@ class Submenu extends Dropdown
     menu = $("<ul class='dropdown-menu'></ul>")
     menu.append(item.render()) for item in @items
     @append menu
-    @el
 
 module?.exports          = UtilityNav
 module?.exports.Divider  = Divider
