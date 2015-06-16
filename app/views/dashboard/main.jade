@@ -1,7 +1,9 @@
 div.page-header.page-header-bleed-right
   div.actions.pull-right
-    a.spine-refresh(href='#')
+    a.spine-refresh(href='#', data-toggle='tooltip', data-placement='left', title='Fetch all data newly from the server')
       span.pficon.pficon-refresh
       | Refresh
+    script(charset='utf-8').
+      $('[data-toggle="tooltip"]').tooltip()  //- TODO: place somewhere else
   h1 Dashboard
 p The dashboard implementation is on the roadmap.
