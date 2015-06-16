@@ -8,6 +8,7 @@ Content        = require('controllers/content')
 Controller     = require('framework/core').Controller
 Header         = require('controllers/header')
 Message        = require('models/message')
+Notification   = require('services/notification_service')
 Request        = require('lib/http/request')
 Role           = require('models/role')
 Server         = require('models/server')
@@ -43,12 +44,32 @@ class App extends Controller
     @append content
 
     # initially fetch all model records
+    BinaryCategory.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching binary categories from the server failed.' unless record
     BinaryCategory.fetch()
+
+    Binary.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching binaries from the server failed.' unless record
     Binary.fetch()
+
+    BinaryVersion.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching binary versions from the server failed.' unless record
     BinaryVersion.fetch()
+
+    Message.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching messages from the server failed.' unless record
     Message.fetch()
+
+    Role.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching roles from the server failed.' unless record
     Role.fetch()
+
+    Server.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching servers from the server failed.' unless record
     Server.fetch()
+
+    User.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching users from the server failed.' unless record
     User.fetch()
 
 module?.exports = App
