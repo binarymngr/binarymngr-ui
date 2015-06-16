@@ -24,10 +24,6 @@ class User extends Spine.Model
         Notification.warning 'User has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  @fetch: ->
-    super
-      fail: -> Notification.error 'Fetching users from the remote server failed.'
-
   getRoles: =>
     Role = require('models/role')
     @role_ids ?= new Array

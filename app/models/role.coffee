@@ -17,10 +17,6 @@ class Role extends Spine.Model
       done: -> Notification.warning 'Role has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  @fetch: ->
-    super
-      fail: -> Notification.error 'Fetching roles from the remote server failed.'
-
   getUsers: =>
     User = require 'models/user'
     User.select (u) => _.contains(u.role_ids, @id)
