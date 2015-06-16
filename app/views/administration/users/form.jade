@@ -16,14 +16,24 @@ if item
   div.form-group
     label.col-md-2.control-label(for='role_ids') Roles
     div.col-md-6
-      select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple)
-        each role in roles
-          if _.contains(item.role_ids, role.id)
-            option(value=role.id, data-subtext=role.description, selected) #{role.name}
-          else
-            option(value=role.id, data-subtext=role.description) #{role.name}
-      include ../../shared/helpers
-      +selectpicker('.selectpicker')
+      if rqst.user.is_admin
+        select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple)
+          each role in roles
+            if _.contains(item.role_ids, role.id)
+              option(value=role.id, data-subtext=role.description, selected) #{role.name}
+            else
+              option(value=role.id, data-subtext=role.description) #{role.name}
+        include ../../shared/helpers
+        +selectpicker('.selectpicker')
+      else
+        select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple, disabled)
+          each role in roles
+            if _.contains(item.role_ids, role.id)
+              option(value=role.id, data-subtext=role.description, selected) #{role.name}
+            else
+              option(value=role.id, data-subtext=role.description) #{role.name}
+        include ../../shared/helpers
+        +selectpicker('.selectpicker')
   div.form-group
     div.col-md-10.col-md-offset-2
       button.btn.btn-primary.spine-save(type='submit') Save
