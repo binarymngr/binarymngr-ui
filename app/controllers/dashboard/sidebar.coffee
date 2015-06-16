@@ -20,6 +20,7 @@ class DashboardSidebar extends Sidebar
 
 class MessagesListHeader extends Title
   className: 'sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right'
+  tag: 'div'
 
   events:
     'click .spine-clear' : 'clearMessages'
@@ -32,7 +33,7 @@ class MessagesListHeader extends Title
   clearMessages: -> Message.each (msg) -> msg.destroy()  # Message.destroyAll()
 
   render: =>
-    super
+    @html $("<h2 class='h5'>#{@text}</h2>")
     if Message.count() isnt 0
       @prepend $('<div class="actions pull-right spine-clear"> \
                   <a href="#">Clear Messages</a></div>')

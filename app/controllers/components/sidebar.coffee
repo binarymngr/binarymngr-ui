@@ -59,16 +59,18 @@ class NavBlock extends SidebarElement
     @bind 'deactivated', @title.deactivate
 
   render: =>
-    @el.empty()
     @html @title.render()
     @append @nav.render()
 
 class Title extends SidebarElement
+  className: 'h5'
+  tag: 'h2'
+
   constructor: ->
     super
     throw new Error('@text is required') unless @text
 
-  render: => @html $("<h2 class='h5'>#{@text}</h2>")
+  render: => @html @text
 
 class LinkTitle extends Title
   constructor: ->
@@ -78,7 +80,7 @@ class LinkTitle extends Title
     @router.add new RegExp("^#{@link}(\\/[^\\/])*$"), @activate
 
   clicked: => @trigger 'clicked', @
-  render:  => @html $("<h2 class='h5'><a href='/##{@link}'>#{@text}</a></h2>")
+  render:  => @html $("<a href='/##{@link}'>#{@text}</a>")
 
 module?.exports           = Sidebar
 module?.exports.Element   = SidebarElement
