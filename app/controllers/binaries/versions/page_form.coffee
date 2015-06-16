@@ -20,8 +20,8 @@ class BinaryVersionFormPage extends Controller
 
     @active @form.render
     @active @serversTable.render
+    @active _.first(@tabs.items).activate
 
-    _.first(@tabs.items).activate()
     @render()
 
   render: =>
@@ -30,6 +30,7 @@ class BinaryVersionFormPage extends Controller
     @append @tabs.render()
     @serversTab.append @serversTable.render()
     @append @tabsContainer.render()
+    _.first(@tabs.items).activate()
 
 class BinaryVersionForm extends Form
   model: BinaryVersion

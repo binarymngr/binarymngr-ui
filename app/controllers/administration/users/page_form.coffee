@@ -37,8 +37,8 @@ class UserFormPage extends Controller
     @active @binariesTable.render
     @active @messagesTable.render
     @active @serversTable.render
+    @active _.first(@tabs.items).activate
 
-    _.first(@tabs.items).activate()
     @render()
 
   render: =>
@@ -49,6 +49,7 @@ class UserFormPage extends Controller
     @messagesTab.append @messagesTable.render()
     @serversTab.append @serversTable.render()
     @append @tabsContainer.render()
+    _.first(@tabs.items).activate()
 
 class UserForm extends Form
   model: User

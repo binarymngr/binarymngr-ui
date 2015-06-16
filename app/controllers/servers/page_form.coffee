@@ -23,8 +23,8 @@ class ServerFormPage extends Controller
 
     @active @form.render
     @active @binaryVersionsTable.render
+    @active _.first(@tabs.items).activate
 
-    _.first(@tabs.items).activate()
     @render()
 
   render: =>
@@ -33,6 +33,7 @@ class ServerFormPage extends Controller
     @append @tabs.render()
     @binaryVersionsTab.append @binaryVersionsTable.render()
     @append @tabsContainer.render()
+    _.first(@tabs.items).activate()
 
 class ServerForm extends Form
   model: Server

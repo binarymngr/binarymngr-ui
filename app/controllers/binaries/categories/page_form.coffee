@@ -22,8 +22,8 @@ class BinaryCategoryFormPage extends Controller
 
     @active @form.render
     @active @binariesTable.render
+    @active _.first(@tabs.items).activate
 
-    _.first(@tabs.items).activate()
     @render()
 
   render: =>
@@ -32,6 +32,7 @@ class BinaryCategoryFormPage extends Controller
     @append @tabs.render()
     @binariesTab.append @binariesTable.render()
     @append @tabsContainer.render()
+    _.first(@tabs.items).activate()
 
 class BinaryCategoryForm extends Form
   model: BinaryCategory

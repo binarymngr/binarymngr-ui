@@ -22,8 +22,8 @@ class RoleFormPage extends Controller
 
     @active @form.render
     @active @usersTable.render
+    @active _.first(@tabs.items).activate
 
-    _.first(@tabs.items).activate()
     @render()
 
   render: =>
@@ -32,6 +32,7 @@ class RoleFormPage extends Controller
     @append @tabs.render()
     @usersTab.append @usersTable.render()
     @append @tabsContainer.render()
+    _.first(@tabs.items).activate()
 
 class RoleForm extends Form
   model: Role
