@@ -1,9 +1,8 @@
 Spine = @Spine or require('spine')
 Form  = require('controllers/servers/page_form')
-Stack = require('framework/managers').Stack
 Table = require('controllers/servers/page_table')
 
-class ServersStack extends Stack
+class ServersStack extends Spine.Stack
   className: 'spine stack row'
 
   controllers:

@@ -4,9 +4,8 @@ Binaries       = require('controllers/binaries/page')
 Dashboard      = require('controllers/dashboard/page')
 Messages       = require('controllers/messages/stack')
 Servers        = require('controllers/servers/stack')
-Stack          = require('framework/managers').Stack
 
-class Content extends Stack
+class Content extends Spine.Stack
   className: 'spine stack container-fluid'
 
   controllers:
@@ -20,24 +19,10 @@ class Content extends Stack
 
   routes:
     # FIXME: child stacks should not be needed
-    '/administration/roles/:id': 'administration'
-    '/administration/roles'    : 'administration'
-    '/administration/users/:id': 'administration'
-    '/administration/users'    : 'administration'
-    # binaries
-    '/binaries/versions/:id'   : 'binaries'
-    '/binaries/versions'       : 'binaries'
-    '/binaries/categories/:id' : 'binaries'
-    '/binaries/categories'     : 'binaries'
-    '/binaries/:id'            : 'binaries'
-    '/binaries'                : 'binaries'
-    # messages
-    '/messages/:id'            : 'messages'
-    '/messages'                : 'messages'
-    # servers
-    '/servers/:id'             : 'servers'
-    '/servers'                 : 'servers'
-    # dashboard
-    '/'                        : 'dashboard'
+    '/administration/*glob': 'administration'
+    '/binaries*glob'       : 'binaries'
+    '/messages*glob'       : 'messages'
+    '/servers*glob'        : 'servers'
+    '/'                    : 'dashboard'
 
 module?.exports = Content
