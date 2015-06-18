@@ -5,6 +5,7 @@ class Binary extends Spine.Model
   @configure 'Binary', 'name', 'description', 'homepage', 'owner_id', \
              'binary_category_ids', 'binary_version_ids'
 
+  @hasMany 'messages', 'models/message', 'binary_id'
   @belongsTo 'owner', 'models/user'
   @hasMany 'versions', 'models/binary_version'
 
@@ -27,6 +28,7 @@ class Binary extends Spine.Model
     (Category.find(cid) for cid in @binary_category_ids when Category.exists(cid))
 
   hasCategories: => @getCategories().length isnt 0
+  hasMessages:   => @messages().all().length isnt 0
   hasVersions:   => @versions().length isnt 0
 
   isInstalled: =>

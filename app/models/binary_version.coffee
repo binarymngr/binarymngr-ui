@@ -4,8 +4,8 @@ Notification = require 'services/notification_service'
 class BinaryVersion extends Spine.Model
   @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
 
-
   @belongsTo 'binary', 'models/binary'
+  @hasMany 'messages', 'models/message', 'binary_version_id'
 
   @extend Spine.Model.Ajax
   @url: '/binaries/versions'
@@ -28,6 +28,7 @@ class BinaryVersion extends Spine.Model
     Server = require 'models/server'
     Server.select (s) => _.contains(s.binary_version_ids, @id)
 
+  hasMessages: => @messages().all().length isnt 0
   isInstalled: => @getServers().length isnt 0
 
   update: ->

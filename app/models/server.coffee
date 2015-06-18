@@ -3,6 +3,8 @@ Notification = require('services/notification_service')
 
 class Server extends Spine.Model
   @configure 'Server', 'name', 'ipv4', 'owner_id', 'binary_version_ids'
+
+  @hasMany 'messages', 'models/message', 'server_id'
   @belongsTo 'owner', 'models/user'
 
   @extend Spine.Model.Ajax
@@ -24,6 +26,7 @@ class Server extends Spine.Model
     (Version.find(vid) for vid in @binary_version_ids when Version.exists(vid))
 
   hasBinariesInstalled: => @getBinaryVersions().length isnt 0
+  hasMessages:          => @messages().all().length isnt 0
 
   update: ->
     super

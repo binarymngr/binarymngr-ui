@@ -2,7 +2,10 @@ if item
   td: a(href='/#/binaries/versions/' + item.id) #{item.id}
   td
     - var binary = item.binary()
-    a(href='/#/binaries/'+ binary.id) #{binary.name}
+    if binary
+      a(href='/#/binaries/'+ binary.id) #{binary.name}
+    else
+      | -
   td: a(href='/#/binaries/versions/' + item.id) #{item.identifier}
   td #{item.note}
   td

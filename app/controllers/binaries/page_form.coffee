@@ -5,6 +5,7 @@ _BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Ta
 _BinaryVersionsTableRow = _BinaryVersionsTable.Row
 Controller              = require('framework/core').Controller
 Form                    = require('framework/controllers').RecordForm
+MessagesTable           = require('controllers/messages/page_table').Table
 Tabs                    = require('controllers/components/tabs')
 $                       = Spine.$
 
@@ -16,12 +17,19 @@ class BinaryFormPage extends Controller
     @tabs = new Tabs.Nav
     @tabsContainer = new Tabs.Container
 
+    # versions
     @versionsTab = new Tabs.Tab(name: 'binaries')
     @versionsTable = new BinaryVersionsTable
     @tabs.addItem new Tabs.Nav.Item(tab: @versionsTab, text: 'Versions')
     @tabsContainer.addItem @versionsTab
+    # messages
+    @messagesTab = new Tabs.Tab(name: 'messages')
+    @messagesTable = new BinaryMessagesTable
+    @tabs.addItem new Tabs.Nav.Item(tab: @messagesTab, text: 'Messages')
+    @tabsContainer.addItem @messagesTab
 
     @active @form.render
+    @active @messagesTable.render
     @active @versionsTable.render
     @active _.first(@tabs.items).activate
 
@@ -31,6 +39,7 @@ class BinaryFormPage extends Controller
     @html @form.render
     @append $('<hr/>')
     @append @tabs.render()
+    @messagesTab.append @messagesTable.render()
     @versionsTab.append @versionsTable.render()
     @append @tabsContainer.render()
     _.first(@tabs.items).activate()
@@ -57,6 +66,17 @@ class BinaryForm extends Form
       item: record
       categories: BinaryCategory.all()
 
+class BinaryMessagesTable extends MessagesTable
+  addAll: -> # NOP
+
+  render: (params) =>
+    @el.empty()
+    binary = Binary.find(params.id) if params?.id?
+    if binary
+      super
+      @addOne(m) for m in binary.messages().all()
+    @el
+
 class BinaryVersionsTableRow extends _BinaryVersionsTableRow
   view: 'views/binaries/versions_table_row'
 
@@ -76,4 +96,5 @@ class BinaryVersionsTable extends _BinaryVersionsTable
 
 module?.exports               = BinaryFormPage
 module?.exports.Form          = BinaryForm
+module?.exports.MessagesTable = BinaryMessagesTable
 module?.exports.VersionsTable = BinaryVersionsTable
