@@ -52,6 +52,11 @@ class AddServerModal extends Modal
 class ServersTableRow extends TableRow
   view: 'views/servers/table_row'
 
+  render: (record) =>
+    super
+    @el.addClass('warning') if record?.hasMessages()
+    @el
+
 class ServersTable extends Table
   columns: ['ID', 'Name', 'IPv4 Address']
   model  : Server

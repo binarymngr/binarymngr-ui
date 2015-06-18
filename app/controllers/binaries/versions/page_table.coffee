@@ -69,14 +69,15 @@ class AddBinaryVersionModal extends Modal
 class BinaryVersionsTableRow extends TableRow
   view: 'views/binaries/versions/table_row'
 
+  render: (record) =>
+    super
+    @el.addClass('warning') if record?.hasMessages()
+    @el
+
 class BinaryVersionsTable extends Table
   columns: ['ID', 'Binary', 'Identifier', 'Note', 'EOL']
   model  : BinaryVersion
   record : BinaryVersionsTableRow
-
-  constructor: ->
-    super
-    Binary.bind 'refresh', @addAll
 
 module?.exports            = BinaryVersionsTablePage
 module?.exports.Modal      = AddBinaryVersionModal

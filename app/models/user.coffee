@@ -1,6 +1,8 @@
-Spine        = @Spine or require 'spine'
-Notification = require 'services/notification_service'
-$            = Spine.$
+Spine        = @Spine or require('spine')
+Binary       = require('models/binary')
+Message      = require('models/message')
+Notification = require('services/notification_service')
+Server       = require('models/server')
 
 class User extends Spine.Model
   @configure 'User', 'email', 'password', 'role_ids'
@@ -11,6 +13,12 @@ class User extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/users'
+
+  constructor: ->
+    super
+    Binary.bind 'refresh', => @trigger 'update', @
+    Message.bind 'refresh', => @trigger 'update', @
+    Server.bind 'refresh', => @trigger 'update', @
 
   create: ->
     super
@@ -29,10 +37,10 @@ class User extends Spine.Model
     @role_ids ?= new Array
     (Role.find(rid) for rid in @role_ids when Role.exists(rid))
 
-  hasMessages:  => @messages().all().length isnt 0
+  hasMessages:  => @messages().count() isnt 0
   hasRoles:     => @getRoles().length isnt 0
-  ownsBinaries: => @binaries().all().length isnt 0
-  ownsServers:  => @servers().all().length isnt 0
+  ownsBinaries: => @binaries().count() isnt 0
+  ownsServers:  => @servers().count() isnt 0
 
   update: ->
     super

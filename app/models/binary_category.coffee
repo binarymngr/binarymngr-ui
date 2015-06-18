@@ -1,11 +1,15 @@
-Spine        = @Spine or require 'spine'
-Notification = require 'services/notification_service'
+Spine        = @Spine or require('spine')
+Notification = require('services/notification_service')
 
 class BinaryCategory extends Spine.Model
   @configure 'BinaryCategory', 'name', 'description'
 
   @extend Spine.Model.Ajax
   @url: '/binaries/categories'
+
+  constructor: ->
+    super
+    require('models/binary').bind 'refresh', => @trigger 'update', @  # FIXME: Binary.bind
 
   create: ->
     super

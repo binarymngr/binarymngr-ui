@@ -1,11 +1,16 @@
-Spine        = @Spine or require 'spine'
-Notification = require 'services/notification_service'
+Spine        = @Spine or require('spine')
+Notification = require('services/notification_service')
+User         = require('models/user')
 
 class Role extends Spine.Model
   @configure 'Role', 'name', 'description'
 
   @extend Spine.Model.Ajax
   @url: '/roles'
+
+  constructor: ->
+    super
+    User.bind 'refresh', => @trigger 'update', @
 
   create: ->
     super
