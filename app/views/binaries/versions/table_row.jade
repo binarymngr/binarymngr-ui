@@ -1,4 +1,6 @@
-if item
+//- item.binary() = null means binaries are not ready so we better
+//- don't render and wait for them to become ready
+if item && item.binary()
   td: a(href='/#/binaries/versions/' + item.id) #{item.id}
   td
     - var binary = item.binary()

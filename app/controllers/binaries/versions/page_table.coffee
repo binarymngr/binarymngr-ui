@@ -74,6 +74,10 @@ class BinaryVersionsTable extends Table
   model  : BinaryVersion
   record : BinaryVersionsTableRow
 
+  constructor: ->
+    super
+    Binary.bind 'refresh', @addAll
+
 module?.exports            = BinaryVersionsTablePage
 module?.exports.Modal      = AddBinaryVersionModal
 module?.exports.Modal.Form = NewBinaryVersionForm

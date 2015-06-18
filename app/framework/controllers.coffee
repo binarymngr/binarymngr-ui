@@ -14,7 +14,9 @@ class Collection extends Core.ViewController
     @model.bind 'create', @addOne
     @model.bind 'refresh', @addAll
 
-  addAll: => @model.each @addOne
+  addAll: =>
+    @items.empty()
+    @model.each @addOne
 
   addOne: (record) =>
     record = new @record(record: record)
