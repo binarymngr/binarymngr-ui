@@ -1,5 +1,8 @@
-Spine        = @Spine or require 'spine'
-Notification = require 'services/notification_service'
+Spine          = @Spine or require('spine')
+BinaryCategory = require('models/binary_category')
+BinaryVersion  = require('models/binary_version')
+Message        = require('models/message')
+Notification   = require('services/notification_service')
 
 class Binary extends Spine.Model
   @configure 'Binary', 'name', 'description', 'homepage', 'owner_id', \
@@ -11,6 +14,12 @@ class Binary extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/binaries'
+
+  constructor: ->
+    super
+    Message.bind 'refresh', => @trigger 'update', @
+    BinaryCategory.bind 'refresh', => @trigger 'update', @
+    BinaryVersion.bind 'refresh', => @trigger 'update', @
 
   create: ->
     super
@@ -28,7 +37,7 @@ class Binary extends Spine.Model
     (Category.find(cid) for cid in @binary_category_ids when Category.exists(cid))
 
   hasCategories: => @getCategories().length isnt 0
-  hasMessages:   => @messages().all().length isnt 0
+  hasMessages:   => @messages().count() isnt 0
   hasVersions:   => @versions().length isnt 0
 
   isInstalled: =>

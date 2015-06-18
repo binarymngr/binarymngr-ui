@@ -1,4 +1,5 @@
-Spine = @Spine or require('spine')
+Spine        = @Spine or require('spine')
+Notification = require('services/notification_service')
 
 class Message extends Spine.Model
   @configure 'Message', 'title', 'body', 'created_at', \

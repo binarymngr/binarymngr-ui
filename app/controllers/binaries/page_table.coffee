@@ -1,13 +1,12 @@
-Spine          = @Spine or require('spine')
-Binary         = require('models/binary')
-BinaryCategory = require('models/binary_category')
-Controller     = require('framework/core').Controller
-Controllers    = require('framework/controllers')
-Modal          = Controllers.Modal
-RecordForm     = Controllers.RecordForm
-Table          = Controllers.Table
-TableRow       = Controllers.TableRow
-$              = Spine.$
+Spine       = @Spine or require('spine')
+Binary      = require('models/binary')
+Controller  = require('framework/core').Controller
+Controllers = require('framework/controllers')
+Modal       = Controllers.Modal
+RecordForm  = Controllers.RecordForm
+Table       = Controllers.Table
+TableRow    = Controllers.TableRow
+$           = Spine.$
 
 class BinariesTablePage extends Controller
   constructor: ->
@@ -51,14 +50,15 @@ class AddBinaryModal extends Modal
 class BinariesTableRow extends TableRow
   view: 'views/binaries/table_row'
 
+  render: (record) =>
+    super
+    @el.addClass('warning') if record?.hasMessages()
+    @el
+
 class BinariesTable extends Table
   columns: ['ID', 'Name', 'Description', 'Categories', 'Homepage']
   model  : Binary
   record : BinariesTableRow
-
-  constructor: ->
-    super
-    BinaryCategory.bind 'refresh', @addAll
 
 module?.exports            = BinariesTablePage
 module?.exports.Modal      = AddBinaryModal

@@ -1,5 +1,7 @@
-Spine = @Spine or require('spine')
-Notification = require('services/notification_service')
+Spine         = @Spine or require('spine')
+BinaryVersion = require('models/binary_version')
+Message       = require('models/message')
+Notification  = require('services/notification_service')
 
 class Server extends Spine.Model
   @configure 'Server', 'name', 'ipv4', 'owner_id', 'binary_version_ids'
@@ -9,6 +11,11 @@ class Server extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/servers'
+
+  constructor: ->
+    super
+    BinaryVersion.bind 'refresh', => @trigger 'update', @
+    Message.bind 'refresh', => @trigger 'update', @
 
   create: ->
     super
@@ -26,7 +33,7 @@ class Server extends Spine.Model
     (Version.find(vid) for vid in @binary_version_ids when Version.exists(vid))
 
   hasBinariesInstalled: => @getBinaryVersions().length isnt 0
-  hasMessages:          => @messages().all().length isnt 0
+  hasMessages:          => @messages().count() isnt 0
 
   update: ->
     super

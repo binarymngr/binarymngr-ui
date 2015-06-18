@@ -44,13 +44,13 @@ class App extends Controller
     @append content
 
     # initially fetch all model records
-    BinaryCategory.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching binary categories from the server failed.' unless record
-    BinaryCategory.fetch()
-
     Binary.bind 'ajaxError', (record) ->
       Notification.error 'Fetching binaries from the server failed.' unless record
     Binary.fetch()
+
+    BinaryCategory.bind 'ajaxError', (record) ->
+      Notification.error 'Fetching binary categories from the server failed.' unless record
+    BinaryCategory.fetch()
 
     BinaryVersion.bind 'ajaxError', (record) ->
       Notification.error 'Fetching binary versions from the server failed.' unless record

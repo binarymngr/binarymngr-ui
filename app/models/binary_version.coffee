@@ -1,5 +1,6 @@
-Spine        = @Spine or require 'spine'
-Notification = require 'services/notification_service'
+Spine        = @Spine or require('spine')
+Message      = require('models/message')
+Notification = require('services/notification_service')
 
 class BinaryVersion extends Spine.Model
   @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
@@ -13,6 +14,9 @@ class BinaryVersion extends Spine.Model
   constructor: (object) ->
     object.eol = object.eol.substring(0, 10) if object?.eol?
     super
+
+    require('models/binary').bind 'refresh', => @trigger 'update', @  # FIXME: Binary.bind
+    Message.bind 'refresh', => @trigger 'update', @
 
   create: ->
     super
@@ -28,7 +32,7 @@ class BinaryVersion extends Spine.Model
     Server = require 'models/server'
     Server.select (s) => _.contains(s.binary_version_ids, @id)
 
-  hasMessages: => @messages().all().length isnt 0
+  hasMessages: => @messages().count() isnt 0
   isInstalled: => @getServers().length isnt 0
 
   update: ->
