@@ -12,6 +12,11 @@ class Message extends Spine.Model
   @extend  Spine.Model.Ajax
   @url: '/messages'
 
+  destroy: ->
+    super
+      done: -> Notification.warning 'Message has successfully been deleted.'
+      fail: -> Notification.error   'An error encountered during the deletion process.'
+
   isForBinary:        => yes if @binary_id
   isForBinaryVersion: => yes if @binary_version_id
   isForServer:        => yes if @server_id
