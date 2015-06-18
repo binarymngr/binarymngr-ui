@@ -7,7 +7,7 @@ if item
     if categories.length
       ul.list-unstyled
         each category in categories
-          li: a(href='/#/binaries/categories/' + category.id) #{category.name}
+          li: a(href='/#/binaries/categories/' + category.id) - #{category.name}
     else
       | -
   td
