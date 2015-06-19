@@ -20,14 +20,29 @@ if item
   div.form-group
     label.col-md-2.control-label(for='binary_category_ids') Categories
     div.col-md-6
-      select.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_category_ids', multiple)
+      select#sp1.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_category_ids', multiple)
         each category in categories
           if _.contains(item.binary_category_ids, category.id)
             option(value=category.id, data-subtext=category.description, selected) #{category.name}
           else
             option(value=category.id, data-subtext=category.description) #{category.name}
       include ../shared/helpers
-      +selectpicker('.selectpicker')
+      +selectpicker('#sp1')
+  div.form-group
+    label.col-md-2.control-label(for='versions_gatherer') Versions Gatherer
+    div.col-md-6
+      select#sp2.form-control.selectpicker.show-menu-arrow.show-tick(name='versions_gatherer')
+        option(value=null) Nothing selected
+        each gatherer in versions_gatherers
+          if gatherer.name == item.versions_gatherer
+            option(value=gatherer.name, selected) #{gatherer.name}
+          else
+            option(value=gatherer.name) #{gatherer.name}
+      +selectpicker('#sp2')
+  div.form-group
+    label.col-md-2.control-label(for='versions_gatherer_meta') Versions Gatherer Meta
+    div.col-md-6
+      textarea.form-control(name='versions_gatherer_meta', rows='3') #{item.versions_gatherer_meta}
   if rqst.user.is_admin
     div.form-group
       label.col-md-2.control-label(for='owner_id') Owner ID

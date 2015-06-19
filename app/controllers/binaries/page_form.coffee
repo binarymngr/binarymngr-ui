@@ -1,6 +1,7 @@
 Spine                   = @Spine or require('spine')
 Binary                  = require('models/binary')
 BinaryCategory          = require('models/binary_category')
+BinaryVersionsGatherer  = require('models/binary_versions_gatherer')
 _BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Table
 _BinaryVersionsTableRow = _BinaryVersionsTable.Row
 Controller              = require('framework/core').Controller
@@ -53,7 +54,8 @@ class BinaryForm extends Form
     event.preventDefault()
     @trigger 'submitted', @, event
     @record.fromForm(@el)
-    @record.binary_category_ids = @$('.selectpicker').selectpicker('val')
+    @record.binary_category_ids = @$('#sp1').selectpicker('val')
+    @record.versions_gatherer = @$('#sp2').selectpicker('val')
     if @record.save()
       @success @record
       @trigger 'success', @record
@@ -65,6 +67,7 @@ class BinaryForm extends Form
     require(@view)
       item: record
       categories: BinaryCategory.all()
+      versions_gatherers: BinaryVersionsGatherer.all()
 
 class BinaryMessagesTable extends MessagesTable
   addAll: -> # NOP

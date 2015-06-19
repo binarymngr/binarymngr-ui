@@ -3,6 +3,7 @@ Notification = require('services/notification_service')
 
 class Binary extends Spine.Model
   @configure 'Binary', 'name', 'description', 'homepage', 'owner_id', \
+             'versions_gatherer', 'versions_gatherer_meta', \
              'binary_category_ids', 'binary_version_ids'
 
   @hasMany 'messages', 'models/message', 'binary_id'
@@ -28,9 +29,10 @@ class Binary extends Spine.Model
     @binary_category_ids ?= new Array
     (Category.find(cid) for cid in @binary_category_ids when Category.exists(cid))
 
-  hasCategories: => @getCategories().length isnt 0
-  hasMessages:   => @messages().count() isnt 0
-  hasVersions:   => @versions().length isnt 0
+  hasCategories:       => @getCategories().length isnt 0
+  hasMessages:         => @messages().count() isnt 0
+  hasVersions:         => @versions().length isnt 0
+  hasVersionsGatherer: => @versions_gatherer isnt null
 
   isInstalled: =>
     _.each @versions(), (version) -> return yes if version.isInstalled()
