@@ -17,9 +17,9 @@ class User extends Spine.Model
       fail: -> Notification.error   'An error encountered during the creation process.'
 
   destroy: =>
-    @binaries().destroyAll()
-    @messages().destroyAll()
-    @servers().destroyAll()
+    b.destroy() for b in @binaries().all()
+    m.destroy() for m in @messages().all()
+    s.destroy() for s in @servers().all()
     super
       done: -> Notification.warning 'User has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'

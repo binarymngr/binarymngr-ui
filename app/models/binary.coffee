@@ -18,7 +18,7 @@ class Binary extends Spine.Model
       fail: -> Notification.error   'An error encountered during the creation process.'
 
   destroy: =>
-    @versions().destroyAll()
+    v.destroy() for v in @versions().all()
     super
       done: -> Notification.warning 'Binary has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
