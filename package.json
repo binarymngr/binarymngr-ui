@@ -1,6 +1,11 @@
 {
   "name": "binarymngr-ui",
+  "description": "Client-side JS frontend for binarymngr powered by Spine.",
+  "homepage": "https://github.com/binarymngr/ui",
   "version": "0.0.1",
+  "author": "Michel Käser <mail@michelkaeser.ch>",
+  "license": "MIT",
+  "keywords": ["binarymngr", "ui", "spine"],
   "dependencies": {
     "spine": "https://github.com/spine/spine.git#b3cee1e069"
   }
