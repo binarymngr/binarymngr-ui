@@ -7,10 +7,6 @@ class BinaryCategory extends Spine.Model
   @extend Spine.Model.Ajax
   @url: '/binaries/categories'
 
-  constructor: ->
-    super
-    require('models/binary').bind 'refresh', => @trigger 'update', @  # FIXME: Binary.bind
-
   create: ->
     super
       done: -> Notification.success 'Binary category has sucessfully been created.'
@@ -22,7 +18,7 @@ class BinaryCategory extends Spine.Model
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   getBinaries: =>
-    Binary = require 'models/binary'
+    Binary = require('models/binary')
     Binary.select (b) => _.contains(b.binary_category_ids, @id)
 
   hasBinaries: => @getBinaries().length isnt 0

@@ -1,8 +1,5 @@
-Spine          = @Spine or require('spine')
-BinaryCategory = require('models/binary_category')
-BinaryVersion  = require('models/binary_version')
-Message        = require('models/message')
-Notification   = require('services/notification_service')
+Spine        = @Spine or require('spine')
+Notification = require('services/notification_service')
 
 class Binary extends Spine.Model
   @configure 'Binary', 'name', 'description', 'homepage', 'owner_id', \
@@ -15,24 +12,19 @@ class Binary extends Spine.Model
   @extend Spine.Model.Ajax
   @url: '/binaries'
 
-  constructor: ->
-    super
-    Message.bind 'refresh', => @trigger 'update', @
-    BinaryCategory.bind 'refresh', => @trigger 'update', @
-    BinaryVersion.bind 'refresh', => @trigger 'update', @
-
   create: ->
     super
       done: -> Notification.success 'Binary has sucessfully been created.'
       fail: -> Notification.error   'An error encountered during the creation process.'
 
-  destroy: ->
+  destroy: =>
+    @versions().destroyAll()
     super
       done: -> Notification.warning 'Binary has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   getCategories: =>
-    Category = require 'models/binary_category'
+    Category = require('models/binary_category')
     @binary_category_ids ?= new Array
     (Category.find(cid) for cid in @binary_category_ids when Category.exists(cid))
 

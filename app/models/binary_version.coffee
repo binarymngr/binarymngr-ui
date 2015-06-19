@@ -1,5 +1,4 @@
 Spine        = @Spine or require('spine')
-Message      = require('models/message')
 Notification = require('services/notification_service')
 
 class BinaryVersion extends Spine.Model
@@ -15,9 +14,6 @@ class BinaryVersion extends Spine.Model
     object.eol = object.eol.substring(0, 10) if object?.eol?
     super
 
-    require('models/binary').bind 'refresh', => @trigger 'update', @  # FIXME: Binary.bind
-    Message.bind 'refresh', => @trigger 'update', @
-
   create: ->
     super
       done: -> Notification.success 'Binary version has sucessfully been created.'
@@ -29,7 +25,7 @@ class BinaryVersion extends Spine.Model
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   getServers: =>
-    Server = require 'models/server'
+    Server = require('models/server')
     Server.select (s) => _.contains(s.binary_version_ids, @id)
 
   hasMessages: => @messages().count() isnt 0

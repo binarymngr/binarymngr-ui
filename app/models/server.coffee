@@ -1,7 +1,5 @@
-Spine         = @Spine or require('spine')
-BinaryVersion = require('models/binary_version')
-Message       = require('models/message')
-Notification  = require('services/notification_service')
+Spine        = @Spine or require('spine')
+Notification = require('services/notification_service')
 
 class Server extends Spine.Model
   @configure 'Server', 'name', 'ipv4', 'owner_id', 'binary_version_ids'
@@ -11,11 +9,6 @@ class Server extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/servers'
-
-  constructor: ->
-    super
-    BinaryVersion.bind 'refresh', => @trigger 'update', @
-    Message.bind 'refresh', => @trigger 'update', @
 
   create: ->
     super
@@ -28,7 +21,7 @@ class Server extends Spine.Model
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   getBinaryVersions: ->
-    Version = require 'models/binary_version'
+    Version = require('models/binary_version')
     @binary_version_ids ?= new Array
     (Version.find(vid) for vid in @binary_version_ids when Version.exists(vid))
 

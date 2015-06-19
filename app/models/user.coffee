@@ -1,8 +1,5 @@
 Spine        = @Spine or require('spine')
-Binary       = require('models/binary')
-Message      = require('models/message')
 Notification = require('services/notification_service')
-Server       = require('models/server')
 
 class User extends Spine.Model
   @configure 'User', 'email', 'password', 'role_ids'
@@ -14,22 +11,17 @@ class User extends Spine.Model
   @extend Spine.Model.Ajax
   @url: '/users'
 
-  constructor: ->
-    super
-    Binary.bind 'refresh', => @trigger 'update', @
-    Message.bind 'refresh', => @trigger 'update', @
-    Server.bind 'refresh', => @trigger 'update', @
-
   create: ->
     super
       done: -> Notification.success 'User has sucessfully been created.'
       fail: -> Notification.error   'An error encountered during the creation process.'
 
-  destroy: ->
+  destroy: =>
+    @binaries().destroyAll()
+    @messages().destroyAll()
+    @servers().destroyAll()
     super
-      done: =>
-        srv.destroy() for srv in @servers().all()
-        Notification.warning 'User has successfully been deleted.'
+      done: -> Notification.warning 'User has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   getRoles: =>
