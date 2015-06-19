@@ -56,6 +56,9 @@ class App extends Controller
       # roles
       Role.ajax().fetch()
       .fail -> Notification.error 'Fetching roles from the server failed.'
+      # servers
+      Server.ajax().fetch()
+      .fail -> Notification.error 'Fetching servers from the server failed.'
       # users
       User.ajax().fetch()
       .fail -> Notification.error 'Fetching users from the server failed.'
