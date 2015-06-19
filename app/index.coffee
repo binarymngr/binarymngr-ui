@@ -32,44 +32,40 @@ class App extends Controller
       'X-CSRF-Token': Request.get().csrf_token
 
     # initialize the UI components
-    header = new Header
-    content = new Content
+    @header = new Header
+    @content = new Content
 
     # setup the routing
     Spine.Route.setup()
     Spine.Route.navigate '/'
 
-    # render the UI
-    @html header.render()
-    @append content
-
     # initially fetch all model records
-    Binary.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching binaries from the server failed.' unless record
-    Binary.fetch()
+    $.when(
+      # binaries
+      Binary.ajax().fetch()
+      .fail -> Notification.error 'Fetching binaries from the server failed.'
+      # binary categories
+      BinaryCategory.ajax().fetch()
+      .fail -> Notification.error 'Fetching binary categories from the server failed.'
+      # binary versions
+      BinaryVersion.ajax().fetch()
+      .fail -> Notification.error 'Fetching binary versions from the server failed.'
+      # messages
+      Message.ajax().fetch()
+      .fail -> Notification.error 'Fetching messages from the server failed.'
+      # roles
+      Role.ajax().fetch()
+      .fail -> Notification.error 'Fetching roles from the server failed.'
+      # users
+      User.ajax().fetch()
+      .fail -> Notification.error 'Fetching users from the server failed.'
+    ).then =>
+      @el.removeClass 'loading'  # loading spinner
+      @render()
+      $(window).trigger 'resize'  # PF sidebar height
 
-    BinaryCategory.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching binary categories from the server failed.' unless record
-    BinaryCategory.fetch()
-
-    BinaryVersion.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching binary versions from the server failed.' unless record
-    BinaryVersion.fetch()
-
-    Message.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching messages from the server failed.' unless record
-    Message.fetch()
-
-    Role.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching roles from the server failed.' unless record
-    Role.fetch()
-
-    Server.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching servers from the server failed.' unless record
-    Server.fetch()
-
-    User.bind 'ajaxError', (record) ->
-      Notification.error 'Fetching users from the server failed.' unless record
-    User.fetch()
+  render: =>
+    @html @header.render()
+    @append @content
 
 module?.exports = App
