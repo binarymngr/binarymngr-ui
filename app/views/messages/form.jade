@@ -1,27 +1,30 @@
 if item
   h1 Message: #{item.id}
-  hr
-  div.form-group
-    label.col-md-2.control-label(for='id') ID
-    div.col-md-6
-      input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
-  div.form-group
-    label.col-md-2.control-label(for='title') Title
-    div.col-md-6
-      input.form-control(type='text', name='title', value=item.title, disabled, required)
-  div.form-group
-    label.col-md-2.control-label(for='body') Body
-    div.col-md-6
-      textarea.form-control(name='body', rows='5', disabled, required) #{item.body}
-  div.form-group
-    label.col-md-2.control-label(for='created_at') Created At
-    div.col-md-6
-      input.form-control(type='datetime', name='created_at', value=item.created_at, disabled, required)
-  if rqst.user.is_admin
+  fieldset
+    legend Properties
     div.form-group
-      label.col-md-2.control-label(for='user_id') User ID
+      label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='user_id', value=item.user_id, pattern='\\d+', required, disabled)
+        input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='title') Title
+      div.col-md-6
+        input.form-control(type='text', name='title', value=item.title, disabled, required)
+    div.form-group
+      label.col-md-2.control-label(for='body') Body
+      div.col-md-6
+        textarea.form-control(name='body', rows='5', disabled, required) #{item.body}
+    div.form-group
+      label.col-md-2.control-label(for='created_at') Created At
+      div.col-md-6
+        input.form-control(type='datetime', name='created_at', value=item.created_at, disabled, required)
+  if rqst.user.is_admin
+    fieldset
+      legend Meta Information
+      div.form-group
+        label.col-md-2.control-label(for='user_id') User ID
+        div.col-md-6
+          input.form-control(type='text', name='user_id', value=item.user_id, pattern='\\d+', required, disabled)
   div.form-group
     div.col-md-10.col-md-offset-2
       button.btn.btn-default.spine-cancel(type='button') Cancel

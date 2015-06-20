@@ -1,52 +1,57 @@
 if item
   h1 Binary: #{item.id}
-  hr
-  div.form-group
-    label.col-md-2.control-label(for='id') ID
-    div.col-md-6
-      input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
-  div.form-group
-    label.col-md-2.control-label(for='name') Name
-    div.col-md-6
-      input.form-control(type='text', name='name', placeholder='binarymngr', value=item.name, required)
-  div.form-group
-    label.col-md-2.control-label(for='description') Description
-    div.col-md-6
-      textarea.form-control(name='description', rows='5', placeholder='A web app to manage self-compiled binaries.') #{item.description}
-  div.form-group
-    label.col-md-2.control-label(for='homepage') Homepage
-    div.col-md-6
-      input.form-control(type='url', name='homepage', placeholder='http://binarymngr.io', value=item.homepage)
-  div.form-group
-    label.col-md-2.control-label(for='binary_category_ids') Categories
-    div.col-md-6
-      select#sp1.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_category_ids', multiple)
-        each category in categories
-          if _.contains(item.binary_category_ids, category.id)
-            option(value=category.id, data-subtext=category.description, selected) #{category.name}
-          else
-            option(value=category.id, data-subtext=category.description) #{category.name}
-      include ../shared/helpers
-      +selectpicker('#sp1')
-  div.form-group
-    label.col-md-2.control-label(for='versions_gatherer') Versions Gatherer
-    div.col-md-6
-      select#sp2.form-control.selectpicker.show-menu-arrow.show-tick(name='versions_gatherer')
-        each gatherer in versions_gatherers
-          if gatherer.name == item.versions_gatherer
-            option(value=gatherer.name, data-subtext=gatherer.description, selected) #{gatherer.name}
-          else
-            option(value=gatherer.name, data-subtext=gatherer.description) #{gatherer.name}
-      +selectpicker('#sp2')
-  div.form-group
-    label.col-md-2.control-label(for='versions_gatherer_meta') Versions Gatherer Meta
-    div.col-md-6
-      textarea.form-control(name='versions_gatherer_meta', rows='3') #{item.versions_gatherer_meta}
-  if rqst.user.is_admin
+  fieldset
+    legend Properties
     div.form-group
-      label.col-md-2.control-label(for='owner_id') Owner ID
+      label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='owner_id', value=item.owner_id, pattern='\\d+', required, disabled)
+        input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='name') Name
+      div.col-md-6
+        input.form-control(type='text', name='name', placeholder='binarymngr', value=item.name, required)
+    div.form-group
+      label.col-md-2.control-label(for='description') Description
+      div.col-md-6
+        textarea.form-control(name='description', rows='5', placeholder='A web app to manage self-compiled binaries.') #{item.description}
+    div.form-group
+      label.col-md-2.control-label(for='homepage') Homepage
+      div.col-md-6
+        input.form-control(type='url', name='homepage', placeholder='http://binarymngr.io', value=item.homepage)
+    div.form-group
+      label.col-md-2.control-label(for='binary_category_ids') Categories
+      div.col-md-6
+        select#sp1.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_category_ids', multiple)
+          each category in categories
+            if _.contains(item.binary_category_ids, category.id)
+              option(value=category.id, data-subtext=category.description, selected) #{category.name}
+            else
+              option(value=category.id, data-subtext=category.description) #{category.name}
+        include ../shared/helpers
+        +selectpicker('#sp1')
+  fieldset
+    legend Versions Gathering
+    div.form-group
+      label.col-md-2.control-label(for='versions_gatherer') Gatherer
+      div.col-md-6
+        select#sp2.form-control.selectpicker.show-menu-arrow.show-tick(name='versions_gatherer')
+          each gatherer in versions_gatherers
+            if gatherer.name == item.versions_gatherer
+              option(value=gatherer.name, data-subtext=gatherer.description, selected) #{gatherer.name}
+            else
+              option(value=gatherer.name, data-subtext=gatherer.description) #{gatherer.name}
+        +selectpicker('#sp2')
+    div.form-group
+      label.col-md-2.control-label(for='versions_gatherer_meta') Gatherer Meta
+      div.col-md-6
+        textarea.form-control(name='versions_gatherer_meta', rows='3') #{item.versions_gatherer_meta}
+  if rqst.user.is_admin
+    fieldset
+      legend Meta Information
+      div.form-group
+        label.col-md-2.control-label(for='owner_id') Owner ID
+        div.col-md-6
+          input.form-control(type='text', name='owner_id', value=item.owner_id, pattern='\\d+', required, disabled)
   div.form-group
     div.col-md-10.col-md-offset-2
       button.btn.btn-primary.spine-save(type='submit') Save

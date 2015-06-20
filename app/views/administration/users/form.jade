@@ -1,39 +1,40 @@
 if item
   h1 User: #{item.id}
-  hr
-  div.form-group
-    label.col-md-2.control-label(for='id') ID
-    div.col-md-6
-      input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
-  div.form-group
-    label.col-md-2.control-label(for='email') Email
-    div.col-md-6
-      input.form-control(type='email', name='email', placeholder='account@domain.tld', value=item.email, required)
-  div.form-group
-    label.col-md-2.control-label(for='password') Password
-    div.col-md-6
-      input.form-control(type='password', name='password', value=item.password)
-  div.form-group
-    label.col-md-2.control-label(for='role_ids') Roles
-    div.col-md-6
-      if rqst.user.is_admin
-        select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple)
-          each role in roles
-            if _.contains(item.role_ids, role.id)
-              option(value=role.id, data-subtext=role.description, selected) #{role.name}
-            else
-              option(value=role.id, data-subtext=role.description) #{role.name}
-        include ../../shared/helpers
-        +selectpicker('.selectpicker')
-      else
-        select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple, disabled)
-          each role in roles
-            if _.contains(item.role_ids, role.id)
-              option(value=role.id, data-subtext=role.description, selected) #{role.name}
-            else
-              option(value=role.id, data-subtext=role.description) #{role.name}
-        include ../../shared/helpers
-        +selectpicker('.selectpicker')
+  fieldset
+    legend Properties
+    div.form-group
+      label.col-md-2.control-label(for='id') ID
+      div.col-md-6
+        input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='email') Email
+      div.col-md-6
+        input.form-control(type='email', name='email', placeholder='account@domain.tld', value=item.email, required)
+    div.form-group
+      label.col-md-2.control-label(for='password') Password
+      div.col-md-6
+        input.form-control(type='password', name='password', value=item.password)
+    div.form-group
+      label.col-md-2.control-label(for='role_ids') Roles
+      div.col-md-6
+        if rqst.user.is_admin
+          select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple)
+            each role in roles
+              if _.contains(item.role_ids, role.id)
+                option(value=role.id, data-subtext=role.description, selected) #{role.name}
+              else
+                option(value=role.id, data-subtext=role.description) #{role.name}
+          include ../../shared/helpers
+          +selectpicker('.selectpicker')
+        else
+          select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple, disabled)
+            each role in roles
+              if _.contains(item.role_ids, role.id)
+                option(value=role.id, data-subtext=role.description, selected) #{role.name}
+              else
+                option(value=role.id, data-subtext=role.description) #{role.name}
+          include ../../shared/helpers
+          +selectpicker('.selectpicker')
   div.form-group
     div.col-md-10.col-md-offset-2
       button.btn.btn-primary.spine-save(type='submit') Save

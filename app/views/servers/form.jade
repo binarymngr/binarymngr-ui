@@ -1,23 +1,26 @@
 if item
   h1 Server: #{item.id}
-  hr
-  div.form-group
-    label.col-md-2.control-label(for='id') ID
-    div.col-md-6
-      input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
-  div.form-group
-    label.col-md-2.control-label(for='name') Name
-    div.col-md-6
-      input.form-control(type='text', name='name', placeholder='localhost', value=item.name, required)
-  div.form-group
-    label.col-md-2.control-label(for='ipv4') IPv4 Address
-    div.col-md-6
-      input.form-control(type='text', name='ipv4', value=item.ipv4, pattern='(\\d{1,3}\.){3}\\d{1,3}', placeholder='127.0.0.1', required)
-  if rqst.user.is_admin
+  fielset
+    legend General Properties
     div.form-group
-      label.col-md-2.control-label(for='owner_id') Owner ID
+      label.col-md-2.control-label(for='id') ID
       div.col-md-6
-        input.form-control(type='text', name='owner_id', value=item.owner_id, pattern='\\d+', required, disabled)
+        input.form-control(type='text', name='id', value=item.id, pattern='\\d+', required, disabled)
+    div.form-group
+      label.col-md-2.control-label(for='name') Name
+      div.col-md-6
+        input.form-control(type='text', name='name', placeholder='localhost', value=item.name, required)
+    div.form-group
+      label.col-md-2.control-label(for='ipv4') IPv4 Address
+      div.col-md-6
+        input.form-control(type='text', name='ipv4', value=item.ipv4, pattern='(\\d{1,3}\.){3}\\d{1,3}', placeholder='127.0.0.1', required)
+  if rqst.user.is_admin
+    fieldset
+      legend Meta Information
+      div.form-group
+        label.col-md-2.control-label(for='owner_id') Owner ID
+        div.col-md-6
+          input.form-control(type='text', name='owner_id', value=item.owner_id, pattern='\\d+', required, disabled)
   div.form-group
     div.col-md-10.col-md-offset-2
       button.btn.btn-primary.spine-save(type='submit') Save
