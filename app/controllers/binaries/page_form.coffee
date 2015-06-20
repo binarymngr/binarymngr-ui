@@ -1,10 +1,12 @@
 Spine                   = @Spine or require('spine')
 Binary                  = require('models/binary')
 BinaryCategory          = require('models/binary_category')
+BinaryVersionsGatherer  = require('models/binary_versions_gatherer')
 _BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Table
 _BinaryVersionsTableRow = _BinaryVersionsTable.Row
 Controller              = require('framework/core').Controller
 Form                    = require('framework/controllers').RecordForm
+Message                 = require('models/message')
 MessagesTable           = require('controllers/messages/page_table').Table
 Tabs                    = require('controllers/components/tabs')
 $                       = Spine.$
@@ -53,7 +55,8 @@ class BinaryForm extends Form
     event.preventDefault()
     @trigger 'submitted', @, event
     @record.fromForm(@el)
-    @record.binary_category_ids = @$('.selectpicker').selectpicker('val')
+    @record.binary_category_ids = @$('#sp1').selectpicker('val')
+    @record.versions_gatherer = @$('#sp2').selectpicker('val')
     if @record.save()
       @success @record
       @trigger 'success', @record
@@ -65,6 +68,7 @@ class BinaryForm extends Form
     require(@view)
       item: record
       categories: BinaryCategory.all()
+      versions_gatherers: BinaryVersionsGatherer.all()
 
 class BinaryMessagesTable extends MessagesTable
   addAll: -> # NOP
@@ -79,6 +83,15 @@ class BinaryMessagesTable extends MessagesTable
 
 class BinaryVersionsTableRow extends _BinaryVersionsTableRow
   view: 'views/binaries/versions_table_row'
+
+  constructor: ->
+    super
+    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
+
+  render: (record) =>
+    super
+    @el.addClass('warning') if record?.hasMessages()
+    @el
 
 class BinaryVersionsTable extends _BinaryVersionsTable
   columns: ['ID', 'Identifier', 'Note', 'EOL']

@@ -27,6 +27,10 @@ class List extends Collection
   className: 'items'
   tag: 'ul'
 
+  addAll: =>
+    @el.empty()
+    @model.each @addOne
+
   addOne: (record) =>
     record = new @record(record: record)
     @append record.render()

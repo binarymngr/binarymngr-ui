@@ -1,19 +1,20 @@
 require('lib/setup')
 
-Spine          = @Spine or require('spine')
-Binary         = require('models/binary')
-BinaryCategory = require('models/binary_category')
-BinaryVersion  = require('models/binary_version')
-Content        = require('controllers/content')
-Controller     = require('framework/core').Controller
-Header         = require('controllers/header')
-Message        = require('models/message')
-Notification   = require('services/notification_service')
-Request        = require('lib/http/request')
-Role           = require('models/role')
-Server         = require('models/server')
-User           = require('models/user')
-$              = Spine.$
+Spine                  = @Spine or require('spine')
+Binary                 = require('models/binary')
+BinaryCategory         = require('models/binary_category')
+BinaryVersion          = require('models/binary_version')
+BinaryVersionsGatherer = require('models/binary_versions_gatherer')
+Content                = require('controllers/content')
+Controller             = require('framework/core').Controller
+Header                 = require('controllers/header')
+Message                = require('models/message')
+Notification           = require('services/notification_service')
+Request                = require('lib/http/request')
+Role                   = require('models/role')
+Server                 = require('models/server')
+User                   = require('models/user')
+$                      = Spine.$
 
 class App extends Controller
   constructor: ->
@@ -50,9 +51,9 @@ class App extends Controller
       # binary versions
       BinaryVersion.ajax().fetch()
       .fail -> Notification.error 'Fetching binary versions from the server failed.'
-      # messages
-      Message.ajax().fetch()
-      .fail -> Notification.error 'Fetching messages from the server failed.'
+      # binary versions gatherers
+      BinaryVersionsGatherer.ajax().fetch()
+      .fail -> Notification.error 'Fetching binary versions gatherers from the server failed.'
       # roles
       Role.ajax().fetch()
       .fail -> Notification.error 'Fetching roles from the server failed.'
@@ -62,6 +63,10 @@ class App extends Controller
       # users
       User.ajax().fetch()
       .fail -> Notification.error 'Fetching users from the server failed.'
+      # messages
+      # FIXME: placed on bottom to maximize chance of 'warning' classes in rows
+      Message.ajax().fetch()
+      .fail -> Notification.error 'Fetching messages from the server failed.'
     ).then =>
       @el.removeClass 'loading'  # loading spinner
       @render()

@@ -4,6 +4,7 @@ BinaryVersion  = require('models/binary_version')
 Controller     = require('framework/core').Controller
 Controllers    = require('framework/controllers')
 Form           = Controllers.RecordForm
+Message        = require('models/message')
 Modal          = Controllers.Modal
 Table          = Controllers.Table
 TableRow       = Controllers.TableRow
@@ -68,6 +69,10 @@ class AddBinaryVersionModal extends Modal
 
 class BinaryVersionsTableRow extends TableRow
   view: 'views/binaries/versions/table_row'
+
+  constructor: ->
+    super
+    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
 
   render: (record) =>
     super
