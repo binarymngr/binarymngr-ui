@@ -34,9 +34,9 @@ if item
       select#sp2.form-control.selectpicker.show-menu-arrow.show-tick(name='versions_gatherer')
         each gatherer in versions_gatherers
           if gatherer.name == item.versions_gatherer
-            option(value=gatherer.name, data-sub-text=gatherer.description, selected) #{gatherer.name}
+            option(value=gatherer.name, data-subtext=gatherer.description, selected) #{gatherer.name}
           else
-            option(value=gatherer.name, data-sub-text=gatherer.description) #{gatherer.name}
+            option(value=gatherer.name, data-subtext=gatherer.description) #{gatherer.name}
       +selectpicker('#sp2')
   div.form-group
     label.col-md-2.control-label(for='versions_gatherer_meta') Versions Gatherer Meta
