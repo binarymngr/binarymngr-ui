@@ -35,6 +35,7 @@ if item
       label.col-md-2.control-label(for='versions_gatherer') Gatherer
       div.col-md-6
         select#sp2.form-control.selectpicker.show-menu-arrow.show-tick(name='versions_gatherer')
+          option(value='null') Nothing selected
           each gatherer in versions_gatherers
             if gatherer.name == item.versions_gatherer
               option(value=gatherer.name, data-subtext=gatherer.description, selected) #{gatherer.name}

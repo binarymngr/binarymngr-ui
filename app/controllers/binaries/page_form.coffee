@@ -56,7 +56,11 @@ class BinaryForm extends Form
     @trigger 'submitted', @, event
     @record.fromForm(@el)
     @record.binary_category_ids = @$('#sp1').selectpicker('val')
-    @record.versions_gatherer = @$('#sp2').selectpicker('val')
+    versions_gatherer = @$('#sp2').selectpicker('val')
+    if versions_gatherer isnt 'null'
+      @record.versions_gatherer = versions_gatherer
+    else
+      @record.versions_gatherer = null
     if @record.save()
       @success @record
       @trigger 'success', @record
