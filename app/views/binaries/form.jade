@@ -30,7 +30,7 @@ if item
         include ../shared/helpers
         +selectpicker('#sp1')
   fieldset
-    legend Versions Gathering
+    legend Versions
     div.form-group
       label.col-md-2.control-label(for='versions_gatherer') Gatherer
       div.col-md-6
@@ -47,7 +47,7 @@ if item
         textarea.form-control(name='versions_gatherer_meta', rows='3') #{item.versions_gatherer_meta}
   if rqst.user.is_admin
     fieldset
-      legend Meta Information
+      legend Metas
       div.form-group
         label.col-md-2.control-label(for='owner_id') Owner ID
         div.col-md-6
