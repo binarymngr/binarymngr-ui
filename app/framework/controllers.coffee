@@ -36,7 +36,7 @@ class List extends Collection
     @append record.render()
     record
 
-# TODO: DataTables
+# TODO: pager or even better: DataTables
 class Table extends Collection
   className: 'table-responsive'
   tag: 'div'
@@ -45,15 +45,33 @@ class Table extends Collection
     super
     throw new Error('@columns is required') unless @columns
 
+  addOne: (record) =>
+    super
+    record?.bind 'destroy', @update
+    record?.bind 'update', @update
+    @update()
+
   render: =>
     return super if @view isnt Core.DUMMY_VIEW
-    table = $('<table class="datatable table table-striped table-bordered"> \
+    @table = $('<table class="table table-striped table-bordered tablesorter"> \
                  <thead><tr></tr></thead> \
                </table>')
     for column in @columns
-      table.find('tr').append $("<th>#{column}</th>")
-    table.append $('<tbody class="items"></tbody>')
-    @html table
+      @table.find('tr').append $("<th data-placeholder='...'>#{column}</th>")
+    @table.append $('<tbody class="items"></tbody>')
+    @table.tablesorter
+      delayInit: true  # better performance?
+      theme: ''
+      widgets: ['filter']
+      widgetOptions:
+        filter_hideEmpty: true
+        filter_hideFilters: true
+        filter_liveSearch: true
+        filter_searchDelay: 25
+      widthFixed: true
+    @html @table
+
+  update: => @table?.trigger 'updateRows'
 
 # Forms
 class Form extends Core.ViewController
