@@ -5,8 +5,14 @@
   "version": "0.0.1",
   "author": "Michel Käser <mail@michelkaeser.ch>",
   "license": "MIT",
-  "keywords": ["binarymngr", "ui", "spine"],
+  "keywords": [
+    "binarymngr",
+    "ui",
+    "spine"
+  ],
   "dependencies": {
+    "jade": "^1.11.0",
+    "lodash": "^3.9.3",
     "spine": "https://github.com/spine/spine.git#b3cee1e069"
   }
 }

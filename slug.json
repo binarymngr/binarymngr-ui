@@ -1,20 +1,29 @@
 {
   "server": {
-    "port"  : 9294
+    "port": 9294
   },
 
   "routes": [
-    { ""        : "./public" },
-    { "/test"    : "./test/public" }
+    { ""      : "./public" },
+    { "/test" : "./test/public" }
   ],
 
   "packages": {
     "app": {
-      "libs"    : [
-        "lib/jade/runtime.js",
-        "lib/lodash/lodash.js"
+      "libs": [
+        "node_modules/jade/runtime.js",
+        "node_modules/lodash/index.js",
+
+        "lib/patternfly/components/jquery/dist/jquery.min.js",
+        "lib/patternfly/components/bootstrap/dist/js/bootstrap.min.js",
+        "lib/bootstrap-confirmation2/bootstrap-confirmation.min.js",
+        "lib/patternfly/components/bootstrap-select/bootstrap-select.min.js",
+        "lib/jquery.tablesorter/dist/js/jquery.tablesorter.min.js",
+        "lib/jquery.tablesorter/dist/js/jquery.tablesorter.widgets.min.js",
+        "lib/noty/js/noty/packaged/jquery.noty.packaged.min.js",
+        "lib/patternfly/dist/js/patternfly.min.js"
       ],
-      "modules" : [
+      "modules": [
         "spine",
         "spine/lib/ajax",
         "spine/lib/manager",
@@ -26,14 +35,14 @@
       "jsAfter": "jade.rethrow = function rethrow(err, filename, lineno){ throw err; } "
     },
     "css": {
-      "paths"  : "./css",
-      "target" : "./public/application.css"
+      "paths" : "./css",
+      "target": "./public/application.css"
     },
     "test": {
-      "identifier" : "specs",
-      "jsAfter"    : "require('lib/setup'); for (var key in specs.modules) specs(key);",
-      "paths"      : ["./test/specs"],
-      "target"     : "./test/public/specs.js"
+      "identifier": "specs",
+      "jsAfter"   : "require('lib/setup'); for (var key in specs.modules) specs(key);",
+      "paths"     : ["./test/specs"],
+      "target"    : "./test/public/specs.js"
     }
   }
 }

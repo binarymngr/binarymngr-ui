@@ -17,7 +17,7 @@
 <body>
   <noscript>
     <div id="noscript">
-      <img src="img/logo_black.png" alt="BinaryMngr Logo">
+      <img src="/img/logo_black.png" alt="BinaryMngr Logo">
       <p>JavaScript is required for this application.</p>
     </div>
   </noscript>
@@ -26,25 +26,14 @@
     <div class="spinner spinner-lg"></div>
   </div>
 
-  <!-- Core -->
-  <script src="/components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-  <!-- UI -->
-  <script src="/components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-  <script src="/components/bootstrap-confirmation2/bootstrap-confirmation.min.js" charset="utf-8"></script>
-  <script src="/components/bootstrap-select/bootstrap-select.min.js" charset="utf-8"></script>
-  <script src="/components/jquery.tablesorter/dist/js/jquery.tablesorter.min.js" charset="utf-8"></script>
-  <script src="/components/jquery.tablesorter/dist/js/jquery.tablesorter.widgets.min.js" charset="utf-8"></script>
-  <script src="/components/noty/js/noty/packaged/jquery.noty.packaged.min.js" charset="utf-8"></script>
-  <script src="/components/patternfly/dist/js/patternfly.min.js" charset="utf-8"></script>
-  <!-- App -->
   <script src="/application.js" charset="utf-8"></script>
   <script charset="utf-8">
   // Server-side populated objects
   var server = {};
   server.csrf_token = '{{ csrf_token() }}';
   server.user = {};
-  server.user.id = {{$user->id}}
-  server.user.is_admin = {{$user->isAdmin() ? 'true' : 'false'}};
+  server.user.id = {{ $user->id }}
+  server.user.is_admin = {{ $user->isAdmin() ? 'true' : 'false' }};
   Object.freeze(server.user);
   Object.freeze(server);
 
