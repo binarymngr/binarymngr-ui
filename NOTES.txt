@@ -1,5 +1,6 @@
 BUGS:
 
+  [ ] Confirmation modal is not closed on "No" click
   [ ] Displayed data is not always correct for related data (@hasMany etc.). This is because things are often
     rendered before both Models are ready....tried various hacks, but a proper solution should be implemented
     in the models to listen for related events.

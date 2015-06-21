@@ -14,7 +14,7 @@ class NotificationService extends Service
     super
 
     _.extend $.noty.defaults,
-      layout: 'topRight'
+      layout: 'bottomRight'
       theme: 'relax'
       type: 'information'
       animation:
