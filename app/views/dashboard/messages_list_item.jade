@@ -1,6 +1,6 @@
 if item
   h3.list-group-item-heading #{item.title}
   p.list-group-item-text
-    | #{item.body}
+    | #{_.trunc(item.body, 100)}
     br
     small #{item.created_at}

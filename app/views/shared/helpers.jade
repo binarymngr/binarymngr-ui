@@ -8,7 +8,7 @@ mixin not-found(model)
     | The requested #{model} does not exist.
 
 mixin selectpicker(el)
-  script(charset='utf-8').
+  script.
     $('#{el}').selectpicker({
       mobile: true,
       selectedTextFormat: 'count > 2'

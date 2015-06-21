@@ -20,7 +20,7 @@ if item
       if rqst.user.is_admin
         button.btn.btn-default.spine-cancel(type='button') Cancel
         button.btn.btn-danger.spine-destroy(type='button', data-toggle='confirmation') Delete
-        script(charset='utf-8').
+        script.
           $(function () {
             $('[data-toggle=confirmation]').confirmation();
           });
