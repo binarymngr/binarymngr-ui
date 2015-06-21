@@ -76,7 +76,7 @@ class BinaryVersionsTableRow extends TableRow
 
   render: (record) =>
     super
-    @el.addClass('warning') if record?.hasMessages()
+    @el.addClass('warning') if @record?.hasMessages()
     @el
 
 class BinaryVersionsTable extends Table

@@ -4,7 +4,6 @@ BUGS:
     rendered before both Models are ready....tried various hacks, but a proper solution should be implemented
     in the models to listen for related events.
   [ ] Submitting forms does not trigger HTML5 validation in Safari
-  [ ] Smarter bootstrap-select (selectpicker) implementation
 
 
 IMPROVEMENTS:
