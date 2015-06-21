@@ -1,5 +1,5 @@
 Spine      = @Spine or require('spine')
-Navigation = require('controllers/components/navigation')
+Navigation = require('framework/controllers').Navigation
 Link       = Navigation.Link
 $          = Spine.$
 

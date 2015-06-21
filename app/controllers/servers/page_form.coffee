@@ -4,7 +4,7 @@ Controller          = require('framework/core').Controller
 Form                = require('framework/controllers').RecordForm
 MessagesTable       = require('controllers/messages/page_table').Table
 Server              = require('models/server')
-Tabs                = require('controllers/components/tabs')
+Tabs                = require('framework/controllers').Tabs
 $                   = Spine.$
 
 class ServerFormPage extends Controller

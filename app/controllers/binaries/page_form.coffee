@@ -8,7 +8,7 @@ Controller              = require('framework/core').Controller
 Form                    = require('framework/controllers').RecordForm
 Message                 = require('models/message')
 MessagesTable           = require('controllers/messages/page_table').Table
-Tabs                    = require('controllers/components/tabs')
+Tabs                    = require('framework/controllers').Tabs
 $                       = Spine.$
 
 class BinaryFormPage extends Controller

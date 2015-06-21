@@ -5,7 +5,7 @@ Form          = require('framework/controllers').RecordForm
 MessagesTable = require('controllers/messages/page_table').Table
 Role          = require('models/role')
 ServersTable  = require('controllers/servers/page_table').Table
-Tabs          = require('controllers/components/tabs')
+Tabs          = require('framework/controllers').Tabs
 User          = require('models/user')
 $             = Spine.$
 

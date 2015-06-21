@@ -152,6 +152,65 @@ class Modal extends Core.ViewController
     @$('h4.modal-title').after @content.render()
     @el
 
+# Navigations
+class Navigation extends Core.Controller
+  className: 'nav navbar-nav'
+  tag: 'ul'
+
+  constructor: ->
+    super
+    @items = []
+
+  addItem: (item) =>
+    item.bind 'activated', => @trigger 'activated', @
+    item.bind 'activated', @itemActivated
+    @bind 'deactivated', item.deactivate
+    @items.push item
+
+  deactivate: => @trigger 'deactivated', @
+
+  itemActivated: (activated) =>
+    for item in @items
+      item.deactivate() unless item is activated
+
+  render: =>
+    @el.empty()
+    @append(item.render()) for item in @items
+
+class NavItem extends Core.Controller
+  tag: 'li'
+
+  activate: =>
+    unless @isActive()
+      @el.addClass 'active'
+      @trigger 'activated', @
+
+  deactivate: =>
+    if @isActive()
+      @el.removeClass 'active'
+      @trigger 'deactivated', @
+
+  isActive: => @el.hasClass 'active'
+
+class Link extends NavItem
+  events:
+    'click > a' : 'clicked'
+
+  constructor: ->
+    super
+    throw new Error('@link is required') unless @link
+    throw new Error('@text is required') unless @text
+    @external = false unless @external
+    @router = Spine.Route.create()
+    @router.add new RegExp("^#{@link}(\\/[^\\/])*$"), @activate
+
+  clicked: (event) => @trigger 'clicked', @
+
+  render: =>
+    if @external
+      @html $("<a href='#{@link}'>#{@text}</a>")
+    else @html $("<a href='/##{@link}'>#{@text}</a>")
+
 # Records
 class Record extends Core.ViewController
   className: 'item'
@@ -176,17 +235,96 @@ class ListItem extends Record
 class TableRow extends Record
   tag: 'tr'
 
-module?.exports            = {}
+# Tabs
+class TabNav extends Navigation
+  attributes:
+    role: 'tablist'
+  className: 'nav nav-tabs'
+
+class TabNavItem extends NavItem
+  attributes:
+    role: 'presentation'
+
+  events:
+    'click > a' : 'activate'
+
+  constructor: ->
+    super
+    throw new Error('@tab is required') unless @tab
+    throw new Error('@text is required') unless @text
+    @bind 'activated', @tab.activate
+    @bind 'deactivated', @tab.deactivate
+
+  render: => @html $("<a href='##{@tab.name}' aria-controls='#{@tab.name}' \
+                      role='tab' data-toggle='tab'>#{@text}</a>")
+
+class TabContainer extends Core.Controller
+  className: 'tab-content'
+
+  constructor: ->
+    super
+    @items = []
+
+  addItem: (item) =>
+    item.bind 'activated', => @trigger 'activated', @
+    item.bind 'activated', @itemActivated
+    @bind 'deactivated', item.deactivate
+    @items.push item
+
+  deactivate: => @trigger 'deactivated', @
+
+  itemActivated: (activated) =>
+    for item in @items
+      item.deactivate() unless item is activated
+
+  render: =>
+    @el.empty()
+    @append(item.render()) for item in @items
+
+class Tab extends Core.Controller
+  attributes:
+    role: 'tabpanel'
+  className: 'tab-pane'
+
+  constructor: ->
+    super
+    throw new Error('@name is required') unless @name
+    @attributes.id = @name
+    @el.attr 'id', @name
+
+  activate: =>
+    unless @isActive()
+      @el.addClass 'active'
+      @trigger 'activated', @
+
+  deactivate: =>
+    if @isActive()
+      @el.removeClass 'active'
+      @trigger 'deactivated', @
+
+  isActive: => @el.hasClass 'active'
+
+module?.exports                 = {}
 # Collections
-module?.exports.Collection = Collection
-module?.exports.List       = List
-module?.exports.Table      = Table
+module?.exports.Collection      = Collection
+module?.exports.List            = List
+module?.exports.Table           = Table
 # Forms
-module?.exports.Form       = Form
-module?.exports.RecordForm = RecordForm
+module?.exports.Form            = Form
+module?.exports.RecordForm      = RecordForm
 # Modals
-module?.exports.Modal      = Modal
+module?.exports.Modal           = Modal
+# Navigations
+module?.exports.Navigation      = Navigation
+module?.exports.Navigation.Item = NavItem
+module?.exports.Navigation.Link = Link
 # Records
-module?.exports.Record     = Record
-module?.exports.ListItem   = ListItem
-module?.exports.TableRow   = TableRow
+module?.exports.Record          = Record
+module?.exports.ListItem        = ListItem
+module?.exports.TableRow        = TableRow
+# Tabs
+module?.exports.Tabs            = {}
+module?.exports.Tabs.Nav        = TabNav
+module?.exports.Tabs.Nav.Item   = TabNavItem
+module?.exports.Tabs.Container  = TabContainer
+module?.exports.Tabs.Tab        = Tab

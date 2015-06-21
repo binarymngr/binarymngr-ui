@@ -4,7 +4,7 @@ Controller    = require('framework/core').Controller
 Form          = require('framework/controllers').RecordForm
 MessagesTable = require('controllers/messages/page_table').Table
 ServersTable  = require('controllers/servers/page_table').Table
-Tabs          = require('controllers/components/tabs')
+Tabs          = require('framework/controllers').Tabs
 
 class BinaryVersionFormPage extends Controller
   constructor: ->

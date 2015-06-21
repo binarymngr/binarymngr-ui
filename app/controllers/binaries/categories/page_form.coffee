@@ -3,7 +3,7 @@ BinariesTable  = require('controllers/binaries/page_table').Table
 BinaryCategory = require('models/binary_category')
 Controller     = require('framework/core').Controller
 Form           = require('framework/controllers').RecordForm
-Tabs           = require('controllers/components/tabs')
+Tabs           = require('framework/controllers').Tabs
 $              = Spine.$
 
 class BinaryCategoryFormPage extends Controller

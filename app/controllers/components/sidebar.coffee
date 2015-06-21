@@ -1,6 +1,6 @@
 Spine      = @Spine or require('spine')
 Controller = require('framework/core').Controller
-Navigation = require('controllers/components/navigation')
+Navigation = require('framework/controllers').Navigation
 $          = Spine.$
 
 class Sidebar extends Controller

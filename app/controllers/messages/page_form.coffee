@@ -5,7 +5,7 @@ Controller          = require('framework/core').Controller
 Form                = require('framework/controllers').RecordForm
 Message             = require('models/message')
 ServersTable        = require('controllers/servers/page_table').Table
-Tabs                = require('controllers/components/tabs')
+Tabs                = require('framework/controllers').Tabs
 
 class MessageFormPage extends Controller
   className: 'col-xs-12'
