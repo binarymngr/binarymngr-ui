@@ -1,8 +1,26 @@
+BUGS:
+
+  [ ] Displayed data is not always correct for related data (@hasMany etc.). This is because things are often
+    rendered before both Models are ready....tried various hacks, but a proper solution should be implemented
+    in the models to listen for related events.
+  [ ] Submitting forms does not trigger HTML5 validation in Safari
+  [ ] Smarter bootstrap-select (selectpicker) implementation
+
+
+IMPROVEMENTS:
+
+  [ ] Smarter bootstrap-select (selectpicker) implementation
+
+
 TODOS:
-  - Remove M2M related records on destroy (e.g. server when user is deleted).
-    With the new 'fix' to re-add destroyed objects where the server reports an error that doesn't work.
-  - Add some kind of breadcrumb
-  - Smart solution to set the window title
-  - Datatables Tables
-  - Submitting form does not trigger HTML5 validation in Safari
-  - Smarter bootstrap-select (selectpicker) implementation
+
+  [ ] Account page for non-admins so they can change the password
+  [ ] Breadcrumb
+  [ ] Dashboard : Maybe some charts (% of outdated binaries etc.)
+  [ ] DataTables?
+  [ ] Permissions à la : can_create_users, can_delete_binaries ...
+  [ ] Refresh button to re-fetch data from the server
+  [ ] Tab tables count badge
+  [ ] Tables pager so not all records are shown on one page
+  [ ] WebSockets or ESS to get changes other users did
+  [ ] Window title
