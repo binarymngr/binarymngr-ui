@@ -9,7 +9,7 @@ if item && item.binary()
     else
       | -
   td: a(href='/#/binaries/versions/' + item.id) #{item.identifier}
-  td #{item.note}
+  td #{_.trunc(item.note, 150)}
   td
     if item.eol
       | #{item.eol}
