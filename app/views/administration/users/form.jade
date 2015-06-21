@@ -21,9 +21,9 @@ if item
           select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple)
             each role in _.sortBy(roles, 'name')
               if _.contains(item.role_ids, role.id)
-                option(value=role.id, data-subtext=role.description, selected) #{role.name}
+                option(value=role.id, data-subtext=_.trunc(role.description, 75), selected) #{role.name}
               else
-                option(value=role.id, data-subtext=role.description) #{role.name}
+                option(value=role.id, data-subtext=_.trunc(role.description, 75)) #{role.name}
           include ../../shared/helpers
           +selectpicker('.selectpicker')
         else
