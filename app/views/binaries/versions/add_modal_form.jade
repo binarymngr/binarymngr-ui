@@ -4,7 +4,7 @@ if item
       label.col-md-3.control-label(for='binary_id') Binary
       div.col-md-9
         select.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_id')
-          each binary in binaries
+          each binary in _.sortBy(binaries, 'name')
             option(value=binary.id) #{binary.name}
         include ../../shared/helpers
         +selectpicker('.selectpicker')

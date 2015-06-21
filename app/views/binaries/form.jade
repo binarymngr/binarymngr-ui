@@ -22,7 +22,7 @@ if item
       label.col-md-2.control-label(for='binary_category_ids') Categories
       div.col-md-6
         select#sp1.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_category_ids', multiple)
-          each category in categories
+          each category in _.sortBy(categories, 'name')
             if _.contains(item.binary_category_ids, category.id)
               option(value=category.id, data-subtext=category.description, selected) #{category.name}
             else

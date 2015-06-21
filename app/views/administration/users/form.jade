@@ -19,7 +19,7 @@ if item
       div.col-md-6
         if rqst.user.is_admin
           select.form-control.selectpicker.show-menu-arrow.show-tick(name='role_ids', multiple)
-            each role in roles
+            each role in _.sortBy(roles, 'name')
               if _.contains(item.role_ids, role.id)
                 option(value=role.id, data-subtext=role.description, selected) #{role.name}
               else

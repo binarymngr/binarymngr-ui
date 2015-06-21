@@ -42,6 +42,10 @@ class BinaryCategoriesNav extends List
   model : BinaryCategory
   record: BinaryCategoryItem
 
+  addAll: =>
+    sorted = _.sortBy(@model.all(), 'name')
+    @addOne(c) for c in sorted
+
   addOne: (record) =>
     item = super
     item.bind 'activated', => @trigger 'activated', @
