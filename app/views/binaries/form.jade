@@ -24,9 +24,9 @@ if item
         select#sp1.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_category_ids', multiple)
           each category in _.sortBy(categories, 'name')
             if _.contains(item.binary_category_ids, category.id)
-              option(value=category.id, data-subtext=_.trunc(category.description, 75), selected) #{category.name}
+              option(value=category.id, data-subtext=_.trunc(category.description, 50), selected) #{category.name}
             else
-              option(value=category.id, data-subtext=_.trunc(category.description, 75)) #{category.name}
+              option(value=category.id, data-subtext=_.trunc(category.description, 50)) #{category.name}
         include ../shared/helpers
         +selectpicker('#sp1')
   fieldset

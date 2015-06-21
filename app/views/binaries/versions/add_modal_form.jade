@@ -5,7 +5,7 @@ if item
       div.col-md-9
         select.form-control.selectpicker.show-menu-arrow.show-tick(name='binary_id')
           each binary in _.sortBy(binaries, 'name')
-            option(value=binary.id) #{binary.name}
+            option(value=binary.id, data-subtext=_.trunc(binary.description, 50)) #{binary.name}
         include ../../shared/helpers
         +selectpicker('.selectpicker')
     div.form-group
