@@ -28,6 +28,10 @@ class Server extends Spine.Model
   hasBinariesInstalled: => @getBinaryVersions().length isnt 0
   hasMessages:          => @messages().count() isnt 0
 
+  removeBinaryVersion: (binary_version) =>
+    _.remove(@binary_version_ids, (id) -> id is binary_version?.id)
+    @trigger 'update', @
+
   update: ->
     super
       done: -> Notification.success 'Server has sucessfully been updated.'

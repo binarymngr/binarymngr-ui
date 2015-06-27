@@ -1,0 +1,19 @@
+//- item.binary() = null means binaries are not ready so we better
+//- don't render and wait for them to become ready
+if item && item.binary()
+  td: a(href='/#/binaries/versions/' + item.id) #{item.id}
+  td
+    - var binary = item.binary()
+    if binary
+      a(href='/#/binaries/'+ binary.id) #{binary.name}
+    else
+      | -
+  td: a(href='/#/binaries/versions/' + item.id) #{item.identifier}
+  td #{_.trunc(item.note, 150)}
+  td
+    if item.eol
+      | #{item.eol}
+    else
+      | -
+  td
+    a(href='#', data-toggle='tooltip', data-placement='top', title='Detach binary version').pficon.pficon-error-circle-o.spine-detach

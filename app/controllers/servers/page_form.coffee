@@ -1,12 +1,15 @@
-Spine               = @Spine or require('spine')
-BinaryVersionsTable = require('controllers/binaries/versions/page_table').Table
-Controller          = require('framework/core').Controller
-Form                = require('framework/controllers').RecordForm
-MessagesTable       = require('controllers/messages/page_table').Table
-Server              = require('models/server')
-Tabs                = require('framework/controllers').Tabs
-$                   = Spine.$
+Spine                  = @Spine or require('spine')
+BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Table
+BinaryVersionsTableRow = BinaryVersionsTable.Row
+Controller             = require('framework/core').Controller
+Form                   = require('framework/controllers').RecordForm
+Message                = require('models/message')
+MessagesTable          = require('controllers/messages/page_table').Table
+Server                 = require('models/server')
+Tabs                   = require('framework/controllers').Tabs
+$                      = Spine.$
 
+# TODO: remove messages from detached binary version
 class ServerFormPage extends Controller
   className: 'col-xs-12'
 
@@ -49,7 +52,31 @@ class ServerForm extends Form
   url  : '/servers'
   view : 'views/servers/form'
 
+class ServerBinaryVersionsTableRow extends BinaryVersionsTableRow
+  events:
+    'click .spine-detach': 'detach'
+
+  view: 'views/servers/versions_table_row'
+
+  constructor: ->
+    super
+    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
+    @server = null
+
+  detach: (event) =>
+    event.preventDefault()
+    @server.removeBinaryVersion @record
+    @remove() if @server.save()
+
+  render: (record) =>
+    super
+    @el.addClass('warning') if @record?.hasMessages()
+    @el
+
 class ServerBinaryVersionsTable extends BinaryVersionsTable
+  columns: ['ID', 'Binary', 'Identifier', 'Note', 'EOL', 'Actions']
+  record : ServerBinaryVersionsTableRow
+
   addAll: -> # NOP
 
   render: (params) =>
@@ -57,7 +84,9 @@ class ServerBinaryVersionsTable extends BinaryVersionsTable
     server = Server.find(params.id) if params?.id?
     if server
       super
-      @addOne(v) for v in server.getBinaryVersions()
+      for version in server.getBinaryVersions()
+        row = @addOne(version)
+        row.server = server
     @el
 
 class ServerMessagesTable extends MessagesTable
@@ -71,7 +100,8 @@ class ServerMessagesTable extends MessagesTable
       @addOne(m) for m in server.messages().all()
     @el
 
-module?.exports                     = ServerFormPage
-module?.exports.Form                = ServerForm
-module?.exports.BinaryVersionsTable = ServerBinaryVersionsTable
-module?.exports.MessagesTable       = ServerMessagesTable
+module?.exports                         = ServerFormPage
+module?.exports.Form                    = ServerForm
+module?.exports.BinaryVersionsTable     = ServerBinaryVersionsTable
+module?.exports.BinaryVersionsTable.Row = ServerBinaryVersionsTableRow
+module?.exports.MessagesTable           = ServerMessagesTable

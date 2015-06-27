@@ -11,3 +11,7 @@ window.rqst = Request.hydrate()
 Request.bind 'ready', (rqst) ->
   window.rqst = rqst
   $(window).trigger 'resize'  # PF sidebar
+
+# Tooltips
+$('body').tooltip
+  selector: '[data-toggle=tooltip]'

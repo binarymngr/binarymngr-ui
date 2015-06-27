@@ -46,10 +46,11 @@ class Table extends Collection
     throw new Error('@columns is required') unless @columns
 
   addOne: (record) =>
-    super
+    row = super
     record?.bind 'destroy', @update
     record?.bind 'update', @update
     @update()
+    row
 
   render: =>
     return super if @view isnt Core.DUMMY_VIEW
