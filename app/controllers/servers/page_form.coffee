@@ -3,7 +3,6 @@ BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Tab
 BinaryVersionsTableRow = BinaryVersionsTable.Row
 Controller             = require('framework/core').Controller
 Form                   = require('framework/controllers').RecordForm
-Message                = require('models/message')
 MessagesTable          = require('controllers/messages/page_table').Table
 Server                 = require('models/server')
 Tabs                   = require('framework/controllers').Tabs
@@ -60,17 +59,18 @@ class ServerBinaryVersionsTableRow extends BinaryVersionsTableRow
 
   constructor: ->
     super
-    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
     @server = null
 
   detach: (event) =>
     event.preventDefault()
-    @server.removeBinaryVersion @record
+    @server.detachBinaryVersion @record
     @remove() if @server.save()
 
   render: (record) =>
     super
-    @el.addClass('warning') if @record?.hasMessages()
+    if @record?.hasMessages()
+      @el.addClass 'warning'
+    else @el.removeClass 'warning'
     @el
 
 class ServerBinaryVersionsTable extends BinaryVersionsTable
@@ -84,7 +84,7 @@ class ServerBinaryVersionsTable extends BinaryVersionsTable
     server = Server.find(params.id) if params?.id?
     if server
       super
-      for version in server.getBinaryVersions()
+      for version in server.binary_versions()
         row = @addOne(version)
         row.server = server
     @el

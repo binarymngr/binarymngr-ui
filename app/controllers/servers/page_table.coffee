@@ -2,7 +2,6 @@ Spine       = @Spine or require('spine')
 Controller  = require('framework/core').Controller
 Controllers = require('framework/controllers')
 Form        = Controllers.RecordForm
-Message     = require('models/message')
 Modal       = Controllers.Modal
 Server      = require('models/server')
 Table       = Controllers.Table
@@ -53,13 +52,11 @@ class AddServerModal extends Modal
 class ServersTableRow extends TableRow
   view: 'views/servers/table_row'
 
-  constructor: ->
-    super
-    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
-
   render: (record) =>
     super
-    @el.addClass('warning') if @record?.hasMessages()
+    if @record?.hasMessages()
+      @el.addClass 'warning'
+    else @el.removeClass 'warning'
     @el
 
 class ServersTable extends Table

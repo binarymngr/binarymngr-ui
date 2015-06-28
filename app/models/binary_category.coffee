@@ -6,6 +6,14 @@ class BinaryCategory extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/binaries/categories'
+  
+  constructor: ->
+    super
+    b.trigger('update', b) for b in @binaries()
+
+  binaries: =>
+    Binary = require('models/binary')
+    (Binary.select (b) => _.contains(b.binary_category_ids, @id))
 
   create: ->
     super
@@ -14,14 +22,12 @@ class BinaryCategory extends Spine.Model
 
   destroy: ->
     super
-      done: -> Notification.warning 'Binary category has successfully been deleted.'
+      done: =>
+        b.removeCategory(@) for b in @binaries()
+        Notification.warning 'Binary category has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  getBinaries: =>
-    Binary = require('models/binary')
-    Binary.select (b) => _.contains(b.binary_category_ids, @id)
-
-  hasBinaries: => @getBinaries().length isnt 0
+  hasBinaries: => @binaries().length isnt 0
 
   update: ->
     super

@@ -47,7 +47,7 @@ class CategoryBinariesTable extends BinariesTable
     category = BinaryCategory.find(params.id) if params?.id?
     if category
       super
-      @addOne(c) for c in category.getBinaries()
+      @addOne(c) for c in category.binaries()
     @el
 
 module?.exports               = BinaryCategoryFormPage

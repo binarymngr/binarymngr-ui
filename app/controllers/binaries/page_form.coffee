@@ -6,7 +6,6 @@ _BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Ta
 _BinaryVersionsTableRow = _BinaryVersionsTable.Row
 Controller              = require('framework/core').Controller
 Form                    = require('framework/controllers').RecordForm
-Message                 = require('models/message')
 MessagesTable           = require('controllers/messages/page_table').Table
 Tabs                    = require('framework/controllers').Tabs
 $                       = Spine.$
@@ -88,13 +87,11 @@ class BinaryMessagesTable extends MessagesTable
 class BinaryVersionsTableRow extends _BinaryVersionsTableRow
   view: 'views/binaries/versions_table_row'
 
-  constructor: ->
-    super
-    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
-
   render: (record) =>
     super
-    @el.addClass('warning') if @record?.hasMessages()
+    if @record?.hasMessages()
+      @el.addClass 'warning'
+    else @el.removeClass 'warning'
     @el
 
 class BinaryVersionsTable extends _BinaryVersionsTable

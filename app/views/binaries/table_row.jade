@@ -3,7 +3,7 @@ if item
   td: a(href='/#/binaries/' + item.id) #{item.name}
   td #{_.trunc(item.description, 150)}
   td
-    - var categories = item.getCategories()
+    - var categories = item.categories()
     if categories.length
       ul.list-unstyled
         each category in categories

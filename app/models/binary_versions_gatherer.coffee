@@ -7,11 +7,11 @@ class BinaryVersionsGatherer extends Spine.Model
   @extend  Spine.Model.Ajax
   @url: '/binaries/versions/gatherers'
 
-  getBinaries: =>
+  binaries: =>
     Binary = require('models/binary')
-    binary.select (b) => b.versions_gatherer is @name
+    (binary.select (b) => b.versions_gatherer is @name)
 
-  hasBinaries: => @getBinaries().length isnt 0
+  hasBinaries: => @binaries().length isnt 0
 
   validate: -> 'BinaryVersionsGatherer are read-only and cannot be created'
 

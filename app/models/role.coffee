@@ -6,6 +6,10 @@ class Role extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/roles'
+  
+  constructor: ->
+    super
+    u.trigger('update', @) for u in @users()
 
   create: ->
     super
@@ -14,19 +18,21 @@ class Role extends Spine.Model
 
   destroy: ->
     super
-      done: -> Notification.warning 'Role has successfully been deleted.'
+      done: =>
+        u.removeRole(@) for u in @users()
+        Notification.warning 'Role has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  getUsers: =>
-    User = require('models/user')
-    User.select (u) => _.contains(u.role_ids, @id)
-
-  hasUsers: => @getUsers().length isnt 0
+  hasUsers: => @users().length isnt 0
 
   update: ->
     super
       done: -> Notification.success 'Role has sucessfully been updated.'
       fail: -> Notification.warning 'An error encountered during the update process.'
+
+  users: =>
+    User = require('models/user')
+    (User.select (u) => _.contains(u.role_ids, @id))
 
   validate: => 'Name is required' unless @name
 
