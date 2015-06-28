@@ -12,7 +12,7 @@ class Binary extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/binaries'
-  
+
   constructor: ->
     super
     c.trigger('update', c) for c in @categories()

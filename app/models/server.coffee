@@ -9,7 +9,7 @@ class Server extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/servers'
-  
+
   constructor: ->
     super
     v.trigger('update', v) for v in @binary_versions()
@@ -37,7 +37,10 @@ class Server extends Spine.Model
 
   detachBinaryVersion: (binary_version) =>
     removed = _.remove(@binary_version_ids, (id) -> id is binary_version?.id)
-    @trigger('update', @) if removed.length isnt 0
+    if removed.length isnt 0
+      # destroy binary version messages belonging to this server
+      @messages().findByAttribute('binary_version_id', binary_version.id).destroy()
+      # @trigger 'update', @
 
   hasBinariesInstalled: => @binary_versions().length isnt 0
   hasMessages:          => @messages().count() isnt 0
