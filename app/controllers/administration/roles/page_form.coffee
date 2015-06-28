@@ -47,7 +47,7 @@ class RoleUsersTable extends UsersTable
     role = Role.find(params.id) if params?.id?
     if role
       super
-      @addOne(u) for u in role.getUsers()
+      @addOne(u) for u in role.users()
     @el
 
 module?.exports            = RoleFormPage

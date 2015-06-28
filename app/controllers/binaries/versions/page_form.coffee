@@ -65,7 +65,7 @@ class BinaryVersionServersTable extends ServersTable
     version = BinaryVersion.find(params.id) if params?.id?
     if version
       super
-      @addOne(s) for s in version.getServers()
+      @addOne(s) for s in version.servers()
     @el
 
 module?.exports               = BinaryVersionFormPage

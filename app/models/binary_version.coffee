@@ -4,8 +4,8 @@ Notification = require('services/notification_service')
 class BinaryVersion extends Spine.Model
   @configure 'BinaryVersion', 'identifier', 'note', 'eol', 'binary_id'
 
-  @belongsTo 'binary', 'models/binary'
-  @hasMany 'messages', 'models/message', 'binary_version_id'
+  @belongsTo 'binary',   'models/binary'
+  @hasMany   'messages', 'models/message', 'binary_version_id'
 
   @extend Spine.Model.Ajax
   @url: '/binaries/versions'
@@ -24,17 +24,12 @@ class BinaryVersion extends Spine.Model
       done: -> Notification.warning 'Binary version has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  getServers: =>
-    Server = require('models/server')
-    Server.select (s) => _.contains(s.binary_version_ids, @id)
-
   hasMessages: => @messages().count() isnt 0
-  isInstalled: => @getServers().length isnt 0
+  isInstalled: => @servers().length isnt 0
 
-  update: ->
-    super
-      done: -> Notification.success 'Binary version has sucessfully been updated.'
-      fail: -> Notification.error   'An error encountered during the update process.'
+  servers: =>
+    Server = require('models/server')
+    (Server.select (s) => _.contains(s.binary_version_ids, @id))
 
   toJSON: (version) =>
     data = @attributes()
@@ -43,6 +38,11 @@ class BinaryVersion extends Spine.Model
     else
       data.eol = null
     data
+
+  update: ->
+    super
+      done: -> Notification.success 'Binary version has sucessfully been updated.'
+      fail: -> Notification.error   'An error encountered during the update process.'
 
   validate: =>
     return 'Identifier is required' unless @identifier

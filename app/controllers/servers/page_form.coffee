@@ -65,7 +65,7 @@ class ServerBinaryVersionsTableRow extends BinaryVersionsTableRow
 
   detach: (event) =>
     event.preventDefault()
-    @server.removeBinaryVersion @record
+    @server.detachBinaryVersion @record
     @remove() if @server.save()
 
   render: (record) =>
@@ -84,7 +84,7 @@ class ServerBinaryVersionsTable extends BinaryVersionsTable
     server = Server.find(params.id) if params?.id?
     if server
       super
-      for version in server.getBinaryVersions()
+      for version in server.binary_versions()
         row = @addOne(version)
         row.server = server
     @el

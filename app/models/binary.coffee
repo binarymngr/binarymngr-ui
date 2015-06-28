@@ -6,12 +6,17 @@ class Binary extends Spine.Model
              'versions_gatherer', 'versions_gatherer_meta', \
              'binary_category_ids', 'binary_version_ids'
 
-  @hasMany 'messages', 'models/message', 'binary_id'
-  @belongsTo 'owner', 'models/user'
-  @hasMany 'versions', 'models/binary_version'
+  @hasMany   'messages', 'models/message', 'binary_id'
+  @belongsTo 'owner',    'models/user'
+  @hasMany   'versions', 'models/binary_version'
 
   @extend Spine.Model.Ajax
   @url: '/binaries'
+
+  categories: =>
+    Category = require('models/binary_category')
+    @binary_category_ids ?= new Array
+    (Category.find(cid) for cid in @binary_category_ids when Category.exists(cid))
 
   create: ->
     super
@@ -24,12 +29,7 @@ class Binary extends Spine.Model
       done: -> Notification.warning 'Binary has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  getCategories: =>
-    Category = require('models/binary_category')
-    @binary_category_ids ?= new Array
-    (Category.find(cid) for cid in @binary_category_ids when Category.exists(cid))
-
-  hasCategories:       => @getCategories().length isnt 0
+  hasCategories:       => @categories().length isnt 0
   hasMessages:         => @messages().count() isnt 0
   hasVersions:         => @versions().length isnt 0
   hasVersionsGatherer: => @versions_gatherer isnt null

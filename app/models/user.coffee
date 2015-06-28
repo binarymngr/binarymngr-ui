@@ -4,9 +4,9 @@ Notification = require('services/notification_service')
 class User extends Spine.Model
   @configure 'User', 'email', 'password', 'role_ids'
 
-  @hasMany 'binaries', 'models/binary', 'owner_id'
+  @hasMany 'binaries', 'models/binary',  'owner_id'
   @hasMany 'messages', 'models/message', 'user_id'
-  @hasMany 'servers',  'models/server', 'owner_id'
+  @hasMany 'servers',  'models/server',  'owner_id'
 
   @extend Spine.Model.Ajax
   @url: '/users'
@@ -24,15 +24,15 @@ class User extends Spine.Model
       done: -> Notification.warning 'User has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
-  getRoles: =>
+  hasMessages:  => @messages().count() isnt 0
+  hasRoles:     => @roles().length isnt 0
+  ownsBinaries: => @binaries().count() isnt 0
+  ownsServers:  => @servers().count() isnt 0
+
+  roles: =>
     Role = require('models/role')
     @role_ids ?= new Array
     (Role.find(rid) for rid in @role_ids when Role.exists(rid))
-
-  hasMessages:  => @messages().count() isnt 0
-  hasRoles:     => @getRoles().length isnt 0
-  ownsBinaries: => @binaries().count() isnt 0
-  ownsServers:  => @servers().count() isnt 0
 
   update: ->
     super
