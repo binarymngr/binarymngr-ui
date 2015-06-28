@@ -10,6 +10,13 @@ class User extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/users'
+  
+  constructor: ->
+    super
+    b.trigger('update', b) for b in @binaries().all()
+    m.trigger('update', m) for m in @messages().all()
+    r.trigger('update', r) for r in @roles()
+    s.trigger('update', s) for s in @servers().all()
 
   create: ->
     super
@@ -21,13 +28,19 @@ class User extends Spine.Model
     m.destroy() for m in @messages().all()
     s.destroy() for s in @servers().all()
     super
-      done: -> Notification.warning 'User has successfully been deleted.'
+      done: =>
+        r.trigger('update', r) for r in @roles()
+        Notification.warning 'User has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   hasMessages:  => @messages().count() isnt 0
   hasRoles:     => @roles().length isnt 0
   ownsBinaries: => @binaries().count() isnt 0
   ownsServers:  => @servers().count() isnt 0
+  
+  removeRole: (role) =>
+    removed = _.remove(@role_ids, (id) -> id is role?.id)
+    @trigger('update', @) if removed.length isnt 0
 
   roles: =>
     Role = require('models/role')

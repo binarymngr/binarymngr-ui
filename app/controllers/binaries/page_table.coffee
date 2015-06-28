@@ -3,7 +3,6 @@ Binary         = require('models/binary')
 BinaryCategory = require('models/binary_category')
 Controller     = require('framework/core').Controller
 Controllers    = require('framework/controllers')
-Message        = require('models/message')
 Modal          = Controllers.Modal
 RecordForm     = Controllers.RecordForm
 Table          = Controllers.Table
@@ -51,10 +50,6 @@ class AddBinaryModal extends Modal
 
 class BinariesTableRow extends TableRow
   view: 'views/binaries/table_row'
-
-  constructor: ->
-    super
-    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
 
   render: (record) =>
     super

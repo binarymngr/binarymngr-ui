@@ -6,6 +6,10 @@ class BinaryCategory extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/binaries/categories'
+  
+  constructor: ->
+    super
+    b.trigger('update', b) for b in @binaries()
 
   binaries: =>
     Binary = require('models/binary')
@@ -18,7 +22,9 @@ class BinaryCategory extends Spine.Model
 
   destroy: ->
     super
-      done: -> Notification.warning 'Binary category has successfully been deleted.'
+      done: =>
+        b.removeCategory(@) for b in @binaries()
+        Notification.warning 'Binary category has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   hasBinaries: => @binaries().length isnt 0

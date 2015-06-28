@@ -2,7 +2,6 @@ Spine       = @Spine or require('spine')
 Controller  = require('framework/core').Controller
 Controllers = require('framework/controllers')
 Form        = Controllers.RecordForm
-Message     = require('models/message')
 Modal       = Controllers.Modal
 Request     = require('lib/http/request')
 Table       = Controllers.Table
@@ -52,10 +51,6 @@ class AddUserModal extends Modal
 
 class UsersTableRow extends TableRow
   view: 'views/administration/users/table_row'
-
-  constructor: ->
-    super
-    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
 
   render: (record) =>
     super

@@ -13,6 +13,8 @@ class BinaryVersion extends Spine.Model
   constructor: (object) ->
     object.eol = object.eol.substring(0, 10) if object?.eol?
     super
+    @binary()?.trigger 'update', @binary()
+    m.trigger('update', m) for m in @messages().all()
 
   create: ->
     super
@@ -20,8 +22,11 @@ class BinaryVersion extends Spine.Model
       fail: -> Notification.error   'An error encountered during the creation process.'
 
   destroy: ->
+    m.destroy() for m in @messages().all()
     super
-      done: -> Notification.warning 'Binary version has successfully been deleted.'
+      done: =>
+        @binary()?.trigger 'update', @binary()
+        Notification.warning 'Binary version has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   hasMessages: => @messages().count() isnt 0

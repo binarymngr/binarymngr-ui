@@ -12,10 +12,23 @@ class Message extends Spine.Model
 
   @extend  Spine.Model.Ajax
   @url: '/messages'
+  
+  constructor: ->
+    super
+    @binary().trigger('update', @binary) if @binary()?
+    @binary_version().trigger('update', @binary_version) if @binary_version()?
+    @server().trigger('update', @server) if @server()?
+    @user().trigger('update', @user) if @user()?
 
   destroy: ->
     super
-      done: -> Notification.warning 'Message has successfully been deleted.'
+      done: =>
+        # TODO: remove message_id from related object?
+        @binary().trigger('update', @binary) if @binary()?
+        @binary_version().trigger('update', @binary_version) if @binary_version()?
+        @server().trigger('update', @server) if @server()?
+        @user().trigger('update', @user) if @user()?
+        Notification.warning 'Message has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   isForBinary:        => yes if @binary_id

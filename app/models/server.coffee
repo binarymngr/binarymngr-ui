@@ -9,6 +9,12 @@ class Server extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/servers'
+  
+  constructor: ->
+    super
+    v.trigger('update', v) for v in @binary_versions()
+    m.trigger('update', m) for m in @messages().all()
+    @owner()?.trigger 'update', @owner()
 
   binary_versions: ->
     Version = require('models/binary_version')
@@ -21,13 +27,17 @@ class Server extends Spine.Model
       fail: -> Notification.error   'An error encountered during the creation process.'
 
   destroy: ->
+    m.destroy() for m in @messages().all()
     super
-      done: -> Notification.warning 'Server has successfully been deleted.'
+      done: =>
+        v.trigger('update', v) for v in @binary_versions()
+        @owner()?.trigger 'update', @owner()
+        Notification.warning 'Server has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   detachBinaryVersion: (binary_version) =>
-    _.remove(@binary_version_ids, (id) -> id is binary_version?.id)
-    @trigger 'update', @
+    removed = _.remove(@binary_version_ids, (id) -> id is binary_version?.id)
+    @trigger('update', @) if removed.length isnt 0
 
   hasBinariesInstalled: => @binary_versions().length isnt 0
   hasMessages:          => @messages().count() isnt 0

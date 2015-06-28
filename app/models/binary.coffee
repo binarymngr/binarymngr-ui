@@ -12,6 +12,13 @@ class Binary extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/binaries'
+  
+  constructor: ->
+    super
+    c.trigger('update', c) for c in @categories()
+    m.trigger('update', m) for m in @messages()
+    @owner()?.trigger 'update', @owner()
+    v.trigger('update', v) for v in @versions()
 
   categories: =>
     Category = require('models/binary_category')
@@ -24,9 +31,13 @@ class Binary extends Spine.Model
       fail: -> Notification.error   'An error encountered during the creation process.'
 
   destroy: =>
+    m.destroy() for m in @messages().all()
     v.destroy() for v in @versions().all()
     super
-      done: -> Notification.warning 'Binary has successfully been deleted.'
+      done: =>
+        c.trigger('update', c) for c in @categories()
+        @owner()?.trigger 'update', @owner()
+        Notification.warning 'Binary has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   hasCategories:       => @categories().length isnt 0
@@ -37,6 +48,10 @@ class Binary extends Spine.Model
   isInstalled: =>
     _.each @versions(), (version) -> return yes if version.isInstalled()
     no
+
+  removeCategory: (category) =>
+    removed = _.remove(@binary_category_ids, (id) -> id is category?.id)
+    @trigger('update', @) if removed.length isnt 0
 
   update: ->
     super

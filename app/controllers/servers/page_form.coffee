@@ -3,7 +3,6 @@ BinaryVersionsTable    = require('controllers/binaries/versions/page_table').Tab
 BinaryVersionsTableRow = BinaryVersionsTable.Row
 Controller             = require('framework/core').Controller
 Form                   = require('framework/controllers').RecordForm
-Message                = require('models/message')
 MessagesTable          = require('controllers/messages/page_table').Table
 Server                 = require('models/server')
 Tabs                   = require('framework/controllers').Tabs
@@ -60,7 +59,6 @@ class ServerBinaryVersionsTableRow extends BinaryVersionsTableRow
 
   constructor: ->
     super
-    Message.bind('refresh', => @render @record)  # if @record?.hasMessages()
     @server = null
 
   detach: (event) =>

@@ -6,6 +6,10 @@ class Role extends Spine.Model
 
   @extend Spine.Model.Ajax
   @url: '/roles'
+  
+  constructor: ->
+    super
+    u.trigger('update', @) for u in @users()
 
   create: ->
     super
@@ -14,7 +18,9 @@ class Role extends Spine.Model
 
   destroy: ->
     super
-      done: -> Notification.warning 'Role has successfully been deleted.'
+      done: =>
+        u.removeRole(@) for u in @users()
+        Notification.warning 'Role has successfully been deleted.'
       fail: -> Notification.error   'An error encountered during the deletion process.'
 
   hasUsers: => @users().length isnt 0
