@@ -18,8 +18,7 @@
         "lib/patternfly/components/bootstrap/dist/js/bootstrap.min.js",
         "lib/bootstrap-confirmation2/bootstrap-confirmation.min.js",
         "lib/patternfly/components/bootstrap-select/bootstrap-select.min.js",
-        "lib/jquery.tablesorter/dist/js/jquery.tablesorter.min.js",
-        "lib/jquery.tablesorter/dist/js/jquery.tablesorter.widgets.min.js",
+        "lib/jquery.tablesorter/dist/js/jquery.tablesorter.combined.min.js",
         "lib/noty/js/noty/packaged/jquery.noty.packaged.min.js",
         "lib/patternfly/dist/js/patternfly.min.js"
       ],
