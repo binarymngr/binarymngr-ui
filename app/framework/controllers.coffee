@@ -66,7 +66,6 @@ class Table extends Collection
       widgets: ['filter']
       widgetOptions:
         filter_hideEmpty: true
-        filter_hideFilters: true
         filter_liveSearch: true
         filter_searchDelay: 25
       widthFixed: true
