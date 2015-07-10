@@ -9,6 +9,7 @@ BUGS:
 
 IMPROVEMENTS:
 
+  [ ] Multi language support
   [ ] Smarter bootstrap-select (selectpicker) implementation
 
 
