@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "jade": "^1.11.0",
-    "lodash": "^3.10.0",
-    "spine": "https://github.com/spine/spine.git#b3cee1e069"
+    "lodash": "^3.10.1",
+    "spine": "^1.6.1"
   }
 }
